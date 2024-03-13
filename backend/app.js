@@ -1,8 +1,11 @@
 // Import the Express module
-import express from 'express';
+import express, { urlencoded, json } from "express"; 
 
 // Import the CORS module
 import cors from 'cors';
+
+// Import the index routes module
+import indexRoutes from './routes/index.js';
 
 // Create an Express application
 const app = express();
@@ -10,15 +13,13 @@ const app = express();
 // Use the CORS module
 app.use(cors());
 
-// Create a GET route
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+// Use the routes module
+app.use('/', indexRoutes);
 
 // Start the server on port 3000
 app.listen(3000, () => {
   console.log('Server is listening on port 3000.');
 });
 
-// Export the Express application. May be used by other modules. For example, API testing
+// Export the Express application
 export default app;
