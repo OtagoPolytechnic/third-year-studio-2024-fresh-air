@@ -3,6 +3,6 @@ export const INDEX_PATHS = {
     CURRENT_VERSION: 'v1',
 };
 
-export const WEBHOOK_ROUTE = {
-    WEBHOOK: 'webhook',
+export const PORTS = {
+    SERVER_PORT: 3000,
 };
