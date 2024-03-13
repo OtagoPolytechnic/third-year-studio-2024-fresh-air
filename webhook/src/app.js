@@ -24,6 +24,8 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.listen(port, () => {
-	console.log(`Server running on port ${PORTS.SERVER_PORT}`);
+const server = app.listen(port, () => {
+	console.log(`Server running on port ${port}`);
 });
+
+export {app, server};
