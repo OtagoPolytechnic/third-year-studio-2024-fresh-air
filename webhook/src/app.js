@@ -4,7 +4,7 @@ import cors from "cors";
 
 import { INDEX_PATHS, PORTS } from "./utils/constants/globalConstants.js";
 import { STATUS_CODES } from "./utils/statusCodes/statusCode.js";
-import webhook from "../routes/webhook/webhook.route.js";
+import webhook from "./routes/webhook/webhook.route.js";
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -14,22 +14,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// basepath (api/version/webhook
 app.use(`${basePath}/integration`, webhook);
 
 app.get("/", (req, res) => {
 	return res.status(STATUS_CODES.OK).json({
 		statusCode: res.statusCode,
 		message: "Available endpoints",
-		endpoints: [`${basePath}`],
-	});
-});
-
-app.get(`${basePath}`, (req, res) => {
-	return res.status(STATUS_CODES.OK).json({
-		statusCode: res.statusCode,
-		message: "Available endpoints",
-		endpoints: [`${basePath}/integration/webhook`],
+		endpoints: `[POST]: ${basePath}/integration/webhook`,
 	});
 });
 

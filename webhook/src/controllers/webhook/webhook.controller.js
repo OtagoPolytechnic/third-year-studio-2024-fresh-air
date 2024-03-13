@@ -1,4 +1,4 @@
-import { STATUS_CODES } from "../../src/utils/statusCodes/statusCode.js";
+import { STATUS_CODES } from "../../utils/statusCodes/statusCode.js";
 
 // webhook will get the payload from the co2 sensors and return the data along with the statuscode and message
 export const handleWebhook = async (req, res) => {
