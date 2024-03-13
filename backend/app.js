@@ -5,7 +5,7 @@ import express, { urlencoded, json } from "express";
 import cors from 'cors';
 
 // Import the index routes module
-import indexRoutes from './routes/index.js';
+import test from './routes/test.js';
 
 // Create an Express application
 const app = express();
@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 
 // Use the routes module
-app.use('/', indexRoutes);
+app.use('/test', test);
 
 // Start the server on port 3000
 app.listen(3000, () => {
