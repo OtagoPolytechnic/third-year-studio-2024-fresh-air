@@ -1,0 +1,7 @@
+services:
+  frontend:
+    container_name: co2-app
+    image: frontend-co2-app
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
