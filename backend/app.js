@@ -1,4 +1,4 @@
-// Import the Express module
+// Import the Express and Body-Parser module
 import express, { urlencoded, json } from "express"; 
 import bodyParser from "body-parser";
 
@@ -11,7 +11,7 @@ import test from './routes/test.js';
 // Create an Express application
 const app = express();
 
-// Use the CORS module and bodyparser
+// Use the CORS module and body-parser
 app.use(bodyParser.json());
 app.use(cors());
 
