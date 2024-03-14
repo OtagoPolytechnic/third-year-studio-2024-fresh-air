@@ -5,3 +5,11 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
+
+  nginx:
+    image: co2-nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"

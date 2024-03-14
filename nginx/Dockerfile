@@ -1,3 +1,3 @@
-FROM nginx:alpine3.18
-COPY nginx/nginx.config /ect/nginx/nginx.conf
+FROM nginx:alpine
+COPY nginx.conf /ect/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]
