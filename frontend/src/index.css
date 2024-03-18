@@ -31,17 +31,25 @@ h1 {
   font-size: 6em;
   line-height: 1.1;
 }
-/* For Table sized devices */
-@media (min-width: 601px) and (max-width: 768px) {
+
+@media (min-width: 1000px) {
   h1 {
     font-size: 4em;
     line-height: 1.1;
   }
 }
 
+/* For Table sized devices */
+@media (min-width: 601px) and (max-width: 768px) {
+  h1 {
+    font-size: 3em;
+    line-height: 1.1;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1000px) {
   h1 {
-    font-size: 5em;
+    font-size: 3.5em;
     line-height: 1.1;
   }
 }
