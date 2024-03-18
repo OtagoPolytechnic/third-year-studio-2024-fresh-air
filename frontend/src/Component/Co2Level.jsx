@@ -1,6 +1,4 @@
-function Co2Level() {
-
-
+export const Co2Level = () => {
   return (
    <>
    <h1>
