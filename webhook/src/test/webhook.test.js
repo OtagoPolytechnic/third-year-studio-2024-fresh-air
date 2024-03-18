@@ -8,6 +8,7 @@ const basePath = `/${INDEX_PATHS.BASE_URL}/${INDEX_PATHS.CURRENT_VERSION}`;
 // xxxxx/api/v1/integration/webhook
 const webhookPath = `${basePath}/integration/webhook`;
 
+// Mock data that the webhook will return
 const payload = {
     end_device_ids: {
         device_id: "00d3c69800bff312",
@@ -23,6 +24,10 @@ const payload = {
 };
 
 describe('POST webhook', () => {
+    /* afterAll will close the current running server after tests have run
+    eg: It will spin up on port 3000 for the http mock requests
+    then when tests have finish it will close the server to make sure it's no longer running
+    */ 
     afterAll(() => {
         server.close();
     })
