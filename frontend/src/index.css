@@ -1,0 +1,79 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 6em;
+  line-height: 1.1;
+}
+
+@media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
+  /*light theme*/
+body{
+  color: black;
+  background-color: white;
+}
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  /*dark theme*/
+body {
+  color: white;
+  background-color: black;
+}
+}
+
+@media (min-width: 1000px) {
+  h1 {
+    font-size: 4em;
+    line-height: 1.1;
+  }
+}
+
+/* For Table sized devices */
+@media (min-width: 601px) and (max-width: 768px) {
+  h1 {
+    font-size: 3em;
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  h1 {
+    font-size: 3.5em;
+    line-height: 1.1;
+  }
+}
+
+/* For Mobile sized devices */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+    line-height: 1.1;
+  }
+}
