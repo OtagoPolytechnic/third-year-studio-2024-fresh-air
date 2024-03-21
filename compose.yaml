@@ -1,0 +1,17 @@
+services:
+  frontend:
+    container_name: co2-app
+    image: frontend-co2-app
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+
+  nginx:
+    image: co2-nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
