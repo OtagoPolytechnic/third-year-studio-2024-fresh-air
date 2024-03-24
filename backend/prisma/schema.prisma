@@ -12,3 +12,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Device {
+  id        Int       @id @default(autoincrement())
+  deviceId  String    @unique
+  dev_eui   String    @unique
+  createdAt DateTime  @default(now())
+  payloads  Payload[]
+}
+
+model Payload {
+  id          Int      @id @default(autoincrement())
+  co2         String
+  temperature String
+  createdAt   DateTime @default(now())
+  deviceId    String
+  device      Device   @relation(fields: [deviceId], references: [deviceId])
+}
