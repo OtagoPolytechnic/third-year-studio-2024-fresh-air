@@ -42,6 +42,7 @@ export const handleWebhook = async (req, res) => {
     const payloadData = await prisma.payload.create({
       data: {
         deviceId: payload.end_device_ids.device_id,
+        dev_eui: payload.end_device_ids.dev_eui,
         co2: value1,
         temperature: value2,
       },
