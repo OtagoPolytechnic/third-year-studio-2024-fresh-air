@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
 import webhook from './routes/webhook/webhook.route.js';
+import payload from './routes/payload/payload.route.js';
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -17,6 +18,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use(`${basePath}/integration`, webhook);
+
+app.use(`${basePath}/payloadData`, payload)
 
 app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
