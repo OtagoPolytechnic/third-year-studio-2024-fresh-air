@@ -13,7 +13,8 @@
     "test": "jest --detectOpenHandles",
     "prismaStudio": "prisma studio",
     "pretty:check": "prettier --check .",
-    "pretty:fix": "prettier --write ."
+    "pretty:fix": "prettier --write .",
+    "commit": "git-cz"
   },
   "keywords": [],
   "author": "",
