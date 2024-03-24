@@ -35,7 +35,9 @@ export const handleWebhook = async (req, res) => {
     const receivedStringValues = payload.uplink_message.decoded_payload.receivedString;
 
     // I've done some weird regex before, but this is just painful to look at
-    const [value1, value2] = receivedStringValues.split(':').map(value => value.replace(/\\x[0-9A-Fa-f]{2}/g, '').replace(/\x00/g, ''));
+    const [value1, value2] = receivedStringValues
+      .split(':')
+      .map((value) => value.replace(/\\x[0-9A-Fa-f]{2}/g, '').replace(/\x00/g, ''));
 
     const payloadData = await prisma.payload.create({
       data: {

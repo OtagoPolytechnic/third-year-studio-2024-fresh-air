@@ -19,7 +19,7 @@ app.use(helmet());
 
 app.use(`${basePath}/integration`, webhook);
 
-app.use(`${basePath}/payloadData`, payload)
+app.use(`${basePath}/payloadData`, payload);
 
 app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
