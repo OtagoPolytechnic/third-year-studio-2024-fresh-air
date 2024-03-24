@@ -33,7 +33,9 @@ export const handleWebhook = async (req, res) => {
 
     // Grab the receivedString containing co2 and temp and split to get the values
     const receivedStringValues = payload.uplink_message.decoded_payload.receivedString;
-    const [value1, value2] = receivedStringValues.split(':').map((value) => value.replace(/\\x[0-9A-Fa-f]{2}/g, ''));
+
+    // I've done some weird regex before, but this is just painful to look at
+    const [value1, value2] = receivedStringValues.split(':').map(value => value.replace(/\\x[0-9A-Fa-f]{2}/g, '').replace(/\x00/g, ''));
 
     const payloadData = await prisma.payload.create({
       data: {
