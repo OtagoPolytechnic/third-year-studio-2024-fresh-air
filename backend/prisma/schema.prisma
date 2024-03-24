@@ -27,5 +27,6 @@ model Payload {
   temperature String
   createdAt   DateTime @default(now())
   deviceId    String
+  dev_eui     String
   device      Device   @relation(fields: [deviceId], references: [deviceId])
 }

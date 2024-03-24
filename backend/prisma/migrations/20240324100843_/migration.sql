@@ -15,6 +15,7 @@ CREATE TABLE "Payload" (
     "temperature" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deviceId" TEXT NOT NULL,
+    "dev_eui" TEXT NOT NULL,
 
     CONSTRAINT "Payload_pkey" PRIMARY KEY ("id")
 );

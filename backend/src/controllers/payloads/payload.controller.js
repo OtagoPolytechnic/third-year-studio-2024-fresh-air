@@ -5,8 +5,9 @@ const prisma = new PrismaClient();
 const getPayload = async (req, res) => {
     try {
         const getPayload = await prisma.payload.findFirst({
-            where: { deviceId: String(req.params.id)}
+            where: { dev_eui: String(req.params.dev_eui)},
         });
+
 
         return res.status(200).json({
             statusCode: res.statusCode,
