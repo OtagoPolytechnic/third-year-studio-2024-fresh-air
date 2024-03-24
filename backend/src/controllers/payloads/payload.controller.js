@@ -10,7 +10,7 @@ const getPayload = async (req, res) => {
 
         return res.status(200).json({
             statusCode: res.statusCode,
-            getPayload
+            data: getPayload
         })
     } catch (error) {
         console.log(error)
