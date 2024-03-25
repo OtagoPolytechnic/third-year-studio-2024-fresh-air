@@ -1,9 +1,9 @@
 import express from 'express';
 
-import getPayload from '../../controllers/payloads/payload.controller.js';
+import getRecentPayload from '../../controllers/payloads/payload.controller.js';
 
 const router = express.Router();
 
-router.route('/payload/:dev_eui').get(getPayload);
+router.route('/latest/:dev_eui/').get(getRecentPayload);
 
 export default router;

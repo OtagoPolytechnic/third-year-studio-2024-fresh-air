@@ -10,6 +10,9 @@
     + [Test Example](#testExample)
 - [Payload Example](#payloadExample)
 
+```js
+DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
+```
 
 
 ## About <a name="about"></a>
@@ -69,8 +72,6 @@ Jest testing uses the Babel module plugin to allow ES6 imports via the .babelrc 
   }
   
 ```
-
-
 
 ### Test example <a name="testExample"></a>
 ```js
