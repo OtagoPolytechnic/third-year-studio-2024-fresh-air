@@ -6,31 +6,17 @@
 - [Setup](#setup)
 - [Dependencies](#dependencies)
     + [Dev-Dependencies](#devDependencies)
-- [Testing](#testing)
-    + [Test Example](#testExample)
-- [Payload Example](#payloadExample)
+- [Testing](#webhook-test-example)
+    + [Test Example](#webhook-test-example)
+- [Payload Example](#webhook-payload-example)
 
 ```js
 DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
 ```
 
-## Dependency List <a name="dependencies"></a>
-[Express](https://www.npmjs.com/package/express)  
-[Cors](https://www.npmjs.com/package/cors)  
-[Body-Parser](https://www.npmjs.com/package/body-parser)
-
-### Dev Dependencies
-[Commitizen](https://www.npmjs.com/package/commitizen)  
-[Jest (Unit testing)](https://jestjs.io/)  
-[Supertest (HTTP testing)](https://www.npmjs.com/package/supertest)  
-[Babel Module Plugin](https://www.npmjs.com/package/@babel/plugin-transform-modules-commonjs)
-[nodemon]()
-[prettier]()
-[prisma]()
-
 ## Testing <a name="testing"></a>
 From the project root  
-`cd webhook`  
+`cd backend`  
 Make sure packages are installed `npm install`  
 run `npm test` | `npm run test` to run the jest test suite
 
@@ -48,7 +34,7 @@ inside the root of the backend dir
   
 ```
 
-### Test example <a name="testExample"></a>
+### Test example <a name="webhook-test-example"></a>
 ```js
 describe('POST webhook', () => {
     afterAll(() => {
@@ -66,7 +52,7 @@ describe('POST webhook', () => {
 ```
 
 
-## Payload Example <a name="payloadExample"></a>
+## Payload Example <a name="webhook-payload-example"></a>
 ```js
 end_device_ids: {
     device_id: 'eui-XXXXXXX',

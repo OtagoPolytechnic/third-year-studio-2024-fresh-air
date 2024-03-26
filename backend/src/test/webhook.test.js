@@ -63,7 +63,7 @@ describe('POST webhook', () => {
   it('should respond with an object containing a message displaying Payload received', async () => {
     const response = await request(app).post(webhookPath).send(payload);
     const { message } = response.body;
-    expect(message).toBe('Payload received');
+    expect(message).toBe('Payload received, data added to the database');
   });
 
   it('should respond with a payload containing the data within the init object {payload}', async () => {

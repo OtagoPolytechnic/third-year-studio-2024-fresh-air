@@ -7,6 +7,7 @@ import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
 import webhook from './routes/webhook/webhook.route.js';
 import payload from './routes/payload/payload.route.js';
+import device from './routes/devices/device.route.js';
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use(`${basePath}/integration`, webhook);
 
 app.use(`${basePath}/room`, payload);
+app.use(`${basePath}/device`, device);
 
 app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
@@ -27,8 +29,8 @@ app.get('/', (req, res) => {
     message: 'Available endpoints',
     endpoints: {
       webhook: `[POST]: ${basePath}/integration/webhook`,
-    recent_room_data:`[GET]: ${basePath}/room/recent/{dev_eui}`,
-    all_room_data:`[GET]: ${basePath}/room/{dev_eui}`
+      recent_room_data: `[GET]: ${basePath}/room/recent/{dev_eui}`,
+      all_room_data: `[GET]: ${basePath}/room/{dev_eui}`,
     },
   });
 });
