@@ -25,7 +25,11 @@ app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
     statusCode: res.statusCode,
     message: 'Available endpoints',
-    endpoints: `[POST]: ${basePath}/integration/webhook`,
+    endpoints: {
+      webhook: `[POST]: ${basePath}/integration/webhook`,
+    recent_room_data:`[GET]: ${basePath}/room/recent/{dev_eui}`,
+    all_room_data:`[GET]: ${basePath}/room/{dev_eui}`
+    },
   });
 });
 
