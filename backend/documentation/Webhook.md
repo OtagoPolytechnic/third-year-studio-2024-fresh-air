@@ -14,35 +14,6 @@
 DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
 ```
 
-
-## About <a name="about"></a>
-**BIT Co2-sensor webhook**
-Webhook connected to the BIT [TTN](https://www.thethingsnetwork.org/) Console.  
-
-Data being uplinked to TTN from the hardware is sent every 5 minutes.    
-The webhook automatically listens for those changes and returns a payload containing the data.
-
-## Deployment <a name="deployment"></a>
-At current webhook is deployed via render, on a forked repo, until containers are ready.
-
-https://webhooktest-6o78.onrender.com/api/v1/integrations/webhook
-
-Using the main url `webhookte...com`
-will return a JSON message
-
-```js
-{
-    "statusCode": 200,
-    "message": "Available endpoints",
-    "endpoints": "[POST]: /api/v1/integration/webhook"
-}
-```
-
-## Project Setup <a name="setup"></a>
-To setup locally, from the project root
-`cd webhook`
-then run `npm install` to install the required dependencies.
-
 ## Dependency List <a name="dependencies"></a>
 [Express](https://www.npmjs.com/package/express)  
 [Cors](https://www.npmjs.com/package/cors)  
@@ -53,6 +24,9 @@ then run `npm install` to install the required dependencies.
 [Jest (Unit testing)](https://jestjs.io/)  
 [Supertest (HTTP testing)](https://www.npmjs.com/package/supertest)  
 [Babel Module Plugin](https://www.npmjs.com/package/@babel/plugin-transform-modules-commonjs)
+[nodemon]()
+[prettier]()
+[prisma]()
 
 ## Testing <a name="testing"></a>
 From the project root  
@@ -60,7 +34,8 @@ From the project root
 Make sure packages are installed `npm install`  
 run `npm test` | `npm run test` to run the jest test suite
 
-Jest testing uses the Babel module plugin to allow ES6 imports via the .babelrc file
+Jest testing uses the Babel module plugin to allow ES6 imports via the .babelrc file  
+inside the root of the backend dir
 
 ```js
 {
