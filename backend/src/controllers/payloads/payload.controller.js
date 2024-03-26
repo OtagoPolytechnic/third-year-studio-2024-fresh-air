@@ -3,6 +3,31 @@ import { STATUS_CODES } from '../../utils/statusCodes/statusCode.js';
 
 const prisma = new PrismaClient();
 
+const getAllPayloadDeviceData = async (req, res) => {
+  try {
+    const deviceID = req.params.dev_eui;
+
+    const allData = await prisma.payload.findMany({
+      where: { dev_eui: String(deviceID) },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!allData || allData.length === 0) {
+      return res.status(STATUS_CODES.ERROR).json({
+        statusCode: res.statusCode,
+        message: 'No payload data available',
+      });
+    }
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      data: allData,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Get latest payload insert from room
 const getRecentPayload = async (req, res) => {
   try {
@@ -12,17 +37,18 @@ const getRecentPayload = async (req, res) => {
     // find the first payload data, sorted by creation date, descending order
     const latestPayload = await prisma.payload.findFirst({
       where: { dev_eui: String(deviceID) },
-      orderBy: {createdAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
 
     // If there is no payload return nothing found
     if (!latestPayload || latestPayload.length === 0) {
-      return res.status(STATUS_CODES.ERROR).json({ 
+      return res.status(STATUS_CODES.ERROR).json({
         statusCode: res.statusCode,
-        message: "No payload found for the device" });
-  }; 
+        message: 'No payload found for the device',
+      });
+    }
 
-  // Return the payload data
+    // Return the payload data
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,
       data: latestPayload,
@@ -32,6 +58,4 @@ const getRecentPayload = async (req, res) => {
   }
 };
 
-
-
-export default getRecentPayload;
+export { getRecentPayload, getAllPayloadDeviceData };
