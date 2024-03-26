@@ -6,12 +6,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
 
-  # nginx:
-  #   image: co2-nginx
-  #   build:
-  #     context: ./nginx
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - frontend
+  nginx:
+    image: co2-nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
