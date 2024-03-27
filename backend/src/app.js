@@ -32,7 +32,9 @@ app.get('/', (req, res) => {
     endpoints: {
       api_path: `${basePath}`,
       webhook: `[POST]: ${basePath}/integrations/webhook`,
-      recent_room_data: `[GET]: ${basePath}/rooms/recent/{dev_eui}`,
+      all_device_info: `[GET]: ${basePath}/devices`,
+      single_device_info: `[GET]: ${basePath}/devices/{dev_eui}`,
+      recent_room_data: `[GET]: ${basePath}/rooms/latest/{dev_eui}`,
       all_room_data: `[GET]: ${basePath}/rooms/{dev_eui}`,
     },
   });
