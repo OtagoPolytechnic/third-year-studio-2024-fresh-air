@@ -2,17 +2,28 @@
 
 ## Webhook
 - [About](#about)
-- [Deployment](#deployment)
-- [Setup](#setup)
-- [Dependencies](#dependencies)
-    + [Dev-Dependencies](#devDependencies)
+- [Webhook Route](#webhook-route)
 - [Testing](#webhook-test-example)
     + [Test Example](#webhook-test-example)
+- [Babelrc](#babel-rc)
 - [Payload Example](#webhook-payload-example)
 
-```js
-DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
-```
+## About <a name="about"></a>
+This webhook is designed to parse data sent from the co2 devices.  
+When data is uploaded from the device to [The Things Network](https://au1.cloud.thethings.network/console/applications/co2-test/devices). [^1]  
+Once data has been parsed via the webhook controller,  
+it will check if a device exists in the database, and either create one  
+or upload the newest sensor data to that devices model.
+
+[^1]: TTN login details are available on gitlabs
+
+## Webhook Route <a name="webhook-route"></a>
+The webhook runs from `root/api/v1/integrations/webhook`  
+If the webhook route in app.js is changed, the endpoint on
+[The Things Network Webhook](https://au1.cloud.thethings.network/console/applications/co2-test/integrations/webhooks) must be changed to match  
+the new route, else no data will be pushed into the db. 
+
+
 
 ## Testing <a name="testing"></a>
 From the project root  
@@ -20,6 +31,7 @@ From the project root
 Make sure packages are installed `npm install`  
 run `npm test` | `npm run test` to run the jest test suite
 
+## Babelrc <a name="babel-rc"></a>
 Jest testing uses the Babel module plugin to allow ES6 imports via the .babelrc file  
 inside the root of the backend dir
 
