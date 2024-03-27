@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getRecentSensorData, getAllSensorDeviceData } from '../../controllers/payloads/payload.controller.js';
+import { getRecentSensorData, getAllSensorDeviceData } from '../../controllers/sensorData/sensorData.controller.js';
 
 const router = express.Router();
 
