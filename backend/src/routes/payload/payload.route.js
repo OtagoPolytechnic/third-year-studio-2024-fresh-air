@@ -1,10 +1,10 @@
 import express from 'express';
 
-import { getRecentPayload, getAllPayloadDeviceData } from '../../controllers/payloads/payload.controller.js';
+import { getRecentSensorData, getAllSensorDeviceData } from '../../controllers/payloads/payload.controller.js';
 
 const router = express.Router();
 
-router.route('/latest/:dev_eui/').get(getRecentPayload);
-router.route('/:dev_eui').get(getAllPayloadDeviceData);
+router.route('/latest/:dev_eui/').get(getRecentSensorData);
+router.route('/:dev_eui').get(getAllSensorDeviceData);
 
 export default router;

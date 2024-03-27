@@ -6,3 +6,8 @@ export const INDEX_PATHS = {
 export const PORTS = {
   SERVER_PORT: 3000,
 };
+
+export const PAGINATION_DEFAULTS = {
+  amount: 10,
+  page: 1,
+};

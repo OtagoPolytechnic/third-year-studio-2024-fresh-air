@@ -18,19 +18,22 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 
-app.use(`${basePath}/integration`, webhook);
+// Webhook POST, do not change this unless required, this constantly runs a request whenever TTN receives data
+// Required for the entire API to function
+app.use(`${basePath}/integrations`, webhook);
 
-app.use(`${basePath}/room`, payload);
-app.use(`${basePath}/device`, device);
+app.use(`${basePath}/rooms`, payload);
+app.use(`${basePath}/devices`, device);
 
 app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
     statusCode: res.statusCode,
     message: 'Available endpoints',
     endpoints: {
-      webhook: `[POST]: ${basePath}/integration/webhook`,
-      recent_room_data: `[GET]: ${basePath}/room/recent/{dev_eui}`,
-      all_room_data: `[GET]: ${basePath}/room/{dev_eui}`,
+      api_path: `${basePath}`,
+      webhook: `[POST]: ${basePath}/integrations/webhook`,
+      recent_room_data: `[GET]: ${basePath}/rooms/recent/{dev_eui}`,
+      all_room_data: `[GET]: ${basePath}/rooms/{dev_eui}`,
     },
   });
 });
