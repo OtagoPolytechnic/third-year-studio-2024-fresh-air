@@ -39,7 +39,7 @@ export const handleWebhook = async (req, res) => {
       .split(':')
       .map((value) => value.replace(/\\x[0-9A-Fa-f]{2}/g, '').replace(/\x00/g, ''));
 
-    const payloadData = await prisma.payload.create({
+    const sensorData = await prisma.sensorData.create({
       data: {
         deviceId: payload.end_device_ids.device_id,
         dev_eui: payload.end_device_ids.dev_eui,
@@ -50,8 +50,8 @@ export const handleWebhook = async (req, res) => {
 
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,
-      message: 'Payload received, data added to the database',
-      data: payloadData,
+      message: 'Sensor data received, data added to the database',
+      data: sensorData,
     });
   } catch (error) {
     return res.status(STATUS_CODES.SERVER_ERROR).json({
