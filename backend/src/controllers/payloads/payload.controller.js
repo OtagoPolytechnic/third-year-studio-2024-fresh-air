@@ -13,7 +13,7 @@ const getAllPayloadDeviceData = async (req, res) => {
     });
 
     if (!allData || allData.length === 0) {
-      return res.status(STATUS_CODES.ERROR).json({
+      return res.status(STATUS_CODES.NOT_FOUND).json({
         statusCode: res.statusCode,
         message: 'No payload data available',
       });
@@ -42,7 +42,7 @@ const getRecentPayload = async (req, res) => {
 
     // If there is no payload return nothing found
     if (!latestPayload || latestPayload.length === 0) {
-      return res.status(STATUS_CODES.ERROR).json({
+      return res.status(STATUS_CODES.NOT_FOUND).json({
         statusCode: res.statusCode,
         message: 'No payload found for the device',
       });
