@@ -1,15 +1,25 @@
 import { PrismaClient } from '@prisma/client';
 import { STATUS_CODES } from '../../utils/statusCodes/statusCode.js';
-
+import { PAGINATION_DEFAULTS } from '../../utils/constants/globalConstants.js';
 const prisma = new PrismaClient();
 
 const getAllSensorDeviceData = async (req, res) => {
   try {
+    const sortBy = req.query.sortBy || 'createdAt';
+    const sortOrder = req.query.sortOrder === 'asc' ? 'asc' : 'desc';
+
+    const amount = req.query.amount || PAGINATION_DEFAULTS.amount;
+    const page = req.query.page || PAGINATION_DEFAULTS.page;
+
     const dev_eui = req.params.dev_eui;
 
     const allSensorData = await prisma.sensorData.findMany({
       where: { dev_eui: String(dev_eui) },
-      orderBy: { createdAt: 'desc' },
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+      take: Number(amount),
+      skip: Number(page - 1) * Number(amount),
     });
 
     if (!allSensorData || allSensorData.length === 0) {
@@ -19,9 +29,12 @@ const getAllSensorDeviceData = async (req, res) => {
       });
     }
 
+    const hasNextPage = allSensorData.length === Number(amount);
+
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,
       data: allSensorData,
+      nextPage: hasNextPage ? Number(page) + 1 : null,
     });
   } catch (error) {
     return res.status(STATUS_CODES.SERVER_ERROR).json({
