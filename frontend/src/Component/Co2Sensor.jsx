@@ -1,39 +1,40 @@
+// Co2Sensor.js
 import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 
-export const getData= () =>  {
+const getData = (room_nu, co2) => {
   return [
     ["Label", "Value"],
-    ["Memory", 500],
+    [room_nu, parseInt(co2)], // Convert co2 to integer
   ];
 }
 
 const options = {
   width: 700,
   height: 400,
-  redFrom: 1445,
+  redFrom: 1500,
   redTo: 3000,
   yellowFrom: 1000,
-  yellowTo: 1445,
+  yellowTo: 1500,
   greenFrom: 400,
   greenTo: 1000,
-  minorTicks: 5,
+  minorTicks: 10,
   min: 400,
   max: 3000
 };
 
-export const Co2Sensor = () => {
-  const [data, setData] = useState(getData());
+export const Co2Sensor = ({ room_number, co2 }) => {
+  const [data, setData] = useState(getData(room_number, co2));
 
   useEffect(() => {
     const id = setInterval(() => {
-      setData(getData());
+      setData(getData(room_number, co2));
     }, 3000);
 
     return () => {
       clearInterval(id);
     };
-  }, []); // Empty array as second argument to useEffect
+  }, [room_number, co2]); // Depend on room_number and co2
 
   return (
     <Chart
@@ -46,4 +47,4 @@ export const Co2Sensor = () => {
   );
 }
 
-export default Co2Sensor
+export default Co2Sensor;
