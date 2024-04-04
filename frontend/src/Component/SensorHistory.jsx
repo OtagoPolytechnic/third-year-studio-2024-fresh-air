@@ -102,7 +102,7 @@ const SensorHistory = () => {
         <CartesianGrid strokeDasharray="10 5 3 5" />
         <XAxis dataKey="createdAt" tick={null} />{" "}
         {/* Tick removes the date below the grid */}
-        <YAxis type="number" domain={0 & 3000} />
+        <YAxis type="number" domain={3000} />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Bar dataKey="co2" fill="#8884d8" />

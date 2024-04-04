@@ -2,7 +2,7 @@ import './App.css'
 import Co2Level from './Component/Co2Level'
 import SensorHistory from './Component/SensorHistory'
 
-const App = () => {
+export const App = () => {
   return (
    <>
     <Co2Level />
@@ -11,4 +11,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App
