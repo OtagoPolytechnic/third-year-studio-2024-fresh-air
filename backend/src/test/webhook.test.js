@@ -32,11 +32,6 @@
 //     server.close();
 //   });
 
-//   it('should respond with 400 Bad request when payload is empty', async () => {
-//     const response = await request(app).post(webhookPath);
-//     expect(response.status).toBe(400);
-//   });
-
 //   it('should respond with an object containing a statusCode of 400 when the payload is empty', async () => {
 //     const response = await request(app).post(webhookPath).send({});
 //     const { statusCode } = response.body;
