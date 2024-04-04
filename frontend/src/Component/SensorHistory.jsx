@@ -29,7 +29,7 @@ const data = {
       },
       {
         id: 867,
-        co2: "1308",
+        co2: "750",
         temperature: "21",
         createdAt: "2024-03-28T03:56:54.127Z",
         deviceId: "eui-70b3d57ed0053df3",
@@ -37,7 +37,7 @@ const data = {
       },
       {
         id: 865,
-        co2: "1297",
+        co2: "400",
         temperature: "21",
         createdAt: "2024-03-28T03:54:52.718Z",
         deviceId: "eui-70b3d57ed0053df3",
@@ -45,7 +45,7 @@ const data = {
       },
       {
         id: 872,
-        co2: "1295",
+        co2: "800",
         temperature: "20",
         createdAt: "2024-03-28T04:00:57.932Z",
         deviceId: "eui-70b3d57ed0053df3",
@@ -53,7 +53,7 @@ const data = {
       },
       {
         id: 869,
-        co2: "1305",
+        co2: "2500",
         temperature: "20",
         createdAt: "2024-03-28T03:58:03.287Z",
         deviceId: "eui-70b3d57ed0053df3",
@@ -102,7 +102,7 @@ export const SensorHistory = () => {
         <CartesianGrid strokeDasharray="10 5 3 5" />
         <XAxis dataKey="createdAt" tick={null} />{" "}
         {/* Tick removes the date below the grid */}
-        <YAxis type="number" domain={3000} />
+        <YAxis type="number" domain={[0, 3000]} />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Bar dataKey="co2" fill="#8884d8" />
