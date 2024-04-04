@@ -1,7 +1,7 @@
 import './App.css'
-import Co2Home from './Component/Co2Home'
+import Co2Home from './Component/Co2/Co2Home'
 
-export const App = () => {
+const App = () => {
   return (
    <>
     <Co2Home />
