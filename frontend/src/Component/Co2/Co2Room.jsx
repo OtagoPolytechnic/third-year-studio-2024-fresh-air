@@ -2,7 +2,7 @@
 import React from "react";
 import Co2Sensor from "./Co2Sensor";
 
-const Co2Room = () => {
+export const Co2Room = () => {
   const data = {
     "statusCode": 200,
     "data": [
@@ -82,5 +82,3 @@ const Co2Room = () => {
    </>
   );
 };
-
-export default Co2Room;

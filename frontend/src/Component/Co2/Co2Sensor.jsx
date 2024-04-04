@@ -23,7 +23,7 @@ const options = {
   max: 3000
 };
 
-const Co2Sensor = ({ room_number, co2 }) => {
+export const Co2Sensor = ({ room_number, co2 }) => {
   const [data, setData] = useState(getData(room_number, co2));
 
   useEffect(() => {
@@ -48,4 +48,3 @@ const Co2Sensor = ({ room_number, co2 }) => {
   );
 }
 
-export default Co2Sensor;
