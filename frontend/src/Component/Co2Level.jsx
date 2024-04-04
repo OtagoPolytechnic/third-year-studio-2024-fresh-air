@@ -7,5 +7,3 @@ export const Co2Level = () => {
      </>
     )
   }
-  
-  export default Co2Level

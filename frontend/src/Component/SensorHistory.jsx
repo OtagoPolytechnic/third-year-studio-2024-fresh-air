@@ -70,7 +70,7 @@ const data = {
     ],
   },
 };
-const SensorHistory = () => {
+export const SensorHistory = () => {
   const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
@@ -110,5 +110,3 @@ const SensorHistory = () => {
     </>
   );
 };
-
-export default SensorHistory;

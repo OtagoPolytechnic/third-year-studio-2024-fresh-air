@@ -1,6 +1,6 @@
 // Co2Level.js
 import React from "react";
-import Co2Sensor from "./Co2Sensor";
+import { Co2Sensor } from "./Co2Sensor";
 
 export const Co2Room = () => {
   const data = {

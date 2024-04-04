@@ -1,4 +1,4 @@
-import Co2Room from './Co2Room'
+import { Co2Room } from './Co2Room'
 
 export const Co2Home = () => {
   return (

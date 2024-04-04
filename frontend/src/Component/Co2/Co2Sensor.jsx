@@ -47,4 +47,3 @@ export const Co2Sensor = ({ room_number, co2 }) => {
     />
   );
 }
-
