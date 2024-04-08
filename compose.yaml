@@ -1,4 +1,17 @@
 services:
+  co2-db:
+    container_name: co2-db
+    image: postgres:16.2
+    restart: always
+    environment:
+      - POSTGRES_USER=co2-user
+      - POSTGRES_PASSWORD=Decom123
+      - POSTGRES_DB=co2-db
+    ports:
+      -5000:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
   frontend:
     container_name: co2-app
     image: frontend-co2-app

@@ -1,4 +1,4 @@
-FROM node:21-alpine3.19 as backend-build
+FROM node:21-alpine3.19
 WORKDIR /backend
 COPY package.json ./
 RUN npm install
