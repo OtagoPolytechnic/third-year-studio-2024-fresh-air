@@ -9,7 +9,7 @@ datasource db {
 
 model Device {
   id          Int          @id @default(autoincrement())
-  room_number String?
+  room_number String?      @unique
   deviceId    String       @unique
   dev_eui     String       @unique
   createdAt   DateTime     @default(now())
