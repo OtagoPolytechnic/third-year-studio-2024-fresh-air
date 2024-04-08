@@ -123,7 +123,7 @@ const updateDeviceRoom = async (req, res) => {
     if (findExistingRoomNumber) {
       return res.status(STATUS_CODES.CONFLICT).json({
         statusCode: res.statusCode,
-        message: `Device with room number already ${room_number} exists in the database`,
+        message: `Device with room number ${room_number} already exists in the database`,
       });
     }
 
