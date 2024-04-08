@@ -15,11 +15,22 @@ services:
   frontend:
     container_name: co2-app
     image: frontend-co2-app
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
       - ./frontend_prod:/app
+
+  backend:
+    container_name: co2-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - co2-db
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5000/co2-db
 
   nginx:
     image: co2-nginx
@@ -32,3 +43,4 @@ services:
       - "80:80"
     depends_on:
       - frontend
+      - backend
