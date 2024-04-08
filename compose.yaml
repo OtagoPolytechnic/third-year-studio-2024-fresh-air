@@ -8,9 +8,9 @@ services:
       - POSTGRES_PASSWORD=Decom123
       - POSTGRES_DB=co2-db
     ports:
-      -5000:5432
+      - 5000:5432
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./backend/pgdata:/var/lib/postgresql/data
 
   frontend:
     container_name: co2-app
@@ -19,7 +19,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
-      - ./frontend_prod:/app
+      - ./frontend:/app
 
   backend:
     container_name: co2-backend
