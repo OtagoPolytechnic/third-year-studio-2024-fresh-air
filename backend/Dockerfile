@@ -3,5 +3,5 @@ WORKDIR /backend
 COPY package.json ./
 RUN npm install
 COPY . .
-EXPOSE 90
-CMD [ "npm", "run", "generate", "&&", "node", "src/app.js;" ]
+EXPOSE 3000
+CMD sh -c "npm run generate && npm run migrate && npm run start"
