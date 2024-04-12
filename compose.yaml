@@ -1,3 +1,7 @@
+volumes:
+  postgres:
+  postgres_stag:
+
 services:
   co2-db:
     container_name: co2-db
@@ -8,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=Decom123
       - POSTGRES_DB=co2-db
     ports:
-      - 5000:5432
+      - "5432:5432"
     volumes:
       - ./backend/pgdata:/var/lib/postgresql/data
 
@@ -30,7 +34,7 @@ services:
       - co2-db
     restart: always
     environment:
-      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5000/co2-db
+      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/postgres
 
   nginx:
     image: co2-nginx
