@@ -1,0 +1,71 @@
+name: Test Suite
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+# Checks out code from repo
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+# Sets up docker (Linux only)
+      - name: Set up Docker
+        run: |
+          sudo service docker start
+        if: runner.os == 'Linux'
+
+# Starts a postgresql Docker container (Just database)
+      - name: Start PostgreSQL Docker container
+        run: |
+          docker run -d --name my-postgres-container -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres:latest
+        env:
+          POSTGRES_PASSWORD: mysecretpassword
+
+# Sets up Node.JS
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+# Move into backend and installs dependencies (and runs a prisma generate/migrate)
+      - name: Install dependencies and run backend
+        working-directory: backend
+        run: |
+          npm ci
+          npm run generate
+          npm run migrate
+          npm run dev &
+        env:
+          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+
+# Small sleep timer to make sure everythings properly running
+      - name: Wait for services to start
+        run: |
+          sleep 10
+
+
+      # Move into frontend again and run Cypress tests
+      - name: Run backend tests
+        working-directory: backend
+        run: |
+          npm run test
+
+# When Cypress is finished, stops the docker container and cleans it up
+      - name: Stop and remove PostgreSQL Docker container
+        run: |
+          docker stop my-postgres-container
+          docker rm my-postgres-container
+
+# removes the prisma migrations. Just incase
+      - name: Remove Prisma directory
+        run: |
+          rm -rf backend/prisma/migrations
