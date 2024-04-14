@@ -45,25 +45,21 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
 
-# Small sleep timer to make sure everythings properly running
+# Small sleep timer to make sure that everything is properly running
       - name: Wait for services to start
         run: |
           sleep 10
 
 
-      # Move into frontend again and run Cypress tests
+      # Move into backend and run test suite
       - name: Run backend tests
         working-directory: backend
         run: |
           npm run test
 
-# When Cypress is finished, stops the docker container and cleans it up
-      - name: Stop and remove PostgreSQL Docker container
-        run: |
-          docker stop my-postgres-container
-          docker rm my-postgres-container
-
-# removes the prisma migrations. Just incase
-      - name: Remove Prisma directory
-        run: |
-          rm -rf backend/prisma/migrations
+      finally:
+        - name: Cleanup
+          run: |
+            rm -rf backend/prisma/migrations
+            docker stop my-postgres-container
+            docker rm my-postgres-container
