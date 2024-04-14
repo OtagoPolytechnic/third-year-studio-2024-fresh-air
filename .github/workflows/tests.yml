@@ -57,7 +57,7 @@ jobs:
         run: |
           npm run test
 
-      finally:
+    finally:
         - name: Cleanup
           run: |
             rm -rf backend/prisma/migrations
