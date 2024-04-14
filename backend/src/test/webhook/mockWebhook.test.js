@@ -1,7 +1,7 @@
-import { handleWebhook } from "../../controllers/webhook/webhook.controller";
+import { handleWebhook } from '../../controllers/webhook/webhook.controller';
 
 jest.mock('../../controllers/webhook/webhook.controller', () => ({
-    handleWebhook: jest.fn(),
+  handleWebhook: jest.fn(),
 }));
 
 // // Mock data that the webhook will return
@@ -18,62 +18,97 @@ const payload = {
     decoded_payload: { receivedString: '400:22\x00\x00' },
   },
 };
-  
-const sensorData ={
-    data: {
-      deviceId: '00d3c69800bff312',
-      dev_eui: '00D3C69B00BFF312',
-      co2: 469,
-      temperature: 22,
-    },
-  }
 
-  const sensorDataPayload = {
-    statusCode: 200,
-    message: 'Sensor data received, data added to the database',
-    data: sensorData,
-  };
+const sensorData = {
+  data: {
+    deviceId: '00d3c69800bff312',
+    dev_eui: '00D3C69B00BFF312',
+    co2: 469,
+    temperature: 22,
+  },
+};
 
+const sensorDataPayload = {
+  statusCode: 200,
+  message: 'Sensor data received, data added to the database',
+  data: sensorData,
+};
 
+const webhookError = {
+  statusCode: 500,
+  message: 'Internal server error occurred while processing the webhook request',
+};
 
 describe('Webhook function test', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-    
-    test('should return an object containing payload data', async () => {
-        handleWebhook.mockImplementationOnce(async () => {
-            return Promise.resolve(payload)
-        });
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-        await handleWebhook();
-        expect(handleWebhook).toHaveBeenCalled();
+  test('should return an object containing payload data', async () => {
+    handleWebhook.mockImplementationOnce(async () => {
+      return Promise.resolve(payload);
     });
 
-    test('should return an empty object', async () => {
-        handleWebhook.mockImplementationOnce(async () => {
-            return Promise.resolve({})
-        });
+    await handleWebhook();
+    expect(handleWebhook).toHaveBeenCalled();
+  });
 
-        const result =await handleWebhook();
-        expect(result).toEqual({});
+  test('should return an empty object', async () => {
+    handleWebhook.mockImplementationOnce(async () => {
+      return Promise.resolve({});
     });
 
-    test('should return status code 200', async () => {
-        handleWebhook.mockImplementationOnce(async () => {
-            return Promise.resolve(sensorDataPayload);
-        });
+    const result = await handleWebhook();
+    expect(result).toEqual({});
+  });
 
-        const result = await handleWebhook();
-        expect(result.statusCode).toBe(200);
+  test('should return status code 200', async () => {
+    handleWebhook.mockImplementationOnce(async () => {
+      return Promise.resolve(sensorDataPayload);
     });
 
-    test('should contain a message that sensor data has been added to the db', async () => {
-        handleWebhook.mockImplementationOnce(async () => {
-            return Promise.resolve(sensorData)
-        });
+    const result = await handleWebhook();
+    expect(result.statusCode).toBe(200);
+  });
 
-        const result = await handleWebhook();
-        expect(result.message).toBe('Sensor data received, data added to the database')
-    });  
+  test('should contain a message that sensor data has been added to the db', async () => {
+    handleWebhook.mockImplementationOnce(async () => {
+      return Promise.resolve(sensorDataPayload);
+    });
+
+    const result = await handleWebhook();
+    expect(result.message).toBe('Sensor data received, data added to the database');
+  });
+
+  test('should contain payload data containing sensor information added', async () => {
+    handleWebhook.mockImplementationOnce(async () => {
+      return Promise.resolve(sensorDataPayload);
+    });
+
+    const result = await handleWebhook();
+    const { data } = result.data;
+
+    expect(data.deviceId).toEqual(sensorData.data.deviceId);
+    expect(data.dev_eui).toEqual(sensorData.data.dev_eui);
+    expect(data.co2).toEqual(sensorData.data.co2);
+    expect(data.temperature).toEqual(sensorData.data.temperature);
+  });
+
+  test('should return an status code 500 error when there is an issue', async () => {
+    handleWebhook.mockRejectedValueOnce(webhookError);
+    try {
+      await handleWebhook();
+    } catch (error) {
+      expect(error.statusCode).toEqual(webhookError.statusCode);
+    }
+  });
+
+  test('should return a error message when there is an issue', async () => {
+    handleWebhook.mockRejectedValueOnce(webhookError);
+    try {
+      await handleWebhook();
+    } catch (error) {
+      expect(error.message).toEqual(webhookError.message);
+    }
+  });
 });
