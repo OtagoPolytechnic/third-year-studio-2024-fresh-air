@@ -3,13 +3,12 @@ name: Test Suite
 on:
   push:
     branches-ignore:
-      - "main"
+      - 'main'
   pull_request:
 
 jobs:
   Test-Suite:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -49,7 +48,10 @@ jobs:
         run: |
           npm run test
 
-    finally:
+  Cleanup:
+    needs: [Test-Suite]
+    runs-on: ubuntu-latest
+    steps:
       - name: Cleanup
         run: |
           rm -rf backend/prisma/migrations
