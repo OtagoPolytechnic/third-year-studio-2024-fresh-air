@@ -1,0 +1,55 @@
+/* body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+} */
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* .content {
+    padding: 20px;
+  } */
+
+@media (min-width: 768px) {
+    /* Landscape mode */
+    body {
+        display: flex;
+    }
+
+    nav {
+        width: 20%;
+        height: 100vh;
+        top: auto;
+        left: 0;
+        position: fixed;
+        overflow-y: auto;
+    }
+
+    .content {
+        width: 80%;
+        margin-left: 20%;
+    }
+}
