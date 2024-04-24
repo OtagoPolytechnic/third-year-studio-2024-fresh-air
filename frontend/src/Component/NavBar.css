@@ -1,55 +1,103 @@
-/* body {
+
+body {
     margin: 0;
     font-family: Arial, sans-serif;
-} */
+}
 
+/*setting up the styling for the nav bar, color and text style, text is centred on the bar at the moment and can be changed if need be
+makes the text color changes slightly on hover too*/
 nav {
-    background-color: #333;
-    color: white;
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: #696969;
+    color: #F8F8FF;
+    padding: 5px;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100%; 
+    justify-content: space-around;
+    z-index: 1000; 
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex; 
+    width: 100%;
+    align-items: center; 
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 20px;
+    flex: 1; 
+    text-align: center; 
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-weight: bold;
+    font-size: large;
+}
+
+nav ul li a:hover {
+    color: #1E90FF;
 }
 
 /* .content {
-    padding: 20px;
-  } */
+    padding-top: 50px; 
+    padding-left: 20px; 
+    padding-right: 20px;
+} */
 
-@media (min-width: 768px) {
-    /* Landscape mode */
+/* turns the nav bar into a strip along the top and converts the links to side by side, spaces them evenly across the screen so far only two are displayed
+they do not go aywhere yet due to not having pages to link to but they are set up*/
+@media (min-width: 600px) {
     body {
         display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     nav {
+        flex-direction: column; 
         width: 20%;
         height: 100vh;
-        top: auto;
-        left: 0;
+        top: 0; 
         position: fixed;
         overflow-y: auto;
     }
 
+    nav ul {
+        flex-direction: column; 
+    }
+
+    nav ul li {
+        text-align: left; 
+    }
+
     .content {
-        width: 80%;
-        margin-left: 20%;
+        flex: 1; 
+        margin-left: 20%; 
+        width: 100%; 
     }
 }
+
+/* makes the links stack in a column again for smaller screens the size can be adjusted if it is not quite right */
+@media (max-width: 350px) {
+    nav {
+        flex-direction: column; 
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        display: block; 
+        width: 100%;
+        text-align: center; 
+    }
+}
+
