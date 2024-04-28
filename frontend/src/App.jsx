@@ -1,14 +1,21 @@
 import './App.css'
-import { Co2Level } from './Component/Co2Level'
-import { SensorHistory } from './Component/SensorHistory'
-import { Co2Home } from "./Component/Co2/Co2Home"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Homepage } from "./Component/Pages/Homepage";
+import { RoomPage } from "./Component/Pages/Roompage";
+import { SensorHistory } from "./Component/SensorHistory";
 
 export const App = () => {
+  
   return (
-   <>
-    <Co2Home />
-    <Co2Level />
-    <SensorHistory />
-   </>
-  )
-}
+    <>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/room/:roomNumber" element={<RoomPage />} />
+        <Route path="/SensorHistory" element={<SensorHistory />} />
+      </Routes>
+    </Router>
+    </>
+  );
+};
