@@ -74,7 +74,7 @@ export const Co2Room = () => {
       <ul>
         {data.data.map((item) => (
           <li key={item.id}>
-            <h1>{`${item.device.room_number}`} CO<sub>2</sub> Level is {`${item.co2}`}</h1>
+            <h1 data-testid={`${item.device.room_number}-co2`}>{`${item.device.room_number}`} CO<sub>2</sub> Level is {`${item.co2}`}</h1>
             <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id}/>
           </li>
         ))}
