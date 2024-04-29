@@ -20,15 +20,24 @@ To set up the site locally you will need to change from the root to frontend usi
 
 ## Dependency List <a name="dependencies"></a>
 [React](https://react.dev)
+
 [React-Dom](https://www.npmjs.com/package/react-dom)
+
 [Recharts](https://recharts.org/en-US/)
+
 [React-Google-Charts](https://www.react-google-charts.com)
+
+[React-Dom-Router](https://reactrouter.com/en/main)
 
 ### Dev Dependencies <a name="dev-dependencies"></a>
 [Vite](https://vitejs.dev)
+
 [Prettier](https://prettier.io/)
+
 [Commitizen](https://www.npmjs.com/package/commitizen)  
+
 [Jest (Unit testing)](https://jestjs.io/) 
+
 [Eslint](https://eslint.org)
 
 ## Testing <a name="testing"></a>
