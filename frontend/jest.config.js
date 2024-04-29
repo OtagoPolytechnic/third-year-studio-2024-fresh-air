@@ -2,7 +2,7 @@ export default {
     transform: {
       '^.+\\.jsx?$': 'babel-jest',
     },
-    transformIgnorePatterns: ['/node_modules/'],
+    transformIgnorePatterns: ['/node_modules/', "\\.css$"],
     testMatch: ['**/__tests__/**/*.test.js', '**/__tests__/**/*.test.jsx'],
     moduleNameMapper: {},
     moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
@@ -15,4 +15,7 @@ export default {
     setupFilesAfterEnv: [
         '@testing-library/jest-dom',
     ],
+    moduleNameMapper: {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
 };  

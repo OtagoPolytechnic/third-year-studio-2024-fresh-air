@@ -85,7 +85,7 @@ export const SensorHistory = () => {
     if (active && payload && payload.length) {
       const { co2, temperature, createdAt } = payload[0].payload;
       return (
-        <div className="custom-tooltip">
+        <div className="custom-tooltip" data-testid="tooltip">
           <p>Date: {new Date(createdAt).toLocaleString()}</p>
           <p>Temperature: {temperature}°C</p>
           <p>CO2 Level: {co2}</p>
