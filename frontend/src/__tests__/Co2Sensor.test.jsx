@@ -14,7 +14,7 @@ describe('Co2Sensor', () => {
     expect(container).toBeDefined();
   });
 
-  test('renders with room number and CO2 value', () => {\
+  test('renders with room number and CO2 value', () => {
     // Defining roomNumber and co2Value
     const roomNumber = 'D202';
     const co2Value = 800;
