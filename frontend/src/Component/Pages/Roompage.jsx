@@ -1,8 +1,11 @@
+// This are the imports that are used
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
 
+// This is the funtion used to make the page
 export const RoomPage = () => {
+    // This is the mocked data that I am using
     const data = {
         "statusCode": 200,
         "data": [
@@ -68,21 +71,21 @@ export const RoomPage = () => {
             }
         ]
       };
-  const { roomNumber } = useParams();
 
-  // Filter data based on the roomNumber
-  const roomData = data.data.filter(item => item.device.room_number === roomNumber);
+    const { roomNumber } = useParams();
 
-  return (
-    <>
-        {roomData.map(item => (
-            <>
-            <h1 key={item.id}>{`${item.device.room_number}`} CO2 Level is {`${item.co2}`}</h1>
-            <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id}/>
-            </>
-        ))}
-    </>
-  );
+     // Filter data based on the roomNumber
+    const roomData = data.data.filter(item => item.device.room_number === roomNumber);
+
+    return (
+        <>
+            {/* This maps the data to be viewed and used in the sensor gauge */}
+            {roomData.map(item => (
+                <>
+                <h1 key={item.id}>{`${item.device.room_number}`} CO2 Level is {`${item.co2}`}</h1>
+                <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id}/>
+                </>
+            ))}
+        </>
+    );
 };
-
-export default RoomPage;

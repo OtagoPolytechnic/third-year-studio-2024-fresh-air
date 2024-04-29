@@ -1,7 +1,10 @@
 // Co2Sensor.js
+// These are the imports to use the react google charts
+// The link to the example code https://www.react-google-charts.com/examples/gauge
 import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 
+// This will get the data that is used in the chart from the data pased
 const getData = (room_nu, co2) => {
   return [
     ["Label", "Value"],
@@ -9,6 +12,7 @@ const getData = (room_nu, co2) => {
   ];
 }
 
+// This creates the layout and size of the chart
 const options = {
   width: 700,
   height: 400,
@@ -23,20 +27,22 @@ const options = {
   max: 3000
 };
 
+// This is the funtion used to show the chart
 export const Co2Sensor = ({ room_number, co2 }) => {
   const [data, setData] = useState(getData(room_number, co2));
 
+  // This is fecthing the data for the chart
   useEffect(() => {
     const fetchData = () => {
       const newData = getData(room_number, co2);
       setData(newData);
     }
-
       if (room_number !== data.room_number || co2 !== data.co2) {
         fetchData();
       }
   }, [room_number, co2]); // Depend on room_number and co2
 
+  // This is what is returning the gauge to be viewed as
   return (
     <Chart
       chartType="Gauge"
