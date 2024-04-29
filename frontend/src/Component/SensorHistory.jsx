@@ -97,16 +97,18 @@ export const SensorHistory = () => {
 
   return (
     <>
-      <h1>Sensor History</h1>
-      <BarChart width={1000} height={500} data={sortedData}>
-        <CartesianGrid strokeDasharray="10 5 3 5" />
-        <XAxis dataKey="createdAt" tick={null} />{" "}
-        {/* Tick removes the date below the grid */}
-        <YAxis type="number" domain={[0, 3000]} />
-        <Tooltip content={<CustomTooltip />} />
-        <Legend />
-        <Bar dataKey="co2" fill="#8884d8" />
-      </BarChart>
+    <div className="recharts-wrapper" data-testid="recharts-wrapper">
+        <h1>Sensor History</h1>
+        <BarChart width={1000} height={500} data={sortedData}>
+          <CartesianGrid strokeDasharray="10 5 3 5" />
+          <XAxis dataKey="createdAt" tick={null} />{" "}
+          {/* Tick removes the date below the grid */}
+          <YAxis type="number" domain={[0, 3000]} />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          <Bar dataKey="co2" fill="#8884d8" />
+        </BarChart>
+      </div>
     </>
   );
 };
