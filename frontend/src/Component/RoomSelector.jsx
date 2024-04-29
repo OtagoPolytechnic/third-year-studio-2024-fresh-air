@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function RoomSelector() {
+const RoomSelector = () =>  {
   const [items, setItems] = useState([]); 
   const [selectedItem, setSelectedItem] = useState('');
 
