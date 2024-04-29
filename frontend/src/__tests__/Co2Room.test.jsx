@@ -74,6 +74,7 @@ describe("Co2Room component", () => {
     // Renders the Co2Room component with the mock data
     const { container } = render(<Co2Room data={data.data} />);
 
+    // Checking if each data piece is rendering correctly
     data.data.forEach(item => {
       const selector = `h1[data-testid="${item.device.room_number}-co2"]`;
       const co2Element = container.querySelector(selector);

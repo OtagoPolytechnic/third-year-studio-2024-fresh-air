@@ -3,11 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SensorHistory } from '../Component/SensorHistory';
 
 describe('SensorHistory', () => {
-  it('renders Sensor History component correctly', () => {
+  it('renders Sensor History and checks if recharts appears', () => {
     render(<SensorHistory />);
     expect(screen.getByText('Sensor History')).toBeInTheDocument();
     // Waiting for the chart wrapper to show
     waitFor(() => {
+      //Checking if recharts bar appears
       expect(screen.getByTestId('recharts-wrapper')).toBeInTheDocument();
     });
   });
@@ -20,7 +21,7 @@ describe('SensorHistory', () => {
       const chartWrapper = screen.getByTestId('recharts-wrapper');
       fireEvent.mouseOver(chartWrapper);
       
-      // Checks if tooltip appears
+      // Checking if tooltip appears
       expect(screen.getByTestId('tooltip')).toBeInTheDocument();
     });
   });
