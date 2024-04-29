@@ -7,7 +7,7 @@ function RoomSelector() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/devices'); 
+        const response = await fetch('http://co2-app.duckdns.org/api/v1/devices'); 
         const data = await response.json();
         setItems(data.data);
         // if (data.length > 0) {
@@ -27,6 +27,8 @@ function RoomSelector() {
 
   return (
     <div>
+      {items.length > 0 && (
+      <>
       <h1>Select an Item:</h1>
       <select value={selectedItem} onChange={handleChange}>
         {items.map(item => (
@@ -36,6 +38,8 @@ function RoomSelector() {
         ))}
       </select>
       <p>Selected Item ID: {selectedItem}</p>
+      </>
+  )}
     </div>
   );
 }
