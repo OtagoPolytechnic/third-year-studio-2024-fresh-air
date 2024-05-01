@@ -5,7 +5,7 @@ function NavBar() {
 
   return (
     <>
-      <nav class="Nav">
+      <nav className="Nav">
         <ul>
           <li>
             <a href="#">About</a>
