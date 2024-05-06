@@ -8,7 +8,7 @@
     + [Dev-Dependencies](#dev-dependencies)
 - [Testing](#testing)
 - [Commands](#commands)
-    +[Frontend Commands](#frontend-commands)
+    + [Frontend Commands](#frontend-commands)
 
 
 ## About <a name="about"></a>
