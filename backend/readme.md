@@ -3,6 +3,10 @@
 ## 
 - [Table of Contents](#table-of-contents)
 - [](#)
+<<<<<<< HEAD
+=======
+- [Setting Environmental Variable for DATABASE\_URL on Windows](#setting-environmental-variable-for-database_url-on-windows)
+>>>>>>> 8ae89351f73cec0e74c547baaa3f55864a4f81da
 - [Services Documentation ](#services-documentation-)
 - [About ](#about-)
 - [Deployment ](#deployment-)
@@ -18,6 +22,11 @@
 
 ```js
 DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
+```
+
+## Setting Environmental Variable for DATABASE_URL on Windows
+```ps1
+[Environment]::SetEnvironmentVariable("DATABASE_URL", "postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook")
 ```
 
 ## Services Documentation <a name="documentation"><a>
