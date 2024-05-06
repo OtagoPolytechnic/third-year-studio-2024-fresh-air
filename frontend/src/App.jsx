@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Homepage } from "./Component/Pages/Homepage";
 import { RoomPage } from "./Component/Pages/Roompage";
 import { SensorHistory } from "./Component/SensorHistory";
+import NavBar from "./Component/NavBar";
+
 
 // This is the main app funtion
 export const App = () => {
@@ -12,6 +14,7 @@ export const App = () => {
   return (
     <>
     {/* This is creating routes for the pages of the site */}
+    <NavBar />
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />

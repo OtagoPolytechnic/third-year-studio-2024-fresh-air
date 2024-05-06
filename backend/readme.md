@@ -1,22 +1,29 @@
 ## Table of Contents
 
 ## 
-- [About](#about)
-- [Services Documentation](#documentation)
-- [Deployment](#webhook-deployment)
-- [Setup](#setup)
-  + [Env Setup](#env-setup)
-- [Prisma](#prisma)
-
-- [Dependencies](#dependencies)
-    + [Dev-Dependencies](#dev-dependencies)
-- [Testing](#testing)
-    + [Test Example](#testExample)
-- [Payload Example](#payloadExample)
+- [Table of Contents](#table-of-contents)
+- [](#)
+- [Setting Environmental Variable for DATABASE\_URL on Windows](#setting-environmental-variable-for-database_url-on-windows)
+- [Services Documentation ](#services-documentation-)
+- [About ](#about-)
+- [Deployment ](#deployment-)
+- [Project Setup ](#project-setup-)
+- [Prisma ](#prisma-)
+- [Env Setup ](#env-setup-)
+- [Dependency List ](#dependency-list-)
+  - [Dev Dependencies ](#dev-dependencies-)
+- [Testing ](#testing-)
+  - [Test example ](#test-example-)
+- [Payload Example ](#payload-example-)
 
 
 ```js
 DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook"
+```
+
+## Setting Environmental Variable for DATABASE_URL on Windows
+```ps1
+[Environment]::SetEnvironmentVariable("DATABASE_URL", "postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook")
 ```
 
 ## Services Documentation <a name="documentation"><a>

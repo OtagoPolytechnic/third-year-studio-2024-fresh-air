@@ -19,6 +19,8 @@
   color: #888;
 }
 
-li {
-  list-style-type: none;
+li {list-style-type: none;}
+
+.content {
+  padding: 20px;
 }
