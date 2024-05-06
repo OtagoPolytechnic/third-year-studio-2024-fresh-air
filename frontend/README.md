@@ -7,6 +7,8 @@
 - [Dependencies](#dependencies)
     + [Dev-Dependencies](#dev-dependencies)
 - [Testing](#testing)
+- [Commands](#commands)
+    +[Frontend Commands](#frontend-commands)
 
 
 ## About <a name="about"></a>
@@ -40,5 +42,23 @@ To set up the site locally you will need to change from the root to frontend usi
 
 [Eslint](https://eslint.org)
 
+[@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+
+[@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
 ## Testing <a name="testing"></a>
 To run the tests, you will need to make sure you are in the frontend folder if you are not then run the command `cd frontend`. Once in the frontend you will need to run `npm run test` to run all the local tests.
+
+## Commands <a name="commands"></a>
+
+### Frontend Commands <a name="frontend-commands"></a>
+
+```
+npm install prettier commitizen cz-conventional-changelog pretty-quick --save-dev
+```
+
+- /frontend/ cz `npm run cz` runs commitizen and walks you through commiting a change
+
+- /frontend/ eslint `npm run lint` runs eslint command the frontend project
+- /frontend/ prettier:check `npm run prettier:check` runs the check command the frotnend project
+- /frontend/ prettier:write `npm run prettier:write` runs the write command the frotnend project
