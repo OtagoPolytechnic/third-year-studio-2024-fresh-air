@@ -11,7 +11,6 @@ export const App = () => {
 
       <div className="content">
         <Co2Home />
-        <Co2Level />
         <SensorHistory />
       </div>
     </>
