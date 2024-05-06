@@ -10,13 +10,13 @@
 
 
 ## About <a name="about"></a>
-The frontend is how the CO<sub>2</sub> site looks. This new site is base off the old site [Carbon](https://carbon.op-bit.nz). Our goal is to recreate the site from scratch using industry standard tools but keep the feel and use of the old Carbon site. For this we are using Vite instead of PHP.
+The frontend is how the CO<sub>2</sub> site looks. This new site is based off the old site [Carbon](https://carbon.op-bit.nz). Our goal is to recreate the site from scratch using industry standard tools but keep the feel and use of the old Carbon site. For this we are using Vite instead of PHP.
 
 ## Deployment <a name="webhook-deployment"></a>
 The frontend is not currently deployed on any server but local host.
 
 ## Project Setup <a name="setup"></a>
-To set up the site locally you will need to change from the root to frontend using the command `cd frontend`. Once in the frontend folder you will need to install the dependaces by running `npm install` or `npm i` for short. Once all the depnedances are installed you can run the site locally by running `npm run dev`.
+To set up the site locally you will need to change from the root to frontend using the command `cd frontend`. Once in the frontend folder you will need to install the dependencies by running `npm install` or `npm i` for short. Once all the depnedances are installed you can run the site locally by running `npm run dev`.
 
 ## Dependency List <a name="dependencies"></a>
 [React](https://react.dev)
