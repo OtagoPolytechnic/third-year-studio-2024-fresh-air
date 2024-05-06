@@ -3,10 +3,7 @@
 ## 
 - [Table of Contents](#table-of-contents)
 - [](#)
-<<<<<<< HEAD
-=======
 - [Setting Environmental Variable for DATABASE\_URL on Windows](#setting-environmental-variable-for-database_url-on-windows)
->>>>>>> 8ae89351f73cec0e74c547baaa3f55864a4f81da
 - [Services Documentation ](#services-documentation-)
 - [About ](#about-)
 - [Deployment ](#deployment-)
@@ -28,6 +25,7 @@ DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6
 ```ps1
 [Environment]::SetEnvironmentVariable("DATABASE_URL", "postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6@dpg-cnvu97q1hbls73bq57hg-a.oregon-postgres.render.com/fresh_air_webhook")
 ```
+see also : https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables  
 
 ## Services Documentation <a name="documentation"><a>
 [Webhook Documentation](documentation/Webhook.md)  
