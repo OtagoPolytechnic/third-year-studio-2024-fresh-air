@@ -3,7 +3,10 @@
 ## 
 - [Table of Contents](#table-of-contents)
 - [](#)
+<<<<<<< HEAD
+=======
 - [Setting Environmental Variable for DATABASE\_URL on Windows](#setting-environmental-variable-for-database_url-on-windows)
+>>>>>>> 8ae89351f73cec0e74c547baaa3f55864a4f81da
 - [Services Documentation ](#services-documentation-)
 - [About ](#about-)
 - [Deployment ](#deployment-)
