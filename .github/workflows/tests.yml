@@ -46,13 +46,3 @@ jobs:
         working-directory: backend
         run: |
           npm run test
-
-  Cleanup:
-    needs: [Test-Suite]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cleanup
-        run: |
-          rm -rf backend/prisma/migrations
-          docker stop my-postgres-container
-          docker rm my-postgres-container
