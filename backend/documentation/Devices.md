@@ -3,6 +3,7 @@
 - [Schema](#schema)
     + [Resource List](#resource-list)
 - [Devices Endpoints](#endpoints)
+    + [Device Update Room Number](#update-room-number)
 - [Queries/Pagination](#query-pagination)
     + [Query Examples](#query-examples)
 - [Devices Examples](#devices-example)
@@ -31,8 +32,48 @@ model Device {
 - **sensorData:** A list of data sent from the webhook 
 
 ## Devices Endpoints <a name="endpoints"></a>
-`'api/v1/devices'`  
-`'api/v1/devices/{dev_eui}'`
+`GET: 'api/v1/devices'`  
+`GET/PUT: 'api/v1/devices/{dev_eui}'`
+
+## Update Room Number 'api/v1/devices/{dev_eui}' <a name='update-room-number'></a>
+Updating a room via a PUT request requires the room_number in the body message  
+
+PUT Request: `/api/v1/devices/{dev_eui}`  
+Body Message:  
+```json
+"room_number": "D206"
+```
+
+The controller will check if the device exists via the dev_eui param, and return if failure. 
+```json
+{
+    "statusCode": 404,
+    "message": "Device 00D3C59800BDD35 not found in the database"
+}
+```
+
+If the device exists the controller will then check if a room_number in the database already exists
+```json
+{
+    "statusCode": 409,
+    "message": "Device with room number already D206 exists in the database"
+}
+
+```
+
+Once it gets through all the checks it will update the field and return a payload with the new device information
+```json
+{
+    "message": "Room number updated successfully",
+    "data": {
+        "id": 1,
+        "room_number": "D313",
+        "deviceId": "eui-00d3c59800bdd352",
+        "dev_eui": "00D3C59800BDD352",
+        "createdAt": "2024-03-27T09:46:41.851Z"
+    }
+}
+```
 
 ## Queries & Pagination <a name="query-pagination"></a>
 Calling the devices API without any endpoint **(/api/v1/devices)** will return a paginated list   
