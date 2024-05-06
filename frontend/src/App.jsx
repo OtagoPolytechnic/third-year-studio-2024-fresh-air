@@ -1,17 +1,28 @@
+// These are the imports used
 import './App.css'
-import { Co2Level } from './Component/Co2Level'
-import { SensorHistory } from './Component/SensorHistory'
-import { Co2Home } from "./Component/Co2/Co2Home"
-import RoomSelector from './Component/RoomSelector'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Homepage } from "./Component/Pages/Homepage";
+import { RoomPage } from "./Component/Pages/Roompage";
+import { SensorHistory } from "./Component/SensorHistory";
+import NavBar from "./Component/NavBar";
 
+
+// This is the main app funtion
 export const App = () => {
+  
   return (
-   <>
-    <Co2Home />
-    <Co2Level />
-    <SensorHistory />
-
-    <RoomSelector />
-   </>
-  )
-}
+    <>
+    {/* This is creating routes for the pages of the site */}
+    <NavBar />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        {/* This will create a route using the room number without manualy imputting them */}
+        <Route path="/room/:roomNumber" element={<RoomPage />} />
+        <Route path="/SensorHistory" element={<SensorHistory />} />
+      </Routes>
+    </Router>
+    </>
+  );
+};
