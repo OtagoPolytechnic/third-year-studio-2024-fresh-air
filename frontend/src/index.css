@@ -32,11 +32,24 @@ h1 {
   line-height: 1.1;
 }
 
+p {
+  font-size: 4em;
+  line-height: 1.1;
+}
+
+.link{
+  font-size: 5em;
+  line-height: 1.1;
+}
+
 @media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
   /*light theme*/
 body{
   color: black;
   background-color: white;
+}
+.link{
+  color: black;
 }
 }
 
@@ -46,11 +59,22 @@ body {
   color: white;
   background-color: black;
 }
+.link{
+  color: white
+}
 }
 
 @media (min-width: 1000px) {
   h1 {
     font-size: 4em;
+    line-height: 1.1;
+  }
+  p {
+    font-size: 3em;
+    line-height: 1.1;
+  }
+  .link{
+    font-size: 3.5em;
     line-height: 1.1;
   }
 }
@@ -61,11 +85,27 @@ body {
     font-size: 3em;
     line-height: 1.1;
   }
+  p {
+    font-size: 2em;
+    line-height: 1.1;
+  }
+  .link{
+    font-size: 2.5em;
+    line-height: 1.1;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1000px) {
   h1 {
     font-size: 3.5em;
+    line-height: 1.1;
+  }
+  p {
+    font-size: 2.5em;
+    line-height: 1.1;
+  }
+  .link{
+    font-size: 3em;
     line-height: 1.1;
   }
 }
@@ -74,6 +114,14 @@ body {
 @media (max-width: 600px) {
   h1 {
     font-size: 2em;
+    line-height: 1.1;
+  }
+  p {
+    font-size: 1em;
+    line-height: 1.1;
+  }
+  .link{
+    font-size: 1.5em;
     line-height: 1.1;
   }
 }
