@@ -39,7 +39,7 @@ export const Co2Sensor = ({ room_number, co2 }) => {
 
   return (
     <Chart
-      chartType="Gauge"
+      charttype="Gauge"
       width="100%"
       height="400px"
       data={data}
