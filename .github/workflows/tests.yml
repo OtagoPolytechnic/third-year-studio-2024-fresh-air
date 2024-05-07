@@ -1,0 +1,48 @@
+name: Test Suite
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  Test-Suite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        run: |
+          sudo service docker start
+        if: runner.os == 'Linux'
+
+      - name: Start PostgreSQL Docker container
+        run: |
+          docker run -d --name my-postgres-container -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres:latest
+        env:
+          POSTGRES_PASSWORD: mysecretpassword
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.9.0
+
+      - name: Install dependencies and run backend
+        working-directory: backend
+        run: |
+          npm install
+          npm run generate
+          npm run migrate
+          npm run dev &
+        env:
+          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+
+      - name: Wait for services to start
+        run: |
+          sleep 10
+
+      - name: Run backend tests
+        working-directory: backend
+        run: |
+          npm run test

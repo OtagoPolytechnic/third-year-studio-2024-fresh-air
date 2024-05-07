@@ -99,4 +99,50 @@ const getAllDevices = async (req, res) => {
   }
 };
 
-export { getDevice, getAllDevices };
+const updateDeviceRoom = async (req, res) => {
+  try {
+    const dev_eui = req.params.dev_eui;
+
+    const { room_number } = req.body;
+
+    const getDevice = await prisma.device.findFirst({
+      where: { dev_eui: String(dev_eui) },
+    });
+
+    if (!getDevice || getDevice.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: `Device ${dev_eui} not found in the database`,
+      });
+    }
+
+    const findExistingRoomNumber = await prisma.device.findUnique({
+      where: { room_number: String(room_number) },
+    });
+
+    if (findExistingRoomNumber) {
+      return res.status(STATUS_CODES.CONFLICT).json({
+        statusCode: res.statusCode,
+        message: `Device with room number ${room_number} already exists in the database`,
+      });
+    }
+
+    const updatedRoomNumber = await prisma.device.update({
+      where: { dev_eui: String(dev_eui) },
+      data: { room_number },
+    });
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statuscode,
+      message: `Room number updated successfully`,
+      data: updatedRoomNumber,
+    });
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.statusCode,
+      message: error.message,
+    });
+  }
+};
+
+export { getDevice, getAllDevices, updateDeviceRoom };
