@@ -1,8 +1,8 @@
 import React from 'react';
-import { render } from "@testing-library/react";
-import { Co2Room } from "../Component/Co2/Co2Room";
+import { render, screen } from "@testing-library/react";
+import { RoomPage } from "../Component/Pages/Roompage";
 
-describe("Co2Room component", () => {
+describe("RoomPage component", () => {
   test("renders CO2 room data correctly", () => {
     // Mocking data
     const data = {
@@ -71,13 +71,15 @@ describe("Co2Room component", () => {
       ]
     };
 
-    // Renders the Co2Room component with the mock data
-    const { container } = render(<Co2Room data={data.data} />);
-
+    // Renders the RoomPage component with the mock data
+    const { container } = render(<RoomPage data={data.data} />);
+    screen.debug();
     // Checking if each data piece is rendering correctly
     data.data.forEach(item => {
       const selector = `h1[data-testid="${item.device.room_number}-co2"]`;
+      // console.log(selector)
       const co2Element = container.querySelector(selector);
+      // console.log(co2Element)
       expect(co2Element).toBeInTheDocument();
       console.log(`${item.device.room_number} CO2 Level is ${item.co2}`);
       expect(co2Element.textContent).toContain(`${item.device.room_number} CO2 Level is ${item.co2}`);
