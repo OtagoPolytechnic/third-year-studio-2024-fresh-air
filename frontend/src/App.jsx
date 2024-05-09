@@ -6,6 +6,7 @@ import { Homepage } from "./Component/Pages/Homepage";
 import { RoomPage } from "./Component/Pages/Roompage";
 import { SensorHistory } from "./Component/SensorHistory";
 import NavBar from "./Component/NavBar";
+import RoomSelector from './Component/RoomSelector/RoomSelector';
 
 
 // This is the main app funtion
@@ -23,6 +24,7 @@ export const App = () => {
         <Route path="/SensorHistory" element={<SensorHistory />} />
       </Routes>
     </Router>
+    <RoomSelector/>
     </>
   );
 };

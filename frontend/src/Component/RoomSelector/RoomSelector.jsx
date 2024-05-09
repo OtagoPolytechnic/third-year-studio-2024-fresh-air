@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from "react";
+import { useRoomSelector } from "../../Hooks/useRoomSelector";
+
+const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const RoomSelector = () =>  {
-  const [items, setItems] = useState([]); 
+  const { items, error } = useRoomSelector(`${apiKey}/api/v1/devices`);
   const [selectedItem, setSelectedItem] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://co2-app.duckdns.org/api/v1/devices'); 
-        const data = await response.json();
-        setItems(data.data);
-        // if (data.length > 0) {
-        //   setSelectedItem(data[0].id);
-        // }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  
   const handleChange = (event) => {
     setSelectedItem(event.target.value);
   };
@@ -38,6 +24,7 @@ const RoomSelector = () =>  {
         ))}
       </select>
       <p>Selected Item ID: {selectedItem}</p>
+      {error && <p>{error}</p>}
       </>
   )}
     </div>
