@@ -1,7 +1,7 @@
-export const UpdateDropdown = ({value, headerValue, optionHeaderText, disabled, children, childrenUnassigned, onChange}) => {
+export const UpdateDropdown = ({styles, value, headerValue, optionHeaderText, disabled, children, childrenUnassigned, onChange}) => {
     return (
         <>
-        <select onChange={onChange} value={value}>
+        <select className={styles} onChange={onChange} value={value}>
             <option value={headerValue} disabled={disabled}>
                 {optionHeaderText}
             </option>

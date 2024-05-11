@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUpdateSensor } from "../../Hooks/UpdateSensor/useUpdateSensor";
 import { UpdateButton } from "./UpdateSensorSubComponents/UpdateButton";
 import { UpdateDropdown } from "./UpdateSensorSubComponents/UpdateDropdown";
+import { UpdateInput } from "./UpdateSensorSubComponents/UpdateSensorInput";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -52,6 +53,7 @@ export const UpdateSensor = () =>  {
       {items.length > 0 && (
       <form className={'flex flex-col'}  onSubmit={handleSubmit}>
         <UpdateDropdown
+        styles={'border rounded-lg shadow-lg cursor-pointer'}
         onChange={handleChange}
         value={selectedItem}
         disabled={true}
@@ -60,7 +62,13 @@ export const UpdateSensor = () =>  {
         children={items}
         childrenUnassigned={'Unassigned'}
         />
-      <input className={'border rounded-lg shadow-lg pl-2'} type='text' onChange={handleInput} placeholder={'Device Name'} value={inputValue}/>
+      <UpdateInput
+      styles={'border rounded-lg shadow-lg pl-2'}
+      type={'text'}
+      placeholder={'Device Name'}
+      value={inputValue}
+      onChange={handleInput}
+      />
       <section className={"grid grid-cols-2 grid-rows-1 items-center"}>
       <UpdateButton style={'bg-green-500 w-[150px] h-[50px] text-white rounded-md mt-2 ml-4 mb-2'} type={'submit'} text="Update Name"/>
       {error && <p className={'text-red-500 text-center border-red-500 rounded-lg'}>{error}</p>}
