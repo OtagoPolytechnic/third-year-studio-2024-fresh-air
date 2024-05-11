@@ -6,7 +6,7 @@ import { Homepage } from "./Component/Pages/Homepage";
 import { RoomPage } from "./Component/Pages/Roompage";
 import { SensorHistory } from "./Component/SensorHistory";
 import NavBar from "./Component/NavBar";
-import UpdateSensor from './Component/UpdateSensor/UpdateSensor';
+import { UpdateSensor } from './Component/UpdateSensor/UpdateSensor';
 
 // This is the main app funtion
 export const App = () => {
