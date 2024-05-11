@@ -3,6 +3,7 @@ import { useUpdateSensor } from "../../Hooks/UpdateSensor/useUpdateSensor";
 import { UpdateButton } from "./UpdateSensorSubComponents/UpdateButton";
 import { UpdateDropdown } from "./UpdateSensorSubComponents/UpdateDropdown";
 import { UpdateInput } from "./UpdateSensorSubComponents/UpdateSensorInput";
+import { UpdateForm } from "./UpdateSensorSubComponents/UpdateForm";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -17,6 +18,10 @@ export const UpdateSensor = () =>  {
     setInputValue('');
   };
 
+  const handleInput = (event) => {
+    setInputValue(event.target.value);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
@@ -25,7 +30,7 @@ export const UpdateSensor = () =>  {
 
     resetApiError();
     setError('');
-    alert(inputValue);
+    alert(`${selectedItem} ${inputValue}`);
 
     // const postToApi = async () => {
     //   await fetch(`${apiKey}/api/v1/devices/${selectedItem}`, {
@@ -43,38 +48,26 @@ export const UpdateSensor = () =>  {
   }
   }
 
-  const handleInput = (event) => {
-    setInputValue(event.target.value);
-  }
-  
   return (
     <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:min-w-[500px] sm:min-h-[200px] bg-[#F2F2F2]'>
       <h1 className={'ml-2 font-sans'}>Rename Sensor</h1>
       {items.length > 0 && (
-      <form className={'flex flex-col'}  onSubmit={handleSubmit}>
-        <UpdateDropdown
-        styles={'border rounded-lg shadow-lg cursor-pointer'}
+        <>
+        <UpdateForm
+        styles={'flex flex-col'}
+        onSubmit={handleSubmit}
         onChange={handleChange}
-        value={selectedItem}
-        disabled={true}
-        headerValue={''}
-        optionHeaderText={'Select Room'}
-        children={items}
-        childrenUnassigned={'Unassigned'}
+        onInput={handleInput}
+        dropDownValue={selectedItem}
+        dropDownChildren={items}
+        inputValue={inputValue}
         />
-      <UpdateInput
-      styles={'border rounded-lg shadow-lg pl-2'}
-      type={'text'}
-      placeholder={'Device Name'}
-      value={inputValue}
-      onChange={handleInput}
-      />
       <section className={"grid grid-cols-2 grid-rows-1 items-center"}>
-      <UpdateButton style={'bg-green-500 w-[150px] h-[50px] text-white rounded-md mt-2 ml-4 mb-2'} type={'submit'} text="Update Name"/>
       {error && <p className={'text-red-500 text-center border-red-500 rounded-lg'}>{error}</p>}
       {apiError && <p className={'text-red-500 text-center border-red-500 rounded-lg'}>{error}</p>}
       </section>
-    </form>
+    </>
+
   )}
     </section>
   );

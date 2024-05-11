@@ -37,7 +37,6 @@ const data = {
 export const useUpdateSensor = (apiKey) => {
   const [items, setItems] = useState({});
   const [apiError, setApiError] = useState('');
-
   const resetApiError = () => {
     setApiError('');
   };
