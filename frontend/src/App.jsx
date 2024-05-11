@@ -6,8 +6,7 @@ import { Homepage } from "./Component/Pages/Homepage";
 import { RoomPage } from "./Component/Pages/Roompage";
 import { SensorHistory } from "./Component/SensorHistory";
 import NavBar from "./Component/NavBar";
-import RoomSelector from './Component/RoomSelector/RoomSelector';
-
+import UpdateSensor from './Component/UpdateSensor/UpdateSensor';
 
 // This is the main app funtion
 export const App = () => {
@@ -20,11 +19,11 @@ export const App = () => {
       {/* <Routes> */}
         {/* <Route path="/" element={<Homepage />} /> */}
         {/* This will create a route using the room number without manualy imputting them */}
-        {/* <Route path="/room/:roomNumber" element={<RoomPage />} />
-        <Route path="/SensorHistory" element={<SensorHistory />} />
-      </Routes>
-    </Router> */}
-    <RoomSelector/>
+        {/* <Route path="/room/:roomNumber" element={<RoomPage />} /> */}
+        {/* <Route path="/SensorHistory" element={<SensorHistory />} /> */}
+      {/* </Routes> */}
+    {/* </Router> */}
+    <UpdateSensor/>
     </>
   );
 };
