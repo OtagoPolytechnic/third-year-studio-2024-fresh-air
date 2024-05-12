@@ -133,7 +133,7 @@ const updateDeviceRoom = async (req, res) => {
     });
 
     return res.status(STATUS_CODES.OK).json({
-      statusCode: res.statuscode,
+      statusCode: res.statusCode,
       message: `Room number updated successfully`,
       data: updatedRoomNumber,
     });
