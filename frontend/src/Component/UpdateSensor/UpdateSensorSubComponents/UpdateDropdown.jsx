@@ -1,15 +1,15 @@
-export const UpdateDropdown = ({styles, value, headerValue, optionHeaderText, disabled, children, childrenUnassigned, onChange}) => {
+export const UpdateDropdown = ({styles, value, headerValue, optionHeaderText, disabled, sensorData, sensorUnassigned, onChange}) => {
     return (
         <>
         <select className={styles} onChange={onChange} value={value}>
             <option value={headerValue} disabled={disabled}>
                 {optionHeaderText}
             </option>
-            {children.length > 0 && (
+            {sensorData.length > 0 && (
                 <>
-            {children.map(child => (
+            {sensorData.map(child => (
                 <option key={child.id} value={child.dev_eui}>
-                    {`${child.dev_eui} [${child.roomNumber !== null ? child.roomNumber : childrenUnassigned}]`}
+                    {`${child.dev_eui} [${child.roomNumber !== null ? child.roomNumber : sensorUnassigned}]`}
                 </option>
             ))}
             </>

@@ -6,6 +6,7 @@ export const UpdateInput = ({styles, type, placeholder, value, onChange}) => {
         type={type}
         placeholder={placeholder}
         value={value}
+        maxLength={10}
         />
     );
 };

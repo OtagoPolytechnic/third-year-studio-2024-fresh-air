@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useUpdateSensor } from "../../Hooks/UpdateSensor/useUpdateSensor";
-import { UpdateButton } from "./UpdateSensorSubComponents/UpdateButton";
 import { UpdateForm } from "./UpdateSensorSubComponents/UpdateForm";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 export const UpdateSensor = () =>  {
-  const { items, apiError, resetApiError } = useUpdateSensor(`${apiKey}/api/v1/devices`);
+  const { items, apiError, resetApiError, updateSensorRequest, updateSuccess, resetUpdateSuccess } = useUpdateSensor(`${apiKey}/api/v1/devices`);
   const [selectedItem, setSelectedItem] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
@@ -20,27 +19,19 @@ export const UpdateSensor = () =>  {
     setInputValue(event.target.value);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      resetUpdateSuccess();
+      resetApiError();
+      setError('');
     if (selectedItem === '') return setError('No sensor selected');
     if (inputValue === '') return setError('Input field empty');
 
-    resetApiError();
-    setError('');
-    alert(`${selectedItem} ${inputValue}`);
+    await updateSensorRequest(`${apiKey}/api/v1/devices`, selectedItem , inputValue);
 
-    // const postToApi = async () => {
-    //   await fetch(`${apiKey}/api/v1/devices/${selectedItem}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ room_number: inputValue }),
-    //   });
-    // };
   } catch (error) {
-    setError(error);
+    setError(error.message);
   } finally {
     setInputValue('');
   }
@@ -60,8 +51,8 @@ export const UpdateSensor = () =>  {
         inputValue={inputValue}
         formError={error}
         apiError={apiError}
+        updateSuccessful={updateSuccess}
         />
-
   )}
     </section>
   );
