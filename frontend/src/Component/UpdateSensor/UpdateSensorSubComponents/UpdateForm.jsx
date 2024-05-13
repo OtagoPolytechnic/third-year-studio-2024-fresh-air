@@ -3,6 +3,13 @@ import { UpdateInput } from "./UpdateSensorInput";
 import { UpdateButton } from "./UpdateButton";
 import { UpdateFieldResponse } from "./UpdateFieldResponse";
 
+// This is the main form component for the Update Sensor page
+// There is a fair bit of prop drilling (roughly 2 layer depth iirc)
+// Could potentially be refactored to use context or redux
+// But for now, it is fine as is
+// Most of the props are passed from this component to the subcomponents (button, input, dropdown, etc)
+
+
 export const UpdateForm = ({styles, onSubmit, onChange, onInput, inputValue, dropDownValue, dropDownChildren, formError, apiError, updateSuccessful}) => {
     return (
         <form className={styles} onSubmit={onSubmit}>

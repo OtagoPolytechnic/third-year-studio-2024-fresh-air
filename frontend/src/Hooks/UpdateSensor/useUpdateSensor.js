@@ -1,5 +1,22 @@
 import { useEffect, useState } from 'react';
 
+// This custom hook is to help clean up the UpdateSensor component
+// It will handle the fetching of the data and the updating of the sensor
+// It will also handle the success and error messages for the api
+// eg. If the sensor returns a 409 it will set the apiError to 'X Already exists'
+// The hook also handles the resetFunctions for these messages.
+
+// At current the headers for the updateSensorRequest are hardcoded
+// This is because the backend is expecting a specific format
+// The body is also hardcoded to be { room_number: roomNumber }
+// The API Call should be made reusable, can be done in a later sprint
+// Could be changed to be more dynamic if the backend was updated
+// This is a limitation of the backend and not the frontend
+
+// But only God and I know how the backend was created
+// And I am no longer here
+
+
 export const useUpdateSensor = (apiKey) => {
   const [items, setItems] = useState({});
   const [apiError, setApiError] = useState('');
@@ -22,11 +39,6 @@ export const useUpdateSensor = (apiKey) => {
         },
         body: JSON.stringify({ room_number: roomNumber }),
       });
-
-      // const getRooms = await fetch(`https://webhooktest-6o78.onrender.com/api/v1/devices`);
-
-      // const data = await getRooms.json();
-      // console.log(data);
 
       const confirmUpdate = await updateRoom.json();
 

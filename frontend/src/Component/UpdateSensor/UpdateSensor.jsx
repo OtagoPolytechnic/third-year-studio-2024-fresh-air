@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useUpdateSensor } from "../../Hooks/UpdateSensor/useUpdateSensor";
 import { UpdateForm } from "./UpdateSensorSubComponents/UpdateForm";
 
+// Main Component for handling Update Form component
+// This component will handle the state for the form
+// It will also handle the error messages and the api calls
+
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 export const UpdateSensor = () =>  {
