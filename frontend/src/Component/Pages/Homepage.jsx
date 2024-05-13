@@ -79,7 +79,7 @@ export const Homepage = () => {
             // Each item is a cell in the grid
             <div key={item.id} className="flex justify-center">
               <li>
-                <NavLink to={`/room/${item.device.room_number}`} className="link">
+                <NavLink to={`/D-Block/${item.device.room_number}`} className="link">
                   {item.device.room_number}
                   <p>CO<sub>2</sub> Level: {item.co2}</p>
                   <Co2Sensor room_number={item.device.room_number} co2={item.co2} size="max-content" />
