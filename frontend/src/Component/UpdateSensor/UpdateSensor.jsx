@@ -25,21 +25,26 @@ export const UpdateSensor = () =>  {
       resetUpdateSuccess();
       resetApiError();
       setError('');
-    if (selectedItem === '') return setError('No sensor selected');
-    if (inputValue === '') return setError('Input field empty');
 
+    if (!selectedItem) {
+      return setError('No sensor selected.');
+    }
+
+    if (!inputValue || inputValue.startsWith(' ')) {
+      return setError('Input field empty.');
+    }
     await updateSensorRequest(`${apiKey}/api/v1/devices`, selectedItem , inputValue);
 
   } catch (error) {
-    setError(error.message);
+    setError(error);
   } finally {
     setInputValue('');
   }
-  }
+}
 
   return (
-    <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:min-w-[500px] sm:min-h-[200px] bg-[#F2F2F2]'>
-      <h1 className={'ml-2 font-sans'}>Rename Sensor</h1>
+    <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:w-[500px] sm:max-h-[150px] bg-[#F2F2F2]'>
+      <h1 className={'ml-2'}>Rename Sensor</h1>
       {items.length > 0 && (
         <UpdateForm
         styles={'flex flex-col'}

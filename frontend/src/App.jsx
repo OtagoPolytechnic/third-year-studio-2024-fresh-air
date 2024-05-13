@@ -14,16 +14,16 @@ export const App = () => {
   return (
     <>
     {/* This is creating routes for the pages of the site */}
-    {/* <NavBar /> */}
-    {/* <Router> */}
-      {/* <Routes> */}
-        {/* <Route path="/" element={<Homepage />} /> */}
+    <NavBar />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
         {/* This will create a route using the room number without manualy imputting them */}
-        {/* <Route path="/room/:roomNumber" element={<RoomPage />} /> */}
-        {/* <Route path="/SensorHistory" element={<SensorHistory />} /> */}
-      {/* </Routes> */}
-    {/* </Router> */}
-    <UpdateSensor/>
+        <Route path="/room/:roomNumber" element={<RoomPage />} />
+        <Route path="/SensorHistory" element={<SensorHistory />} />
+      </Routes>
+     </Router>
+     <UpdateSensor/>
     </>
   );
 };
