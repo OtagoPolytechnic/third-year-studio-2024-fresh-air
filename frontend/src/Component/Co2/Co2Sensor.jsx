@@ -14,8 +14,6 @@ const getData = (room_nu, co2) => {
 
 // This creates the layout and size of the chart
 const options = {
-  width: 700,
-  height: 400,
   redFrom: 1500,
   redTo: 3000,
   yellowFrom: 1000,
@@ -28,7 +26,7 @@ const options = {
 };
 
 // This is the funtion used to show the chart
-export const Co2Sensor = ({ room_number, co2 }) => {
+export const Co2Sensor = ({ room_number, co2, size }) => {
   const [data, setData] = useState(getData(room_number, co2));
 
   // This is fecthing the data for the chart
@@ -46,10 +44,10 @@ export const Co2Sensor = ({ room_number, co2 }) => {
   return (
     <Chart
       chartType="Gauge"
-      width="100%"
-      height="400px"
       data={data}
       options={options}
+      width={size || "100%"}
+      height={size || "100%"}
     />
   );
 }
