@@ -82,7 +82,7 @@ export const Homepage = () => {
                 <NavLink to={`/room/${item.device.room_number}`} className="link">
                   {item.device.room_number}
                   <p>CO<sub>2</sub> Level: {item.co2}</p>
-                  <Co2Sensor room_number={item.device.room_number} co2={item.co2} size="250px" />
+                  <Co2Sensor room_number={item.device.room_number} co2={item.co2} size="max-content" />
                 </NavLink>
               </li>
             </div>
