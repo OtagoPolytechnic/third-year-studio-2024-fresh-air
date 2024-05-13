@@ -69,25 +69,31 @@ export const Homepage = () => {
     ]
   };
 
-  const roomLinks = data.data.map((item) => (
-    <li key={item.id}>
-      <NavLink to={`/room/${item.device.room_number}`} className="link">
-        {item.device.room_number}
-        <p>CO<sub>2</sub> Level: {item.co2}</p>
-        <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id}/>
-      </NavLink>
-    </li>
-  ));
-
   return (
     <>
-      <h1>Welcome to D-Block CO<sub>2</sub> Monitor</h1>
-      <ul>{roomLinks}</ul>
-      <li>
-        <NavLink to="/SensorHistory" className="link">
-          Sensor History
-        </NavLink>
-      </li>
+      <div className="text-center">
+        <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+        {/* Create one grid container outside the loop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {data.data.map((item) => (
+            // Each item is a cell in the grid
+            <div key={item.id} className="flex justify-center">
+              <li>
+                <NavLink to={`/room/${item.device.room_number}`} className="link">
+                  {item.device.room_number}
+                  <p>CO<sub>2</sub> Level: {item.co2}</p>
+                  <Co2Sensor room_number={item.device.room_number} co2={item.co2} size="250px" />
+                </NavLink>
+              </li>
+            </div>
+          ))}
+        </div>
+        <li>
+          <NavLink to="/SensorHistory" className="link">
+            Sensor History
+          </NavLink>
+        </li>
+      </div>
     </>
   );
 };
