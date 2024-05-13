@@ -81,7 +81,8 @@ export const RoomPage = () => {
             {/* This maps the data to be viewed and used in the sensor gauge */}
             {roomData.map(item => (
                 <>
-                <h1 key={item.id} >{`${item.device.room_number}`} CO2 Level is {`${item.co2}`}</h1>
+                <h1 key={item.id} className="text-6xl">{`${item.device.room_number}`}</h1>
+                <h1 className="text-6xl">CO<sub>2</sub> Level is {`${item.co2}`}</h1>
                 <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id} size="24rem"/>
                 </>
             ))}
