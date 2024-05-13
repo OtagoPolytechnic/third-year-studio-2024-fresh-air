@@ -46,8 +46,8 @@ export const Co2Sensor = ({ room_number, co2, size }) => {
       chartType="Gauge"
       data={data}
       options={options}
-      width={size || "100%"}
-      height={size || "100%"}
+      width={size}
+      height={size}
     />
   );
 }
