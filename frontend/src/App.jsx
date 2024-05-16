@@ -19,7 +19,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         {/* This will create a route using the room number without manualy imputting them */}
-        <Route path="/room/:roomNumber" element={<RoomPage />} />
+        <Route path="/D-Block/:roomNumber" element={<RoomPage />} />
         <Route path="/SensorHistory" element={<SensorHistory />} />
       </Routes>
     </Router>
