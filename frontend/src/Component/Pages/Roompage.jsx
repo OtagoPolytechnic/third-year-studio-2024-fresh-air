@@ -72,6 +72,7 @@ export const RoomPage = () => {
         ]
       };
     const { roomNumber } = useParams();
+    console.log(roomNumber)
 
      // Filter data based on the roomNumber
     const roomData = data.data.filter(item => item.device.room_number === roomNumber);
