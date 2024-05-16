@@ -22,6 +22,9 @@ CREATE TABLE "SensorData" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Device_room_number_key" ON "Device"("room_number");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Device_deviceId_key" ON "Device"("deviceId");
 
 -- CreateIndex
