@@ -73,6 +73,7 @@ export const RoomPage = () => {
       };
 
     const { roomNumber } = useParams();
+    console.log(roomNumber)
 
      // Filter data based on the roomNumber
     const roomData = data.data.filter(item => item.device.room_number === roomNumber);
@@ -82,7 +83,7 @@ export const RoomPage = () => {
             {/* This maps the data to be viewed and used in the sensor gauge */}
             {roomData.map(item => (
                 <>
-                <h1 key={item.id}>{`${item.device.room_number}`} CO2 Level is {`${item.co2}`}</h1>
+                <h1 data-testid={`${item.device.room_number}-co2`} key={item.id}>{`${item.device.room_number}`} CO2 Level is {`${item.co2}`}</h1>
                 <Co2Sensor room_number={item.device.room_number} co2={item.co2} key={item.id}/>
                 </>
             ))}
