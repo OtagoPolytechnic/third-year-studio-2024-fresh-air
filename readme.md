@@ -8,7 +8,17 @@ It is being written in React, and will use Docker to run virtual containers.
 ## Deploys
 - Main: http://co2-app.duckdns.org
 
-## Setting up VM Ubuntu Server
+## Update Script for existing VM
+For updating the staging deploy, cd into the repo and run this command.
+**Note, you must be in the root of the repo for the command to work.
+```
+bash update_co2.sh
+```
+
+The script will stop docker, remove the existing images, stash any existing changes and checkout to the staging branch and pull any changes, before it rebuilds and deploys the project.
+The script will say at the end if it's successful or not.
+
+## Setting up VM Ubuntu Server for Deploy
 ### Install Docker
 
 Run these commands to install docker:
