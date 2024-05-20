@@ -3,6 +3,25 @@ run_script=true
 echo ===================================================================
 echo ===================================================================
 
+# This Checks if the user wants to continue or not
+last_chance_to_stop () {
+	start=true
+	while $start
+	do
+        	local input=""
+	        echo "Warning any changes in your current branch will be stashed, do you want to continue?"
+	        read -p "y/n: " input
+	        if [ $input = "y" ]
+	        then
+        	        start=false
+	        elif [ $input = "n" ]
+	        then
+        	        exit
+	        fi
+	done
+
+}
+
 # This gets the user input for selecting what branch to deploy.
 what_git_repo () {
 	echo "What branch do you want to deploy from?"
@@ -23,32 +42,20 @@ set_repo () {
 	done
 }
 
-
-# Start of Script
+# Start of Script =============================
 echo "Welcome to the deploy for Co2-app.\n"
-start=true
 
-while $start
-do
-	local input=""
-	echo "Warning any changes in your current branch will be stashed, do you want to continue?"
-	read -p "y/n: " input
-	if [ $input = "y" ]
-	then
-		start=false
-	elif [ $input = "n" ]
-	then
-		exit
-	fi
-done
+# Runs the last chance function.
+last_chance_to_stop
 
-
+# Changes the repo to what the user wants.
 set_repo
 
-#echo Stopping docker containers if running.
-#sudo docker compose down
+echo ====================================================================
+# Stops the docker container.
+sudo docker compose down > /dev/null 2>&1
 
-#echo Removing any images for co2-app.
+# Removes docker images
 #sudo docker rmi co2-nginx:latest postgres:16.2 frontend-co2-app:latest backend-co2-app:latest
 
 #echo Updating repo.
