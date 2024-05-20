@@ -1,20 +1,26 @@
 #!/bin/bash
 run_script=true
 
+# This gets the user input for selecting what branch to deploy.
 what_git_repo () {
-	echo Welcome to the deploy for Co2-app.
-	echo What branch do you want to deploy from?
-	echo 1: main.
-	echo 2: staging.
-	echo 3: other.
-	read -p ": " git_branch
+	echo "What branch do you want to deploy from?"
+	echo "eg. main, staging, testing."
+	read -p "=>: " git_branch
 }
 
+# This will keep getting input from the user until the input is a valid branch.
 set_repo () {
-	what_git_repo
-	git checkout ${git_branch} && echo success || echo failed to work
-	echo ${git_branch}
+	local select_git_branch=true
+	git stash
+
+	while $select_git_branch
+	do
+		what_git_repo
+		git checkout ${git_branch} && echo "${git_branch} is valid" && select_git_branch=false || echo "${git_branch} isn't valid try again"
+	done
 }
+
+echo "Welcome to the deploy for Co2-app."
 
 set_repo
 
