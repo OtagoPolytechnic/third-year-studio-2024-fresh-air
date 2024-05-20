@@ -1,5 +1,7 @@
 #!/bin/bash
 run_script=true
+echo ===================================================================
+echo ===================================================================
 
 # This gets the user input for selecting what branch to deploy.
 what_git_repo () {
@@ -23,7 +25,23 @@ set_repo () {
 
 
 # Start of Script
-echo "Welcome to the deploy for Co2-app."
+echo "Welcome to the deploy for Co2-app.\n"
+echo "Warning any changes in your current branch will be stashed, press \"Ctr + c\" to cancel."
+start=true
+while $start
+do
+	local input
+	echo "Warning any changes in your current branch will be stashed, do you want to continue?"
+	read -p "y/n: " input
+	if [$input = "y"]
+	then
+		start=false
+	else if [$input = "n"]
+	then
+		exit
+	fi
+done
+
 
 set_repo
 
