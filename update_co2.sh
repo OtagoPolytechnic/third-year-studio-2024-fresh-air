@@ -11,18 +11,18 @@ what_git_repo () {
 # This will keep getting input from the user until the input is a valid branch.
 set_repo () {
 	local select_git_branch=true
-	git stash
+	git stash > /dev/null 2>&1
 
 	while $select_git_branch
 	do
-		git fetch
+		git fetch > /dev/null 2>&1
 		what_git_repo
-		git checkout ${git_branch} && echo "${git_branch} is valid" && select_git_branch=false || echo "${git_branch} isn't valid try again"
+		git checkout ${git_branch} > /dev/null 2>&1 && echo "${git_branch} is valid" && select_git_branch=false || echo "${git_branch} isn't valid try again"
 	done
 }
 
 
-
+# Start of Script
 echo "Welcome to the deploy for Co2-app."
 
 set_repo
