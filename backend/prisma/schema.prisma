@@ -7,13 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Block {
+  id          Int      @id @default(autoincrement())
+  blockId     String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  device      Device[] @relation("BlockDevice")
+}
+
 model Device {
   id          Int          @id @default(autoincrement())
   room_number String?      @unique
   deviceId    String       @unique
   dev_eui     String       @unique
   createdAt   DateTime     @default(now())
+  updatedAt   DateTime @updatedAt
   sensorData  SensorData[]
+  blockId     Int?
+  block       Block?       @relation(fields: [blockId], references: [id], name: "BlockDevice")
 }
 
 model SensorData {
@@ -21,6 +32,7 @@ model SensorData {
   co2         String
   temperature String
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   deviceId    String
   dev_eui     String
   device      Device   @relation(fields: [deviceId], references: [deviceId])
