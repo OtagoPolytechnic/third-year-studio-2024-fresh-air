@@ -38,9 +38,10 @@ set_repo () {
 	do
 		git fetch > /dev/null 2>&1
 		what_git_repo
-		git checkout ${git_branch} > /dev/null 2>&1 && echo "${git_branch} is valid" && select_git_branch=false || echo "${git_branch} isn't valid try again"
+		git checkout ${git_branch} > /dev/null 2>&1 && echo "${git_branch} is valid" && git pull /dev/null 2>&1 && select_git_branch=false || echo "${git_branch} isn't valid try again"
 	done
 }
+
 
 # Start of Script =============================
 echo "Welcome to the deploy for Co2-app.\n"
@@ -55,13 +56,10 @@ echo ====================================================================
 # Stops the docker container.
 sudo docker compose down > /dev/null 2>&1
 
-# Removes docker images
-#sudo docker rmi co2-nginx:latest postgres:16.2 frontend-co2-app:latest backend-co2-app:latest
+# Removes docker images.
+echo "Removing the Proxy, Frontend and Backend."
+sudo docker rmi co2-nginx:latest frontend-co2-app:latest backend-co2-app:latest && echo "Succefully Removed images || echo "Failed Error" && exit
 
-#echo Updating repo.
-#git stash
-#git checkout staging
-#git pull
-
-#echo Creating and Running container.
-#sudo docker compose up -d && echo Deploy Successful || echo Deploy Failed
+# Makes new Docker containers.
+echo Creating and Running container.
+sudo docker compose up -d && echo Deploy Successful || echo Deploy Failed
