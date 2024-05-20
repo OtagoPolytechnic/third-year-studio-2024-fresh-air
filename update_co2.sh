@@ -26,17 +26,17 @@ set_repo () {
 
 # Start of Script
 echo "Welcome to the deploy for Co2-app.\n"
-echo "Warning any changes in your current branch will be stashed, press \"Ctr + c\" to cancel."
 start=true
+
 while $start
 do
-	local input
+	local input=""
 	echo "Warning any changes in your current branch will be stashed, do you want to continue?"
 	read -p "y/n: " input
 	if [$input = "y"]
 	then
 		start=false
-	else if [$input = "n"]
+	elif [$input = "n"]
 	then
 		exit
 	fi
