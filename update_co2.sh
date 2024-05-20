@@ -33,10 +33,10 @@ do
 	local input=""
 	echo "Warning any changes in your current branch will be stashed, do you want to continue?"
 	read -p "y/n: " input
-	if [$input = "y"]
+	if [ $input = "y" ]
 	then
 		start=false
-	elif [$input = "n"]
+	elif [ $input = "n" ]
 	then
 		exit
 	fi
