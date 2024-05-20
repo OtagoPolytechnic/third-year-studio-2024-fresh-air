@@ -12,7 +12,7 @@ what_git_repo () {
 
 set_repo () {
 	what_git_repo
-	git checkout ${git_branch}
+	git checkout ${git_branch} && echo success || echo failed to work
 	echo ${git_branch}
 }
 
