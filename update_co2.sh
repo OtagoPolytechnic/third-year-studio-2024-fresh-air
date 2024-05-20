@@ -15,10 +15,13 @@ set_repo () {
 
 	while $select_git_branch
 	do
+		git fetch
 		what_git_repo
 		git checkout ${git_branch} && echo "${git_branch} is valid" && select_git_branch=false || echo "${git_branch} isn't valid try again"
 	done
 }
+
+
 
 echo "Welcome to the deploy for Co2-app."
 
