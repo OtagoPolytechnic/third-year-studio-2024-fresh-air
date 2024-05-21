@@ -14,7 +14,9 @@
     "prismaStudio": "prisma studio",
     "pretty:check": "prettier --check .",
     "pretty:fix": "prettier --write .",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "seed": "node prisma/seed.js"
+
   },
   "keywords": [],
   "author": "",

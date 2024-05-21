@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Block {
-  id          Int      @id @default(autoincrement())
-  blockId     String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  device      Device[] @relation("BlockDevice")
+  id        Int      @id @default(autoincrement())
+  blockId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  device    Device[] @relation("BlockDevice")
 }
 
 model Device {
@@ -21,7 +21,7 @@ model Device {
   deviceId    String       @unique
   dev_eui     String       @unique
   createdAt   DateTime     @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime     @default(now()) @updatedAt
   sensorData  SensorData[]
   blockId     Int?
   block       Block?       @relation(fields: [blockId], references: [id], name: "BlockDevice")
@@ -32,7 +32,7 @@ model SensorData {
   co2         String
   temperature String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
   deviceId    String
   dev_eui     String
   device      Device   @relation(fields: [deviceId], references: [deviceId])
