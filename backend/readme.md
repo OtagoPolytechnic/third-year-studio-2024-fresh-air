@@ -31,6 +31,8 @@ see also : https://www.prisma.io/docs/orm/more/development-environment/environme
 delete your current migrations, if any.  
 run the following  
 Start your docker desktop  
+Make sure you are in the backend dir
+`cd backend`
 `docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres`
 set your .env file to  
 `DATABASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres`  

@@ -16,7 +16,6 @@
     "pretty:fix": "prettier --write .",
     "commit": "git-cz",
     "seed": "node prisma/seed.js"
-
   },
   "keywords": [],
   "author": "",

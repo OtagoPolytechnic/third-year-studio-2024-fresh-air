@@ -3,7 +3,7 @@ import { createBlock, getAllBlocks, getBlock, getBlockRecentSensor } from '../..
 
 const router = express.Router();
 
-router.route('/createblock').post(createBlock);
+router.route('/createBlock').post(createBlock);
 router.route('/:blockName').get(getBlock);
 router.route('/').get(getAllBlocks);
 router.route('/:blockName/latest').get(getBlockRecentSensor);

@@ -24,7 +24,8 @@ model Device {
   updatedAt   DateTime     @default(now()) @updatedAt
   sensorData  SensorData[]
   blockId     Int
-  block       Block       @relation(fields: [blockId], references: [id])
+  blockName String?
+  block       Block       @relation(fields: [blockId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
 
 model SensorData {
@@ -35,5 +36,5 @@ model SensorData {
   updatedAt   DateTime @default(now()) @updatedAt
   deviceId    String
   dev_eui     String
-  device      Device   @relation(fields: [deviceId], references: [deviceId])
+  device      Device   @relation(fields: [deviceId], references: [deviceId], onUpdate: Cascade, onDelete: Cascade)
 }
