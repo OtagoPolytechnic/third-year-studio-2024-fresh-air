@@ -9,10 +9,10 @@ datasource db {
 
 model Block {
   id        Int      @id @default(autoincrement())
-  blockId   String   @unique
+  blockName   String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  device    Device[] @relation("BlockDevice")
+  device    Device[]
 }
 
 model Device {
@@ -23,8 +23,8 @@ model Device {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now()) @updatedAt
   sensorData  SensorData[]
-  blockId     Int?
-  block       Block?       @relation(fields: [blockId], references: [id], name: "BlockDevice")
+  blockId     Int
+  block       Block       @relation(fields: [blockId], references: [id])
 }
 
 model SensorData {
