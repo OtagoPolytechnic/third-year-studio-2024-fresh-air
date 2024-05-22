@@ -4,8 +4,8 @@ import { Co2Sensor } from "../Co2/Co2Sensor";
 
 export const Homepage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
-
   const [devices, setDevices] = useState([]);
+  const [co2Levels, setCo2Levels] = useState({});
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -17,35 +17,41 @@ export const Homepage = () => {
           dev_eui: device.dev_eui,
         }));
         setDevices(extractedData);
+
+        const co2Data = {};
+        await Promise.all(extractedData.map(async (device) => {
+          const co2Response = await fetch(`${apiKey}/api/v1/rooms/latest/${device.dev_eui}`);
+          const co2Info = await co2Response.json();
+          co2Data[device.dev_eui] = co2Info.data.co2;
+        }));
+        setCo2Levels(co2Data);
       } catch (error) {
-        console.error('Error fetching devices:', error);
+        console.error('Error fetching devices or CO2 levels:', error);
       }
     };
-
     fetchDevices();
   }, [apiKey]);
 
   return (
-    <>
-      <div className="text-center">
-        <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {devices.map((device, index) => (
-            <div key={index} className="flex justify-center">
-              <li>
-                <NavLink to={`/D-Block/${device.room_number}`} className="link">
-                  {device.room_number}
-                </NavLink>
-              </li>
-            </div>
-          ))}
-        </div>
-        <li>
-          <NavLink to="/SensorHistory" className="link">
-            Sensor History
-          </NavLink>
-        </li>
+    <div className="text-center">
+      <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {devices.map((device) => (
+          <div key={device.dev_eui} className="flex justify-center">
+            <li>
+              <NavLink to={`/D-Block/${device.room_number}`} className="link">
+                {device.room_number}
+                <Co2Sensor room_number={device.room_number} co2={co2Levels[device.dev_eui] || 400} size="max-content"/>
+              </NavLink>
+            </li>
+          </div>
+        ))}
       </div>
-    </>
+      <li>
+        <NavLink to="/SensorHistory" className="link">
+          Sensor History
+        </NavLink>
+      </li>
+    </div>
   );
 };
