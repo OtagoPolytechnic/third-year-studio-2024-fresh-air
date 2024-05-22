@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { blockNamePattern } from '../../utils/constants/regex.js';
 import { STATUS_CODES } from '../../utils/statusCodes/statusCode.js';
 import { PAGINATION_DEFAULTS } from '../../utils/constants/globalConstants.js';
 
@@ -82,6 +83,8 @@ const getBlockRecentSensor = async (req, res) => {
   try {
     const blockName = req.params.blockName;
 
+    // Takes the current block and finds the most recent sensor data
+    // takes 1, ordered by desc, to ensure always the latest information
     const block = await prisma.block.findFirst({
       where: { blockName: String(blockName) },
       include: {
@@ -127,9 +130,6 @@ const getBlockRecentSensor = async (req, res) => {
 const createBlock = async (req, res) => {
   try {
     const blockName = req.body.blockName;
-
-    // Check to see blockName matches [Letter]-block pattern
-    const blockNamePattern = /^[A-Z]-block$/;
 
     if (!blockName || blockName.length === 0) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
@@ -200,8 +200,6 @@ const updateBlock = async (req, res) => {
         message: 'Block name cannot start with a space',
       });
     }
-
-    const blockNamePattern = /^[A-Z]-block$/;
 
     if (!blockNamePattern.test(newBlockName)) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
