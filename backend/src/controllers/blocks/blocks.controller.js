@@ -34,7 +34,13 @@ const getBlock = async (req, res) => {
         const block = await prisma.block.findFirst({
             where: { blockName: String(blockName) },
             include: {
-                device: true,
+                device: {
+                    select: {
+                        room_number: true,
+                        deviceId: true,
+                        dev_eui: true, 
+                    },
+                }
             }
         });
 
