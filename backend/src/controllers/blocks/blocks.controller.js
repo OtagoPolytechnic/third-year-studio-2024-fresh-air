@@ -108,7 +108,7 @@ const getBlockRecentSensor = async (req, res) => {
     if (!block || block.length === 0) {
       return res.status(STATUS_CODES.NOT_FOUND).json({
         statusCode: res.statusCode,
-        message: `Block ${blockName} not found on the server`,
+        message: `${blockName} not found on the server`,
       });
     }
 
