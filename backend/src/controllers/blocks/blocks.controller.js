@@ -182,4 +182,72 @@ const createBlock = async (req, res) => {
   }
 };
 
-export { createBlock, getAllBlocks, getBlock, getBlockRecentSensor };
+const updateBlock = async (req, res) => {
+  try {
+    const blockName = req.params.blockName;
+    const newBlockName = req.body.blockName;
+
+    if (!newBlockName || newBlockName.length === 0) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: res.statusCode,
+        message: 'New block name is required',
+      });
+    }
+
+    if (newBlockName === ' ' || newBlockName.startsWith(' ')) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: res.statusCode,
+        message: 'Block name cannot start with a space',
+      });
+    }
+
+    const blockNamePattern = /^[A-Z]-block$/;
+
+    if (!blockNamePattern.test(newBlockName)) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: res.statusCode,
+        message: 'Block name must be in the format [Uppercase Letter]-block',
+      });
+    }
+
+    const getBlock = await prisma.block.findFirst({
+      where: { blockName: String(blockName) },
+    });
+
+    if (!getBlock || getBlock.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: `${blockName} not found on the server`,
+      });
+    }
+
+    const findExistingBlockName = await prisma.block.findUnique({
+      where: { blockName: String(newBlockName) },
+    });
+
+    if (findExistingBlockName) {
+      return res.status(STATUS_CODES.CONFLICT).json({
+        statusCode: res.statusCode,
+        message: `${newBlockName} already exists in the database`,
+      });
+    }
+
+    const updatedBlockName = await prisma.block.update({
+      where: { blockName: String(blockName) },
+      data: { blockName: newBlockName },
+    });
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      message: `Block name updated successfully`,
+      data: updatedBlockName,
+    });
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.statusCode,
+      message: error.message,
+    });
+  }
+};
+
+export { createBlock, getAllBlocks, getBlock, getBlockRecentSensor, updateBlock };
