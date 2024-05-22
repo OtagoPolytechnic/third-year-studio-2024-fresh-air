@@ -133,21 +133,21 @@ const createBlock = async (req, res) => {
 
     if (!blockName || blockName.length === 0) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
-        statusCode: res.status,
+        statusCode: res.statusCode,
         message: 'Block name is required',
       });
     }
 
     if (blockName === ' ' || blockName.startsWith(' ')) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
-        statusCode: res.status,
+        statusCode: res.statusCode,
         message: 'Block name cannot start with a space',
       });
     }
 
     if (!blockNamePattern.test(blockName)) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
-        statusCode: res.status,
+        statusCode: res.statusCode,
         message: 'Block name must be in the format [Uppercase Letter]-block',
       });
     }
@@ -158,24 +158,25 @@ const createBlock = async (req, res) => {
 
     if (existingBlock) {
       return res.status(STATUS_CODES.CONFLICT).json({
-        statusCode: res.status,
+        statusCode: res.statusCode,
         message: `${blockName} already exists`,
       });
     }
 
-    await prisma.block.create({
+    const blockCreate = await prisma.block.create({
       data: {
         blockName,
       },
     });
 
-    return res.status(STATUS_CODES.OK).json({
-      statusCode: res.status,
+    return res.status(STATUS_CODES.CREATED).json({
+      statusCode: res.statusCode,
       message: `${blockName} created successfully`,
+      data: blockCreate,
     });
   } catch (error) {
     return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: res.status,
+      statusCode: res.statusCode,
       message: error.message,
     });
   }
