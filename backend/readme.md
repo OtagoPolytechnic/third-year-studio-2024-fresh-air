@@ -27,6 +27,18 @@ DATABASE_URL="postgres://fresh_air_webhook_user:Udcns3xIGCztavZwcDptVkLbAaAre4z6
 ```
 see also : https://www.prisma.io/docs/orm/more/development-environment/environment-variables/managing-env-files-and-setting-variables  
 
+## Local Environment
+delete your current migrations, if any.  
+run the following  
+Start your docker desktop  
+`docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres`
+set your .env file to  
+`DATABASE_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres`  
+then
+`npm run generate`
+`npm run migrate dev`
+`npm run seed`
+
 ## Services Documentation <a name="documentation"><a>
 [Webhook Documentation](documentation/Webhook.md)  
 [Devices Documentation](documentation/Devices.md)  

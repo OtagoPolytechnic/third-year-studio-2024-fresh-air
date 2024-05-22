@@ -80,4 +80,5 @@ const getRecentSensorData = async (req, res) => {
   }
 };
 
+
 export { getRecentSensorData, getAllSensorDeviceData };
