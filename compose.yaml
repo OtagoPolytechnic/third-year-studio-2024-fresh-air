@@ -23,6 +23,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: always
+    environment:
+      - DATABASE_URL=http://co2-api.duckdns.org
     volumes:
       - ./frontend:/app
 
