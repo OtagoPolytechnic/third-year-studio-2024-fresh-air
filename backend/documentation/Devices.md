@@ -16,11 +16,14 @@ Documentation for the CO2 sensor devices, schema and controllers.
 ```prisma 
 model Device {
   id          Int          @id @default(autoincrement())
-  room_number String?
+  room_number String?      @unique
   deviceId    String       @unique
   dev_eui     String       @unique
   createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
   sensorData  SensorData[]
+  blockId     Int?
+  block       Block?       @relation(fields: [blockId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
 ```
 ### Resource List <a name="resource-list"></a>
@@ -29,7 +32,10 @@ model Device {
 - **deviceID:** End device ID as on TTN. (eui-xxxx)
 - **dev_eui:** the string after eui- returned in uppercase
 - **createdAt:** When the device was created
+- **updatedAt:** When the device was last updated
 - **sensorData:** A list of data sent from the webhook 
+- **blockId:** The ID of the block this device is connected to
+- **block:** Relation to block model
 
 ## Devices Endpoints <a name="endpoints"></a>
 `GET: 'api/v1/devices'`  
