@@ -80,4 +80,42 @@ const getRecentSensorData = async (req, res) => {
   }
 };
 
-export { getRecentSensorData, getAllSensorDeviceData };
+const getHistorySensorData = async (req, res) => {
+  try {
+    //get dev_eui from the url paramaters
+    const dev_eui = req.params.dev_eui
+
+    //gets dates that user wants to query
+    const beforeDate = req.query.beforeDate;
+    const afterDate = req.query.afterDate;
+
+    console.log("This is the History Data")
+
+    const historySensorData = await prisma.post.findMany({
+      where: {
+        dev_eui: String(dev_eui),
+        createdAt: {
+          gte: beforeDate, // Start of date range
+          lte: afterDate, // End of date range
+        },
+        include: {
+          device: true,
+        },
+        },
+        orderBy: { createdAt: 'desc' },
+    });
+
+    // Return the payload data
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      data: historySensorData,
+    });
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.statusCode,
+      message: error.message,
+    });
+  }
+}
+
+export { getRecentSensorData, getAllSensorDeviceData, getHistorySensorData };

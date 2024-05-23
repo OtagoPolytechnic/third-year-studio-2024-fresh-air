@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
       webhook: `[POST]: ${basePath}/integrations/webhook`,
       all_device_info: `[GET]: ${basePath}/devices`,
       single_device_info: `[GET]: ${basePath}/devices/{dev_eui}`,
+      device_history_info: `[GET]: ${basePath}/rooms/history/{dev_eui}`,
       recent_room_data: `[GET]: ${basePath}/rooms/latest/{dev_eui}`,
       all_room_data: `[GET]: ${basePath}/rooms/{dev_eui}`,
     },
