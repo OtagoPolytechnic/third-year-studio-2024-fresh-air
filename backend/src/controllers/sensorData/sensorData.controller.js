@@ -82,28 +82,38 @@ const getRecentSensorData = async (req, res) => {
 
 const getHistorySensorData = async (req, res) => {
   try {
-    //get dev_eui from the url paramaters
-    const dev_eui = req.params.dev_eui
+    // Get dev_eui from the URL parameters
+    const dev_eui = req.params.dev_eui;
 
-    //gets dates that user wants to query
-    const beforeDate = req.query.beforeDate;
-    const afterDate = req.query.afterDate;
+    // Gets dates that user wants to query
+    const beforeDateString = req.query.beforeDate;
+    const afterDateString = req.query.afterDate;
 
-    console.log("This is the History Data")
+    // Convert date strings to Date objects
+    const beforeDate = new Date(beforeDateString);
+    const afterDate = new Date(afterDateString);
 
-    const historySensorData = await prisma.post.findMany({
+
+    const historySensorData = await prisma.sensorData.findMany({
       where: {
         dev_eui: String(dev_eui),
         createdAt: {
           gte: beforeDate, // Start of date range
           lte: afterDate, // End of date range
         },
-        include: {
-          device: true,
-        },
-        },
-        orderBy: { createdAt: 'desc' },
+      },
+      include: {
+        device: true,
+      },
+      orderBy: { createdAt: 'desc' },
     });
+
+    if (!historySensorData || historySensorData.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: 'No payload found for the device',
+      });
+    }
 
     // Return the payload data
     return res.status(STATUS_CODES.OK).json({
@@ -116,6 +126,7 @@ const getHistorySensorData = async (req, res) => {
       message: error.message,
     });
   }
-}
+};
+
 
 export { getRecentSensorData, getAllSensorDeviceData, getHistorySensorData };
