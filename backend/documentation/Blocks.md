@@ -151,19 +151,31 @@ Successfully updating a block will return the following
     "statusCode": 200,
     "data": {
         "id": 1,
-        "blockName": "X-block",
-        "createdAt": "2024-05-23T02:46:27.957Z",
-        "updatedAt": "2024-05-23T03:13:56.932Z",
+        "blockName": "D-block",
+        "createdAt": "2024-05-29T11:07:29.419Z",
+        "updatedAt": "2024-05-29T11:07:29.419Z",
         "device": [
             {
-                "room_number": null,
+                "room_number": "D207",
                 "deviceId": "eui-1000024b080301f5",
-                "dev_eui": "1000024b080301f5"
+                "dev_eui": "1000024b080301f5",
+                "sensorData": [
+                    {
+                        "co2": "999",
+                        "temperature": "30"
+                    }
+                ]
             },
             {
-                "room_number": null,
+                "room_number": "D202",
                 "deviceId": "eui-3000024b080301f5",
-                "dev_eui": "3000024b080301f5"
+                "dev_eui": "3000024b080301f5",
+                "sensorData": [
+                    {
+                        "co2": "400",
+                        "temperature": "21"
+                    }
+                ]
             }
         ]
     }
