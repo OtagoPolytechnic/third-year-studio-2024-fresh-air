@@ -94,10 +94,9 @@ const getHistorySensorData = async (req, res) => {
     const beforeDate = new Date(beforeDateString);
     const afterDate = new Date(afterDateString);
 
+    // Converts after Date to the next day
     afterDate.getDate()+1;
     afterDate.setDate(afterDate.getDate() + 1);
-
-    console.log(afterDate)
 
 
     const historySensorData = await prisma.sensorData.findMany({
