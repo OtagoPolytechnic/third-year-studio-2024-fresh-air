@@ -14,13 +14,14 @@
     "prismaStudio": "prisma studio",
     "pretty:check": "prettier --check .",
     "pretty:fix": "prettier --write .",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "seed": "node prisma/seed.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.11.0",
+    "@prisma/client": "^5.14.0",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -33,7 +34,7 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
-    "prisma": "^5.11.0",
+    "prisma": "^5.14.0",
     "supertest": "^6.3.4"
   },
   "config": {
