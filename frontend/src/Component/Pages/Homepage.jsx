@@ -72,14 +72,14 @@ export const Homepage = () => {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+        <h1 className="text-6xl" data-cy="h1Welcome">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
         {/* Create one grid container outside the loop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {data.data.map((item) => (
             // Each item is a cell in the grid
             <div key={item.id} className="flex justify-center">
               <li>
-                <NavLink to={`/D-Block/${item.device.room_number}`} className="link">
+                <NavLink to={`/D-Block/${item.device.room_number}`} data-cy={item.device.room_number} className="link">
                   {item.device.room_number}
                   <p>CO<sub>2</sub> Level: {item.co2}</p>
                   <Co2Sensor room_number={item.device.room_number} co2={item.co2} size="max-content" />
@@ -89,7 +89,7 @@ export const Homepage = () => {
           ))}
         </div>
         <li>
-          <NavLink to="/SensorHistory" className="link">
+          <NavLink to="/SensorHistory" className="link" data-cy="SensorHistory">
             Sensor History
           </NavLink>
         </li>
