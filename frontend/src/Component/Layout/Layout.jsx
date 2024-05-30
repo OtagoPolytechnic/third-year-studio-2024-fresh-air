@@ -1,9 +1,9 @@
-import NavBar from '../NavBar';
+import Navbar from "./Navbar";
 
 export const Layout = () => {
     return (
         <>
-        <NavBar/>
+        <Navbar/>
         </>
     );
 };
