@@ -88,10 +88,16 @@ const getHistorySensorData = async (req, res) => {
     // Gets dates that user wants to query
     const beforeDateString = req.body.beforeDate;
     const afterDateString = req.body.afterDate;
+    
 
     // Convert date strings to Date objects
     const beforeDate = new Date(beforeDateString);
     const afterDate = new Date(afterDateString);
+
+    afterDate.getDate()+1;
+    afterDate.setDate(afterDate.getDate() + 1);
+
+    console.log(afterDate)
 
 
     const historySensorData = await prisma.sensorData.findMany({
@@ -105,7 +111,7 @@ const getHistorySensorData = async (req, res) => {
       include: {
         device: true,
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
     });
 
     if (!historySensorData || historySensorData.length === 0) {
