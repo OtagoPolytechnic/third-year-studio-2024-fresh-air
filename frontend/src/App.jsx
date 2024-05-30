@@ -8,7 +8,7 @@ import { SensorHistory } from './Component/SensorHistory';
 
 import { UpdateSensor } from './Component/UpdateSensor/UpdateSensor';
 
-import Layout from './Component/Layout';
+import Navbar from './Component/Navbar';
 
 const navbarContent = (
   <>
@@ -39,7 +39,7 @@ const bodyContent = (
 export const App = () => {
   return (
     <>
-    return <Layout navbar={navbarContent} body={bodyContent} />;
+     <Navbar navbar={navbarContent} body={bodyContent} />;
     </>
   );
 };
