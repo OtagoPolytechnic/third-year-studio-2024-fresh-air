@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Layout = ({ navbar, body }) => {
+const Navbar = ({ navbar, body }) => {
   return (
-    <div id="root" className="h-full flex flex-col">
+    <div id="root" className="md:mx-6 flex flex-col">
       <nav
-        className="bg-blue-500 text-white w-full p-4 flex items-center fixed top-0 
-                 md:w-auto md:h-full md:fixed md:left-0 md:flex-col z-10"
+        className="bg-blue-500 text-white p-4 flex items-center fixed top-0 
+                md:h-full md:max-w-[200px] w-screen md:fixed md:left-0 md:flex-col z-10 sm:z-10"
       >
         <div className="container mx-auto md:flex md:flex-col">{navbar}</div>
       </nav>
@@ -16,4 +16,4 @@ const Layout = ({ navbar, body }) => {
   );
 };
 
-export default Layout;
+export default Navbar;
