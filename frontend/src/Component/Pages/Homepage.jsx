@@ -52,11 +52,6 @@ export const Homepage = () => {
           </div>
         ))}
       </div>
-      <li>
-        <NavLink to="/SensorHistory" className="link">
-          Sensor History
-        </NavLink>
-      </li>
     </div>
   );
 };
