@@ -4,6 +4,7 @@
 - [About](#about)
 - [Deployment](#webhook-deployment)
 - [Setup](#setup)
+    + [ENV File](#env)
 - [Dependencies](#dependencies)
     + [Dev-Dependencies](#dev-dependencies)
 - [Testing](#testing)
@@ -19,6 +20,9 @@ The frontend is not currently deployed on any server but local host.
 
 ## Project Setup <a name="setup"></a>
 To set up the site locally you will need to change from the root to frontend using the command `cd frontend`. Once in the frontend folder you will need to install the dependencies by running `npm install` or `npm i` for short. Once all the depnedances are installed you can run the site locally by running `npm run dev`.
+
+### ENV File Setup <a name="env"></a>
+In the frontend folder where the package.json and the REAME.md files are located you will need to create a file called `.env` and put in the following line `VITE_BACKEND_API_KEY='http://co2-api.duckdns.org'` 
 
 ## Dependency List <a name="dependencies"></a>
 [React](https://react.dev)
