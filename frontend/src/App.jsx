@@ -36,10 +36,16 @@ const bodyContent = (
   </>
 );
 
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import router from './router/router';
+// This is the main app funtion
 export const App = () => {
   return (
     <>
+
      <Navbar navbar={navbarContent} body={bodyContent} />;
+    <RouterProvider router={router}/>
     </>
   );
 };

@@ -145,4 +145,6 @@ const updateDeviceRoom = async (req, res) => {
   }
 };
 
+//TODO!!!! Add device to a block
+
 export { getDevice, getAllDevices, updateDeviceRoom };
