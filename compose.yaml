@@ -17,16 +17,20 @@ services:
       - ./backend/pgdata:/var/lib/postgresql/data
 
   frontend:
-    container_name: co2-app
+    container_name: co2-frontend
     image: frontend-co2-app
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    restart: always
+    environment:
+      - DATABASE_URL=http://co2-api.duckdns.org
     volumes:
       - ./frontend:/app
 
   backend:
     container_name: co2-backend
+    image: backend-co2-app
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -34,7 +38,9 @@ services:
       - co2-db
     restart: always
     environment:
-      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/postgres
+      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
+    volumes:
+      - ./backend:/api
 
   nginx:
     image: co2-nginx
@@ -48,3 +54,4 @@ services:
     depends_on:
       - frontend
       - backend
+      - co2-db

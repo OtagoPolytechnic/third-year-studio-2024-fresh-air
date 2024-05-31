@@ -8,6 +8,7 @@ import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
 import webhook from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
+import block from './routes/blocks/block.route.js';
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -24,6 +25,7 @@ app.use(`${basePath}/integrations`, webhook);
 
 app.use(`${basePath}/rooms`, payload);
 app.use(`${basePath}/devices`, device);
+app.use(`${basePath}/blocks`, block);
 
 app.get('/', (req, res) => {
   return res.status(STATUS_CODES.OK).json({
@@ -34,6 +36,7 @@ app.get('/', (req, res) => {
       webhook: `[POST]: ${basePath}/integrations/webhook`,
       all_device_info: `[GET]: ${basePath}/devices`,
       single_device_info: `[GET]: ${basePath}/devices/{dev_eui}`,
+      device_history_info: `[GET]: ${basePath}/rooms/history/{dev_eui}`,
       recent_room_data: `[GET]: ${basePath}/rooms/latest/{dev_eui}`,
       all_room_data: `[GET]: ${basePath}/rooms/{dev_eui}`,
     },

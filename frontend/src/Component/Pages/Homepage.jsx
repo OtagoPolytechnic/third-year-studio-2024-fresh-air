@@ -1,18 +1,57 @@
-// These are the imports that are used
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Co2Sensor } from "../Co2/Co2Sensor";
 
-// This is the function being used
 export const Homepage = () => {
-    return (
-      <>
-      {/* This is creating links for the pages to be used being hardcoded */}
-        <h1>Welcome to D-Block CO<sub>2</sub> Monitor</h1>
-        <li><NavLink to="/room/D201" className="link" >Room D201</NavLink></li>
-        <li><NavLink to="/room/D202" className="link" >Room D202</NavLink></li>
-        <li><NavLink to="/room/D207" className="link" >Room D207</NavLink></li>
-        <li><NavLink to="/room/D207 TD" className="link" >Room D207 TD</NavLink></li>
-        <li><NavLink to="/SensorHistory" className="link" >Sensor History</NavLink></li>
-      </>
-    );
-}
+  
+  const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
+
+  const [devices, setDevices] = useState([]);
+  const [co2Levels, setCo2Levels] = useState({});
+
+  useEffect(() => {
+    const fetchDevices = async () => {
+      try {
+        const response = await fetch(`${apiKey}/api/v1/devices`);
+        const data = await response.json();
+        // Getting the data from the api fetch for room number and dev_eui
+        const extractedData = data.data.map(device => ({
+          room_number: device.room_number,
+          dev_eui: device.dev_eui,
+        }));
+        setDevices(extractedData);
+
+        const co2Data = {};
+        await Promise.all(extractedData.map(async (device) => {
+          // This fetches the co2 level for each room
+          const co2Response = await fetch(`${apiKey}/api/v1/rooms/latest/${device.dev_eui}`);
+          const co2Info = await co2Response.json();
+          co2Data[device.dev_eui] = co2Info.data.co2;
+        }));
+        setCo2Levels(co2Data);
+      } catch (error) {
+        console.error('Error fetching devices or CO2 levels:', error);
+      }
+    };
+    fetchDevices();
+  }, [apiKey]);
+
+  return (
+    <div className="text-center">
+      <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Create one grid container outside the loop */}
+        {devices.map((device) => (
+          <div key={device.dev_eui} className="flex justify-center">
+            <li>
+              <NavLink to={`/D-Block/${device.room_number}`} className="link">
+                {device.room_number}
+                <Co2Sensor room_number={device.room_number} co2={co2Levels[device.dev_eui] || 400} size="max-content"/>
+              </NavLink>
+            </li>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
