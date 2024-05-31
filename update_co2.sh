@@ -38,7 +38,7 @@ set_repo () {
 	do
 		git fetch > /dev/null 2>&1
 		what_git_repo
-		git checkout ${git_branch} > /dev/null 2>&1 && echo "${git_branch} is valid" && git pull /dev/null 2>&1 && select_git_branch=false || echo "${git_branch} isn't valid try again"
+		git checkout ${git_branch} > /dev/null 2>&1 && echo "${git_branch} is valid" && git pull > /dev/null 2>&1 && select_git_branch=false || echo "${git_branch} isn't valid try again"
 	done
 }
 
