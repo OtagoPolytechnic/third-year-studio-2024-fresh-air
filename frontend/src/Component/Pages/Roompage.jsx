@@ -8,6 +8,7 @@ export const RoomPage = () => {
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
   const { roomNumber } = useParams();
+  console.log(roomNumber)
 
   useEffect(() => {
     const fetchDevices = async () => {

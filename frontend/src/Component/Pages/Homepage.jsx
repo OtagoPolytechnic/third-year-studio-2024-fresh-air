@@ -35,7 +35,7 @@ export const Homepage = () => {
     };
     fetchDevices();
   }, [apiKey]);
-
+  
   return (
     <div className="text-center">
       <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
@@ -43,6 +43,7 @@ export const Homepage = () => {
         {/* Create one grid container outside the loop */}
         {devices.map((device) => (
           <div key={device.dev_eui} className="flex justify-center">
+            {console.log(device.room_number)}
             <li>
               <NavLink to={`/D-Block/${device.room_number}`} className="link">
                 {device.room_number}
