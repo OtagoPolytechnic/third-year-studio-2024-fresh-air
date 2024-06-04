@@ -54,7 +54,7 @@ set_repo
 
 echo ====================================================================
 # Stops the docker container.
-sudo docker compose down > /dev/null 2>&1
+sudo docker compose down
 
 # Removes docker images.
 echo "Removing the Proxy, Frontend and Backend."
