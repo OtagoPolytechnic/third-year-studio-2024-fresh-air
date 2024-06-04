@@ -54,11 +54,11 @@ set_repo
 
 echo ====================================================================
 # Stops the docker container.
-sudo docker compose down
+sudo docker compose down >  /dev/null 2>&1
 
 # Removes docker images.
 echo "Removing the Proxy, Frontend and Backend."
-sudo docker rmi co2-nginx:latest frontend-co2-app:latest backend-co2-app:latest && echo "Succefully Removed images || echo "Failed Error" && exit
+sudo docker rmi co2-nginx:latest frontend-co2-app:latest backend-co2-app:latest && echo "Succefully Removed images" || echo "Failed Error" && exit
 
 # Makes new Docker containers.
 echo Creating and Running container.
