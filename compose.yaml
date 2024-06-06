@@ -38,8 +38,7 @@ services:
       - co2-db
     restart: always
     environment:
-      # - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
-      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/postgres
+      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
     volumes:
       - ./backend:/api
 
