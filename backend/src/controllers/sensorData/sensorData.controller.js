@@ -86,8 +86,8 @@ const getHistorySensorData = async (req, res) => {
     const dev_eui = req.params.dev_eui;
 
     // Gets dates that user wants to query
-    const beforeDateString = req.body.beforeDate;
-    const afterDateString = req.body.afterDate;
+    const beforeDateString = req.query.beforeDate;
+    const afterDateString = req.query.afterDate;
     
 
     // Convert date strings to Date objects
