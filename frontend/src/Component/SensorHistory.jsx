@@ -10,74 +10,50 @@ import {
   Legend,
 } from "recharts";
 
-const data = {
-  statusCode: 200,
-  data: {
-    id: 6,
-    room_number: null,
-    deviceId: "eui-70b3d57ed0053df3",
-    dev_eui: "70B3D57ED0053DF3",
-    createdAt: "2024-03-27T21:01:27.447Z",
-    sensorData: [
-      {
-        id: 870,
-        co2: "1302",
-        temperature: "21",
-        createdAt: "2024-03-28T03:58:55.553Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-      {
-        id: 867,
-        co2: "750",
-        temperature: "21",
-        createdAt: "2024-03-28T03:56:54.127Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-      {
-        id: 865,
-        co2: "400",
-        temperature: "21",
-        createdAt: "2024-03-28T03:54:52.718Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-      {
-        id: 872,
-        co2: "800",
-        temperature: "20",
-        createdAt: "2024-03-28T04:00:57.932Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-      {
-        id: 869,
-        co2: "2500",
-        temperature: "20",
-        createdAt: "2024-03-28T03:58:03.287Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-      {
-        id: 866,
-        co2: "1299",
-        temperature: "20",
-        createdAt: "2024-03-28T03:56:02.124Z",
-        deviceId: "eui-70b3d57ed0053df3",
-        dev_eui: "70B3D57ED0053DF3",
-      },
-    ],
-  },
-};
+// const data = {
+//   statusCode: 200,
+//   data: {
+//     id: 6,
+//     room_number: null,
+//     deviceId: "eui-70b3d57ed0053df3",
+//     dev_eui: "70B3D57ED0053DF3",
+//     createdAt: "2024-03-27T21:01:27.447Z",
+//     sensorData: [
+//       {
+//         id: 870,
+//         co2: "1302",
+//         temperature: "21",
+//         createdAt: "2024-03-28T03:58:55.553Z",
+//         deviceId: "eui-70b3d57ed0053df3",
+//         dev_eui: "70B3D57ED0053DF3",
+//       },
+//     ],
+//   },
+// };
 export const SensorHistory = () => {
+  const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
+
+  const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+    try {
+      const response = await fetch(`${apiKey}/api/v1/rooms/history/00D9C912BF1FDC0C`);
+      // const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}`);
+      const data = await response.json();
+      setSensorData(data);
+    } catch (error){
+      console.error('Error fetching devices or CO2 levels:', error);
+    }
+    };
+    }, [apiKey]); 
 
   useEffect(() => {
     // This function runs every time data changes
-    const sortedSensorData = data.data.sensorData.sort((a, b) => a.id - b.id); // Sorts the data based on id lowest to highest
+    const sortedSensorData = sensorData.sort((a, b) => a.id - b.id); // Sorts the data based on id lowest to highest
     setSortedData(sortedSensorData);
-  }, [data]);
+  }, [sensorData]);
 
   const CustomTooltip = ({ active, payload }) => {
     // active is a rechart component
