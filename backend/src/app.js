@@ -3,17 +3,18 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import {WebSocketServer} from 'ws';
-import { PrismaClient } from '@prisma/client';
+import { EventEmitter } from 'events';
 
 
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
-import webhook from './routes/webhook/webhook.route.js';
+import {webhookRouter as webhook} from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
 
-const prisma = new PrismaClient();
+
+const emitter = new EventEmitter();
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
 const basePath = `/${INDEX_PATHS.BASE_URL}/${INDEX_PATHS.CURRENT_VERSION}`;
@@ -54,25 +55,6 @@ const server = app.listen(port, () => {
 
 const wss = new WebSocketServer({ server });
 
-const fetchDataFromDatabase = async () => {
-  try {
-    const data = await prisma.sensorData.findMany(); 
-
-      wss.clients.forEach((client) => {
-        if (client.readyState === client.OPEN) {
-          client.send(JSON.stringify(data));
-        }
-      });
-
-  } catch (error) {
-    console.error('Error fetching data from the database:', error);
-  }
-};
-
-// Fetch data from the database every 5 minutes
-setInterval(fetchDataFromDatabase, 1000); // 5 minutes in milliseconds
-
-// WebSocket connection handling
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
@@ -81,7 +63,16 @@ wss.on('connection', (ws) => {
   });
 });
 
+emitter.on('webhook', (data) => {
+  console.log('Webhook event received, sending data to clients:', data);
+  // When a 'webhook' event is emitted, send the data to all connected clients
+  wss.clients.forEach((client) => {
+    if (client.readyState === client.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+});
 
 
 
-export { app, server };
+export { app, server, emitter };

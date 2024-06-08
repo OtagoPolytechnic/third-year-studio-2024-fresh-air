@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.route(`/webhook`).post(handleWebhook);
 
-export default router;
+export { router as webhookRouter};
