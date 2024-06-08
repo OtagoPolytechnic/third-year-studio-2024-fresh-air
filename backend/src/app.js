@@ -2,19 +2,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import {WebSocketServer} from 'ws';
+import { WebSocketServer } from 'ws';
 import { EventEmitter } from 'events';
-
 
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
-import {webhookRouter as webhook} from './routes/webhook/webhook.route.js';
+import { webhookRouter as webhook } from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
 
-
 const emitter = new EventEmitter();
+
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
 const basePath = `/${INDEX_PATHS.BASE_URL}/${INDEX_PATHS.CURRENT_VERSION}`;
@@ -48,7 +47,6 @@ app.get('/', (req, res) => {
   });
 });
 
-
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
@@ -72,7 +70,5 @@ emitter.on('webhook', (data) => {
     }
   });
 });
-
-
 
 export { app, server, emitter };

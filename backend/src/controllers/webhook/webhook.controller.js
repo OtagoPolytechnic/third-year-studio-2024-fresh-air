@@ -50,7 +50,7 @@ export const handleWebhook = async (req, res) => {
     });
 
     // Emit the data to the websocket
-    emitter.emit('webhook', 'Testing we hit this');
+    emitter.emit('webhook', 'New data received');
 
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,
