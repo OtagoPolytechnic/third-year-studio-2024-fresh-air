@@ -2,8 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
-import { WebSocketServer } from 'ws';
-import { EventEmitter } from 'events';
 
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
@@ -11,8 +9,7 @@ import { webhookRouter as webhook } from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
-
-const emitter = new EventEmitter();
+import { initializeWebSocket } from './websocket/websocket.js';
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -51,24 +48,6 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-const wss = new WebSocketServer({ server });
-
-wss.on('connection', (ws) => {
-  console.log('Client connected');
-
-  ws.on('close', () => {
-    console.log('Client disconnected');
-  });
-});
-
-emitter.on('webhook', (data) => {
-  console.log('Webhook event received, sending data to clients:', data);
-  // When a 'webhook' event is emitted, send the data to all connected clients
-  wss.clients.forEach((client) => {
-    if (client.readyState === client.OPEN) {
-      client.send(JSON.stringify(data));
-    }
-  });
-});
+const { wss, emitter } = initializeWebSocket(server);
 
 export { app, server, emitter };
