@@ -8,6 +8,7 @@ export const Homepage = () => {
 
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
+  const [temperatures, setTemperatures] = useState({});
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -29,6 +30,7 @@ export const Homepage = () => {
           co2Data[device.dev_eui] = co2Info.data.co2;
         }));
         setCo2Levels(co2Data);
+        setTemperatures(tempData);
       } catch (error) {
         console.error('Error fetching devices or CO2 levels:', error);
       }
@@ -43,10 +45,8 @@ export const Homepage = () => {
         {/* Create one grid container outside the loop */}
         {devices.map((device) => (
           <div key={device.dev_eui} className="flex justify-center">
-            {console.log(device.room_number)}
             <li>
               <NavLink to={`/D-Block/${device.room_number}`} className="link">
-                {device.room_number}
                 <Co2Sensor room_number={device.room_number} co2={co2Levels[device.dev_eui] || 400} size="max-content"/>
               </NavLink>
             </li>
