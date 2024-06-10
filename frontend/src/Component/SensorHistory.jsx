@@ -23,15 +23,15 @@ export const SensorHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${apiKey}/api/v1/rooms/00D9C912BF1FDC0C`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({dates}),
-        });
+        console.log("Start")
+        // const response = await fetch(`${apiKey}/api/v1/rooms/history/00D9C912BF1FDC0C`)
+        const response = await fetch(`http://localhost:3000/api/v1/rooms/history/00D9C912BF1FDC0C?beforeDate=2024-06-04&afterDate=2024-06-08`)
+
+        console.log(response);
         const data = await response.json();
         setSensorData(data);
       } catch (error) {
+        console.log(error);
         console.error('Error fetching devices or CO2 levels:', error);
       }
     };
