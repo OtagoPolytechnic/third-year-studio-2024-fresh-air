@@ -13,19 +13,21 @@ export const SensorHistory = () => {
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
 
+  const dates = {
+    beforeDate: "2024-06-3",
+    afterDate: "2024-06-5",
+  }
+
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${apiKey}/api/v1/rooms/history/00D9C912BF1FDC0C`, {
+        const response = await fetch(`${apiKey}/api/v1/rooms/00D9C912BF1FDC0C`, {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            beforeDate: "2024-06-3",
-            afterDate: "2024-06-5",
-          }),
+          body: JSON.stringify({dates}),
         });
         const data = await response.json();
         setSensorData(data);
