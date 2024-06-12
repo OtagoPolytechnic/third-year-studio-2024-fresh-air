@@ -8,50 +8,49 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { SensorFilter } from "./SensorFilter";
 
+// Main component for displaying sensor history
 export const SensorHistory = () => {
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
+  const [filter, setFilter] = useState({
+    device: "",
+    beforeDate: "",
+    afterDate: ""
+  });
 
-  const dates = {
-    beforeDate: "2024-06-3",
-    afterDate: "2024-06-5",
-  }
-
+  // Get the API key from environment variables
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
+  // Fetch sensor data based on selected filter
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        console.log("Start")
-        // const response = await fetch(`${apiKey}/api/v1/rooms/history/00D9C912BF1FDC0C`)
-        const response = await fetch(`http://localhost:3000/api/v1/rooms/history/00D9C912BF1FDC0C?beforeDate=2024-06-04&afterDate=2024-06-08`)
-
-        console.log(response);
+        const response = await fetch(`http://localhost:3000/api/v1/rooms/history/${filter.device}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
         const data = await response.json();
         setSensorData(data);
       } catch (error) {
-        console.log(error);
         console.error('Error fetching devices or CO2 levels:', error);
       }
     };
 
-    fetchHistory();
-  }, [apiKey]);
+    // Fetch data only if all filter values are provided
+    if (filter.device && filter.beforeDate && filter.afterDate) {
+      fetchHistory();
+    }
+  }, [filter, apiKey]);
 
+  // Sort sensor data whenever it changes
   useEffect(() => {
-    console.log("Sensor Data:", sensorData);
     if (sensorData && sensorData.data) {
-      // This function runs every time data changes
-      const sortedSensorData = sensorData.data.sort((a, b) => a.id - b.id); // Sorts the data based on id lowest to highest
+      const sortedSensorData = sensorData.data.sort((a, b) => a.id - b.id);
       setSortedData(sortedSensorData);
-      console.log("Sorted Data:", sortedSensorData);
     }
   }, [sensorData]);
 
+  // Custom tooltip component for the chart
   const CustomTooltip = ({ active, payload }) => {
-    // active is a rechart component
-    // If actively being hovered on and payload data available
     if (active && payload && payload.length) {
       const { co2, temperature, createdAt } = payload[0].payload;
       return (
@@ -66,9 +65,9 @@ export const SensorHistory = () => {
   };
 
   return (
-    <>
-      <div className="recharts-wrapper p-20 w-1000" data-testid="recharts-wrapper">
-        <h1>Sensor History</h1>
+    <div className="p-8">
+      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto">
+        <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
         <LineChart width={1000} height={500} data={sortedData}>
           <CartesianGrid strokeDasharray="10 5 3 5" />
           <XAxis dataKey="createdAt" tick={null} />{" "}
@@ -78,7 +77,9 @@ export const SensorHistory = () => {
           <Legend />
           <Line dataKey="co2" fill="#8884d8" />
         </LineChart>
+        {/* Render the SensorFilter component and pass the filter state setter */}
+        <SensorFilter onFilterChange={setFilter} /> 
       </div>
-    </>
+    </div>
   );
 };
