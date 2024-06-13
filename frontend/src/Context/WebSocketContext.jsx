@@ -9,7 +9,7 @@ export const WebSocketProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const ws = new WebSocket('wss://co2-api-duckdns.org');
+        const ws = new WebSocket('wss://https://third-year-studio-2024-fresh-air-backend.onrender.com');
 
         ws.onopen = () => {
             console.log('Connected to the websocket');
