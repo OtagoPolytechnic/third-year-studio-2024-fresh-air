@@ -47,22 +47,24 @@ export const UpdateSensor = () =>  {
 }
 
   return (
-    <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:w-[500px] sm:max-h-[150px] bg-[#F2F2F2]'>
-      <h1 className={'ml-2'}>Rename Sensor</h1>
-      {items.length > 0 && (
-        <UpdateForm
-        styles={'flex flex-col'}
-        onSubmit={handleSubmit}
-        onChange={handleChange}
-        onInput={handleInput}
-        dropDownValue={selectedItem}
-        dropDownChildren={items}
-        inputValue={inputValue}
-        formError={error}
-        apiError={apiError}
-        updateSuccessful={updateSuccess}
-        />
-  )}
-    </section>
+    <div className="pt-20 lg:pt-0 flex justify-center items-center">
+      <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:w-[500px] sm:max-h-[150px] bg-[#F2F2F2]'>
+        <h1 className={'ml-2'}>Rename Sensor</h1>
+        {items.length > 0 && (
+          <UpdateForm
+          styles={'flex flex-col'}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+          onInput={handleInput}
+          dropDownValue={selectedItem}
+          dropDownChildren={items}
+          inputValue={inputValue}
+          formError={error}
+          apiError={apiError}
+          updateSuccessful={updateSuccess}
+          />
+        )}
+      </section>
+    </div>
   );
 }

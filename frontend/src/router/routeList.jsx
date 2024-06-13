@@ -10,11 +10,6 @@ export const routes = [
         element: <Homepage/>
     },
     {
-        path: "/D-Block/:roomNumber",
-        label: "Room",
-        element: <RoomPage/>
-    },
-    {
         path: "/SensorHistory",
         label: "History",
         element: <SensorHistory/>
@@ -23,5 +18,9 @@ export const routes = [
         path: "/UpdateSensor",
         label: "Update",
         element: <UpdateSensor/>
+    },
+    {
+        path: "/D-Block/:roomNumber",
+        element: <RoomPage/>
     }
 ]
