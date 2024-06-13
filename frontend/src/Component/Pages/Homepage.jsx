@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
+import { useWebSocket } from "../../Context/WebSocketContext";
 
 export const Homepage = () => {
-  
+  const { socket } = useWebSocket();
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
   const [devices, setDevices] = useState([]);
@@ -36,7 +37,7 @@ export const Homepage = () => {
       }
     };
     fetchDevices();
-  }, [apiKey]);
+  }, [socket]);
   
   return (
     <div className="pt-24 md:pt-24 lg:pl-16 lg:pt-0 text-center">

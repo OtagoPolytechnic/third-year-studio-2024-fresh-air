@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
+import { useWebSocket } from "../../Context/WebSocketContext";
 
 export const RoomPage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
-
+  const { socket } = useWebSocket();
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
   const { roomNumber } = useParams();
-  console.log(roomNumber)
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -35,7 +35,7 @@ export const RoomPage = () => {
       }
     };
     fetchDevices();
-  }, [apiKey]);
+  }, [socket]);
 
   const roomData = devices
     .filter(device => device.room_number === roomNumber)
