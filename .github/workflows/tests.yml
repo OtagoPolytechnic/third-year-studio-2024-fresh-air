@@ -33,7 +33,7 @@ jobs:
         run: |
           npm install
           npm run generate
-          npx prisma migrate deploy
+          npx prisma migrate dev
           npm run dev &
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
