@@ -42,7 +42,7 @@ export const SensorFilter = ({ onFilterChange }) => {
         <select
           value={selectedDevice}
           onChange={(e) => setSelectedDevice(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border border-gray-300 rounded"
           required
         >
           <option value="" disabled>{loading ? "Loading devices..." : "Select a device"}</option>
@@ -59,7 +59,7 @@ export const SensorFilter = ({ onFilterChange }) => {
           type="date"
           value={beforeDate}
           onChange={(e) => setBeforeDate(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border border-gray-300 rounded"
           required
         />
       </div>
@@ -69,11 +69,11 @@ export const SensorFilter = ({ onFilterChange }) => {
           type="date"
           value={afterDate}
           onChange={(e) => setAfterDate(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border border-gray-300 rounded"
           required
         />
       </div>
-      <button type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <button type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
         Apply Filter
       </button>
     </form>
