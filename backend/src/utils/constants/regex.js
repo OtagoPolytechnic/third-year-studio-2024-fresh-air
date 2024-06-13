@@ -1,1 +1,1 @@
-export const blockNamePattern = /^[A-Z]-block$/;
+export const blockNamePattern = /^[A-Z]-Block$/;

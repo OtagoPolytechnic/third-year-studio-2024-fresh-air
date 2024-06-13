@@ -1,5 +1,6 @@
 import { STATUS_CODES } from '../../utils/statusCodes/statusCode.js';
 import { PrismaClient } from '@prisma/client';
+import { emitter } from '../../app.js';
 
 const prisma = new PrismaClient();
 // webhook will get the payload from the co2 sensors and return the data along with the statuscode and message
@@ -47,6 +48,9 @@ export const handleWebhook = async (req, res) => {
         temperature: value2,
       },
     });
+
+    // Emit the data to the websocket
+    emitter.emit('webhook', { message: 'New data received', timestamp: Date.now() });
 
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,

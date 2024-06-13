@@ -2,22 +2,22 @@
   "data": [
     {
       "id": 1,
-      "blockName": "D-block",
+      "blockName": "D-Block",
       "deviceId": "eui-1000024b080301f5"
     },
     {
       "id": 2,
-      "blockName": "C-block",
+      "blockName": "C-Block",
       "deviceId": "eui-2000024b080301f5"
     },
     {
       "id": 3,
-      "blockName": "B-block",
+      "blockName": "B-Block",
       "deviceId": "eui-4000024b080301f5"
     },
     {
       "id": 4,
-      "blockName": "A-block",
+      "blockName": "A-Block",
       "deviceId": "eui-5000024b080301f5"
     }
   ]

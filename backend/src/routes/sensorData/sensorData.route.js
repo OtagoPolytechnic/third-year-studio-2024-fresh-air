@@ -1,6 +1,10 @@
 import express from 'express';
 
-import { getRecentSensorData, getHistorySensorData, getAllSensorDeviceData } from '../../controllers/sensorData/sensorData.controller.js';
+import {
+  getRecentSensorData,
+  getHistorySensorData,
+  getAllSensorDeviceData,
+} from '../../controllers/sensorData/sensorData.controller.js';
 
 const router = express.Router();
 
