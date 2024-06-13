@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer
 } from "recharts";
 import { SensorFilter } from "./SensorFilter";
 
@@ -68,15 +69,17 @@ export const SensorHistory = () => {
     <div className="p-8">
       <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto">
         <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
-        <LineChart width={1000} height={500} data={sortedData}>
-          <CartesianGrid strokeDasharray="10 5 3 5" />
-          <XAxis dataKey="createdAt" tick={null} />{" "}
-          {/* Tick removes the date below the grid */}
-          <YAxis type="number" domain={[0, 3000]} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Line dataKey="co2" fill="#8884d8" />
-        </LineChart>
+        <ResponsiveContainer width="95%" height={400}>
+          <LineChart width={1000} height={500} data={sortedData}>
+            <CartesianGrid strokeDasharray="10 5 3 5" />
+            <XAxis dataKey="createdAt" tick={null} />{" "}
+            {/* Tick removes the date below the grid */}
+            <YAxis type="number" domain={[0, 3000]} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            <Line dataKey="co2" fill="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>        
         {/* Render the SensorFilter component and pass the filter state setter */}
         <SensorFilter onFilterChange={setFilter} /> 
       </div>
