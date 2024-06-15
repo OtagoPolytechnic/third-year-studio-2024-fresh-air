@@ -8,8 +8,8 @@ It is being written in React, and will use Docker to run virtual containers.
 ## Deploys
 - Main: http://co2-app.duckdns.org
 
-## Update Script for existing VM
-For updating the staging deploy, cd into the repo and run this command.
+## Update Script for existing configured VM
+For updating the deploy, cd into the repo and run this command.
 **Note, you must be in the root of the repo for the command to work.
 ```
 bash update_co2.sh
@@ -17,6 +17,25 @@ bash update_co2.sh
 
 The script will stop docker, remove the existing images, stash any existing changes and checkout to the staging branch and pull any changes, before it rebuilds and deploys the project.
 The script will say at the end if it's successful or not.
+
+### Making Changes to the DB
+Once all docker containers are up and running, run this command.
+```
+docker exec -it co2-backend sh
+npx prisma generate
+npx prisma migrate dev
+exit
+docker ps
+sudo docker cp <backend CONTAINER ID>:/backend/prisma/migrations /home/IoTData/third-year-studio-2024-fresh-air/backend/prisma/
+```
+
+This will go into the docker container for the backend, create the new migration and apply it.
+exit leaves the docker container.
+Run docker ps to get the backend CONTAINER ID, copy it and use it for the last command.
+This last command that you add the CONTAINER ID to, copies the migration folder into your repo.
+Add this to your git repo and commit it.
+Only do this when you have made changes to the DB schema, You don't need to do this every time you redeploy.
+You will have to do this if you delete your DB.
 
 ## Setting up VM Ubuntu Server for Deploy
 ### Install Docker
