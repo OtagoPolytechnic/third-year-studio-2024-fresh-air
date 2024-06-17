@@ -5,10 +5,11 @@ import helmet from 'helmet';
 
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
 import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
-import webhook from './routes/webhook/webhook.route.js';
+import { webhookRouter as webhook } from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
+import { initializeWebSocket } from './websocket/websocket.js';
 
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
@@ -47,4 +48,6 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-export { app, server };
+const { wss, emitter } = initializeWebSocket(server);
+
+export { app, server, emitter };

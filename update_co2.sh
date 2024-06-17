@@ -62,4 +62,4 @@ sudo docker rmi co2-nginx:latest frontend-co2-app:latest backend-co2-app:latest 
 
 # Makes new Docker containers.
 echo Creating and Running container.
-sudo docker compose up -d && echo Deploy Successful || echo Deploy Failed
+sudo docker compose build && sudo docker compose up -d && echo Deploy Successful || echo Deploy Failed

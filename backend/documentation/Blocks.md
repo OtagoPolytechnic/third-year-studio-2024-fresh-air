@@ -31,9 +31,9 @@ model Block {
 
 ## Device Endpoints <a name="endpoints"></a>
 `GET: 'api/v1/blocks'`
-`GET: 'api/v1/blocks/{[Letter]-block}'`
-`PUT: 'api/v1/blocks/{[Letter]-block}'`
-`GET: 'api/v1/blocks/latest/{[Letter]-block}'`
+`GET: 'api/v1/blocks/{[Letter]-Block}'`
+`PUT: 'api/v1/blocks/{[Letter]-Block}'`
+`GET: 'api/v1/blocks/latest/{[Letter]-Block}'`
 `POST: 'api/v1/blocks/createBlock'`
 
 ## Get all blocks 'api/v1/blocks' <a name="get-blocks"></a>
@@ -64,7 +64,7 @@ model Block {
     "statusCode": 200,
     "data": {
         "id": 1,
-        "blockName": "D-block",
+        "blockName": "D-Block",
         "createdAt": "2024-05-23T02:46:27.957Z",
         "updatedAt": "2024-05-23T02:46:27.957Z",
         "device": [
@@ -126,7 +126,7 @@ Blocks must also follow an Uppercase letter -block format
 ```json
 {
     "statusCode": 400,
-    "message": "Block name must be in the format [Uppercase Letter]-block"
+    "message": "Block name must be in the format [Uppercase Letter]-Block"
 }
 ```
 
@@ -137,7 +137,7 @@ Successfully updating a block will return the following
     "message": "Block name updated successfully",
     "data": {
         "id": 1,
-        "blockName": "X-block",
+        "blockName": "X-Block",
         "createdAt": "2024-05-23T02:46:27.957Z",
         "updatedAt": "2024-05-23T03:13:56.932Z"
     }
@@ -151,7 +151,7 @@ Successfully updating a block will return the following
     "statusCode": 200,
     "data": {
         "id": 1,
-        "blockName": "D-block",
+        "blockName": "D-Block",
         "createdAt": "2024-05-29T11:07:29.419Z",
         "updatedAt": "2024-05-29T11:07:29.419Z",
         "device": [
@@ -214,7 +214,7 @@ Controller will then check if that block name is already taken
 ```json
 {
     "statusCode": 409,
-    "message": "X-block already exists"
+    "message": "X-Block already exists"
 }
 ```
 
@@ -222,10 +222,10 @@ Create will return the following, for a successful block create.
 ```json
 {
     "statusCode": 201,
-    "message": "U-block created successfully",
+    "message": "U-Block created successfully",
     "data": {
         "id": 5,
-        "blockName": "U-block",
+        "blockName": "U-Block",
         "createdAt": "2024-05-23T03:18:32.214Z",
         "updatedAt": "2024-05-23T03:18:32.214Z"
     }
