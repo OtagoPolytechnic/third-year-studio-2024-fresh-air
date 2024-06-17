@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
+import { useWebSocket } from "../../Context/WebSocketContext";
 
 export const RoomPage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
-
+  const { socket } = useWebSocket();
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
   const { roomNumber } = useParams();
-  console.log(roomNumber)
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -35,7 +35,7 @@ export const RoomPage = () => {
       }
     };
     fetchDevices();
-  }, [apiKey]);
+  }, [socket]);
 
   const roomData = devices
     .filter(device => device.room_number === roomNumber)
@@ -46,7 +46,7 @@ export const RoomPage = () => {
     }));
 
   return (
-    <div className="text-center">
+    <div className="pt-20 lg:pt-0 text-center">
       {/* Maps the data thar gives us the co2 level for the gauge */}
       {roomData.map(item => (
         <div key={item.dev_eui}>
@@ -54,7 +54,9 @@ export const RoomPage = () => {
           <h1 className="text-6xl">
             CO<sub>2</sub> Level is {item.co2}
           </h1>
-          <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
+          <div className="flex justify-center items-center">
+            <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
+          </div>
         </div>
       ))}
     </div>

@@ -88,16 +88,14 @@ const getHistorySensorData = async (req, res) => {
     // Gets dates that user wants to query
     const beforeDateString = req.query.beforeDate;
     const afterDateString = req.query.afterDate;
-    
 
     // Convert date strings to Date objects
     const beforeDate = new Date(beforeDateString);
     const afterDate = new Date(afterDateString);
 
     // Converts after Date to the next day
-    afterDate.getDate()+1;
+    afterDate.getDate() + 1;
     afterDate.setDate(afterDate.getDate() + 1);
-
 
     const historySensorData = await prisma.sensorData.findMany({
       where: {
@@ -132,6 +130,5 @@ const getHistorySensorData = async (req, res) => {
     });
   }
 };
-
 
 export { getRecentSensorData, getAllSensorDeviceData, getHistorySensorData };

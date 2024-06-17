@@ -66,6 +66,7 @@ export const SensorHistory = () => {
   };
 
   return (
+
     <div className="p-8">
       <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto">
         <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
