@@ -1,4 +1,12 @@
 {
-    "presets": ["@babel/preset-env", "@babel/preset-react"]
-}
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs",
+      ["babel-plugin-transform-vite-meta-env", {
+        "env": {
+          "VITE_BACKEND_API_KEY": "http://mocked-api-key"
+        }
+      }]
+    ]
+  }
   
