@@ -40,8 +40,9 @@ export const Homepage = () => {
   }, [socket]);
   
   return (
-    <div className="pt-24 md:pt-24 lg:pl-16 lg:pt-0 text-center">
-      <h1 className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+    <div className="text-center">
+      <h1 data-cy="h1Welcome" className="text-6xl">Welcome to D-Block CO<sub>2</sub> Monitor</h1>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Create one grid container outside the loop */}
         {devices.map((device) => (
