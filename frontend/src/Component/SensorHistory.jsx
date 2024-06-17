@@ -28,7 +28,7 @@ export const SensorHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/rooms/history/${filter.device}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
+        const response = await fetch(`${apiKey}/api/v1/rooms/history/${filter.device}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
         const data = await response.json();
         setSensorData(data);
       } catch (error) {
