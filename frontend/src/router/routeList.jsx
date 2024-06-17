@@ -14,11 +14,11 @@ export const routes = [
         label: "History",
         element: <SensorHistory/>
     },
-    {
-        path: "/UpdateSensor",
-        label: "Update",
-        element: <UpdateSensor/>
-    },
+    // {
+    //     path: "/UpdateSensor",
+    //     label: "Update",
+    //     element: <UpdateSensor/>
+    // },
     {
         path: "/D-Block/:roomNumber",
         element: <RoomPage/>
