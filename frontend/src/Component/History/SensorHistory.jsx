@@ -10,13 +10,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { SensorFilter } from "./SensorFilter";
+import { QuickFilter } from "./QuickFilter";
 
 // Main component for displaying sensor history
 export const SensorHistory = ({ dev_eui }) => {
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [filter, setFilter] = useState({
-    device: "",
     beforeDate: "",
     afterDate: ""
   });
@@ -82,6 +82,7 @@ export const SensorHistory = ({ dev_eui }) => {
           </LineChart>
         </ResponsiveContainer>        
         {/* Render the SensorFilter component and pass the filter state setter */}
+        <QuickFilter onFilterChange={setFilter} />
         <SensorFilter onFilterChange={setFilter} /> 
       </div>
     </div>

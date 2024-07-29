@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
 import { useWebSocket } from "../../Context/WebSocketContext";
-import { SensorHistory } from "../SensorHistory";
+import { SensorHistory } from "../History/SensorHistory";
 
 export const RoomPage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
