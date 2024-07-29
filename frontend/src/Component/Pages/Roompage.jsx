@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
 import { useWebSocket } from "../../Context/WebSocketContext";
+import { SensorHistory } from "../SensorHistory";
 
 export const RoomPage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
@@ -57,6 +58,7 @@ export const RoomPage = () => {
           <div className="flex justify-center items-center">
             <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
           </div>
+          <SensorHistory dev_eui={item.dev_eui} />
         </div>
       ))}
     </div>

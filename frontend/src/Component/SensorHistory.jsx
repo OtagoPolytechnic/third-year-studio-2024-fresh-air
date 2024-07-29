@@ -12,7 +12,7 @@ import {
 import { SensorFilter } from "./SensorFilter";
 
 // Main component for displaying sensor history
-export const SensorHistory = () => {
+export const SensorHistory = ({ dev_eui }) => {
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [filter, setFilter] = useState({
@@ -28,7 +28,7 @@ export const SensorHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${apiKey}/api/v1/rooms/history/${filter.device}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
+        const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
         const data = await response.json();
         setSensorData(data);
       } catch (error) {
@@ -37,7 +37,7 @@ export const SensorHistory = () => {
     };
 
     // Fetch data only if all filter values are provided
-    if (filter.device && filter.beforeDate && filter.afterDate) {
+    if (filter.beforeDate && filter.afterDate) {
       fetchHistory();
     }
   }, [filter, apiKey]);
