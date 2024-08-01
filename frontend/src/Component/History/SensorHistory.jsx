@@ -14,6 +14,7 @@ import { QuickFilter } from "./QuickFilter";
 
 // Main component for displaying sensor history
 export const SensorHistory = ({ dev_eui }) => {
+  const [ error, setError ] = useState("");
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [filter, setFilter] = useState({
@@ -28,9 +29,21 @@ export const SensorHistory = ({ dev_eui }) => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
-        const data = await response.json();
-        setSensorData(data);
+          const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
+          if (response.ok) {
+            setError("");
+          const data = await response.json();
+          setSensorData(data);
+        } else {
+          if (response.status === 404){
+            setError(`There is no Co2 data between the dates: ${filter.beforeDate} and ${filter.afterDate}.`);
+            //  alert(`There is no Co2 data between the dates: ${filter.beforeDate} and ${filter.afterDate}.`);
+          }
+          if (response.status === 500){
+            setError("Our servers are down.");
+            // alert('Our servers are down.');
+          } 
+        }
       } catch (error) {
         console.error('Error fetching devices or CO2 levels:', error);
       }
@@ -65,6 +78,16 @@ export const SensorHistory = ({ dev_eui }) => {
     return null;
   };
 
+  const ErrorMessage = () => {
+    if (error) {
+      return(        
+        <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+          <p class="text-lg">{error}</p>
+        </div>  
+      )
+    }
+  }
+
   return (
 
     <div className="p-8">
@@ -80,7 +103,8 @@ export const SensorHistory = ({ dev_eui }) => {
             <Legend />
             <Line dataKey="co2" fill="#8884d8" />
           </LineChart>
-        </ResponsiveContainer>        
+        </ResponsiveContainer>  
+        <ErrorMessage />
         {/* Render the SensorFilter component and pass the filter state setter */}
         <QuickFilter onFilterChange={setFilter} />
         <SensorFilter onFilterChange={setFilter} /> 
