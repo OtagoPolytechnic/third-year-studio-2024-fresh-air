@@ -32,8 +32,6 @@ export const QuickFilter = ({ onFilterChange }) => {
     aMonthAgo.setDate(date.getDate() - 30);
     const beforeDate = aMonthAgo.toISOString().split("T")[0];
     const afterDate = new Date().toISOString().split("T")[0];
-    console.log(beforeDate);
-    console.log(afterDate)
     onFilterChange({ beforeDate, afterDate });
   };
 
