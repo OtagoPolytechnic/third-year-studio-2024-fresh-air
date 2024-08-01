@@ -28,16 +28,20 @@ export const QuickFilter = ({ onFilterChange }) => {
 
   const setThisMonth = () => {
     const date = new Date();
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().split("T")[0];
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().split("T")[0];
-    onFilterChange({ beforeDate: firstDay, afterDate: lastDay });
+    const aMonthAgo = new Date(date);
+    aMonthAgo.setDate(date.getDate() - 30);
+    const beforeDate = aMonthAgo.toISOString().split("T")[0];
+    const afterDate = new Date().toISOString().split("T")[0];
+    console.log(beforeDate);
+    console.log(afterDate)
+    onFilterChange({ beforeDate, afterDate });
   };
 
   return (
     <div>
       <QuickFilterButton label="Today" onClick={setToday} />
-      <QuickFilterButton label="This week" onClick={setThisWeek} />
-      <QuickFilterButton label="This month" onClick={setThisMonth} />
+      <QuickFilterButton label="Last week" onClick={setThisWeek} />
+      <QuickFilterButton label="Last month" onClick={setThisMonth} />
     </div>
   );
 };
