@@ -37,12 +37,12 @@ export const SensorHistory = ({ dev_eui }) => {
         } else {
           if (response.status === 404){
             setError(`There is no Co2 data between the dates: ${filter.beforeDate} and ${filter.afterDate}.`);
-            //  alert(`There is no Co2 data between the dates: ${filter.beforeDate} and ${filter.afterDate}.`);
           }
-          if (response.status === 500){
+          else if (response.status === 500){
             setError("Our servers are down.");
-            // alert('Our servers are down.');
-          } 
+          } else {
+            setError("An unexpected error occurred.");
+          }
         }
       } catch (error) {
         console.error('Error fetching devices or CO2 levels:', error);
@@ -84,8 +84,9 @@ export const SensorHistory = ({ dev_eui }) => {
         <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
           <p class="text-lg">{error}</p>
         </div>  
-      )
+      );
     }
+    return null;
   }
 
   return (
