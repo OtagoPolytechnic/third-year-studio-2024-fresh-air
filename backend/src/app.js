@@ -4,7 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { INDEX_PATHS, PORTS } from './utils/constants/globalConstants.js';
-import { STATUS_CODES } from './utils/statusCodes/statusCode.js';
 import { webhookRouter as webhook } from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
