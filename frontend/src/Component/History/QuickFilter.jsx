@@ -14,25 +14,25 @@ const QuickFilterButton = ({ label, onClick }) => (
 export const QuickFilter = ({ onFilterChange }) => {
   const setToday = () => {
     const today = new Date().toISOString().split("T")[0];
-    onFilterChange({ beforeDate: today, afterDate: today });    
+    onFilterChange({ startDate: today, endDate: today });    
   };
 
   const setThisWeek = () => {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
     sevenDaysAgo.setDate(today.getDate() - 6);
-    const beforeDate = sevenDaysAgo.toISOString().split("T")[0];
-    const afterDate = new Date().toISOString().split("T")[0];
-    onFilterChange({ beforeDate, afterDate });
+    const startDate = sevenDaysAgo.toISOString().split("T")[0];
+    const endDate = new Date().toISOString().split("T")[0];
+    onFilterChange({ startDate, endDate });
   };
 
   const setThisMonth = () => {
     const date = new Date();
     const aMonthAgo = new Date(date);
     aMonthAgo.setDate(date.getDate() - 30);
-    const beforeDate = aMonthAgo.toISOString().split("T")[0];
-    const afterDate = new Date().toISOString().split("T")[0];
-    onFilterChange({ beforeDate, afterDate });
+    const startDate = aMonthAgo.toISOString().split("T")[0];
+    const endDate = new Date().toISOString().split("T")[0];
+    onFilterChange({ startDate, endDate });
   };
 
   return (
