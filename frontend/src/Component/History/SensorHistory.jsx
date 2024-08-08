@@ -10,15 +10,16 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { SensorFilter } from "./SensorFilter";
+import { QuickFilter } from "./QuickFilter";
 
 // Main component for displaying sensor history
-export const SensorHistory = () => {
+export const SensorHistory = ({ dev_eui }) => {
+  const [ error, setError ] = useState("");
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [filter, setFilter] = useState({
-    device: "",
-    beforeDate: "",
-    afterDate: ""
+    startDate: "",
+    endDate: ""
   });
 
   // Get the API key from environment variables
@@ -28,16 +29,29 @@ export const SensorHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${apiKey}/api/v1/rooms/history/${filter.device}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
-        const data = await response.json();
-        setSensorData(data);
+          const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.startDate}&afterDate=${filter.endDate}`);
+          if (response.ok) {
+            console.log("This is")
+            setError("");
+          const data = await response.json();
+          setSensorData(data);
+        } else {
+          if (response.status === 404){
+            setError(`There is no Co2 data between the dates: ${filter.startDate} and ${filter.endDate}.`);
+          }
+          else if (response.status === 500){
+            setError("Our servers are down.");
+          } else {
+            setError("An unexpected error occurred.");
+          }
+        }
       } catch (error) {
         console.error('Error fetching devices or CO2 levels:', error);
       }
     };
 
     // Fetch data only if all filter values are provided
-    if (filter.device && filter.beforeDate && filter.afterDate) {
+    if (filter.startDate && filter.endDate) {
       fetchHistory();
     }
   }, [filter, apiKey]);
@@ -65,6 +79,17 @@ export const SensorHistory = () => {
     return null;
   };
 
+  const ErrorMessage = () => {
+    if (error) {
+      return(        
+        <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+          <p class="text-lg">{error}</p>
+        </div>  
+      );
+    }
+    return null;
+  }
+
   return (
 
     <div className="p-8">
@@ -80,8 +105,10 @@ export const SensorHistory = () => {
             <Legend />
             <Line dataKey="co2" fill="#8884d8" />
           </LineChart>
-        </ResponsiveContainer>        
+        </ResponsiveContainer>  
+        <ErrorMessage />
         {/* Render the SensorFilter component and pass the filter state setter */}
+        <QuickFilter onFilterChange={setFilter} />
         <SensorFilter onFilterChange={setFilter} /> 
       </div>
     </div>

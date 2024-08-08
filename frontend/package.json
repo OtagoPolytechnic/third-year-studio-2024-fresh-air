@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "cz": "git-cz",
+    "commit": "git-cz",
     "prettier:check": "npx prettier --check .",
     "prettier:writestaged": "npx pretty-quick --staged",
     "prettier:write": "npx prettier . --write"
@@ -21,7 +21,7 @@
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.1",
     "react-router-dom": "^6.23.1",
-    "recharts": "^2.12.3",
+    "recharts": "^2.13.0-alpha.4",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {

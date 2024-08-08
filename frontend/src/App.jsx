@@ -4,7 +4,7 @@ import React from 'react';
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import { WebSocketProvider } from "./Context/WebSocketContext";
-// This is the main app funtion
+// This is the main app function
 export const App = () => {
   return (
     <>
