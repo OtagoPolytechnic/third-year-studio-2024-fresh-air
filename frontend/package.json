@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "cz": "git-cz",
+    "commit": "git-cz",
     "prettier:check": "npx prettier --check .",
     "prettier:writestaged": "npx pretty-quick --staged",
     "prettier:write": "npx prettier . --write"

@@ -10,16 +10,6 @@ export const routes = [
         element: <Homepage/>
     },
     {
-        path: "/SensorHistory",
-        label: "History",
-        element: <SensorHistory/>
-    },
-    {
-        path: "/UpdateSensor",
-        label: "Update",
-        element: <UpdateSensor/>
-    },
-    {
         path: "/D-Block/:roomNumber",
         element: <RoomPage/>
     }
