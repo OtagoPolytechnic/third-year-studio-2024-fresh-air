@@ -1,5 +1,5 @@
 import { Homepage } from "../Component/Pages/Homepage";
-import { SensorHistory } from "../Component/SensorHistory";
+import { SensorHistory } from "../Component/History/SensorHistory";
 import { UpdateSensor } from "../Component/UpdateSensor/UpdateSensor";
 import { RoomPage } from "../Component/Pages/Roompage";
 
