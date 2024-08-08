@@ -18,8 +18,8 @@ export const SensorHistory = ({ dev_eui }) => {
   const [sensorData, setSensorData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
   const [filter, setFilter] = useState({
-    beforeDate: "",
-    afterDate: ""
+    startDate: "",
+    endDate: ""
   });
 
   // Get the API key from environment variables
@@ -29,14 +29,15 @@ export const SensorHistory = ({ dev_eui }) => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-          const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.beforeDate}&afterDate=${filter.afterDate}`);
+          const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.startDate}&afterDate=${filter.endDate}`);
           if (response.ok) {
+            console.log("This is")
             setError("");
           const data = await response.json();
           setSensorData(data);
         } else {
           if (response.status === 404){
-            setError(`There is no Co2 data between the dates: ${filter.beforeDate} and ${filter.afterDate}.`);
+            setError(`There is no Co2 data between the dates: ${filter.startDate} and ${filter.endDate}.`);
           }
           else if (response.status === 500){
             setError("Our servers are down.");
@@ -50,7 +51,7 @@ export const SensorHistory = ({ dev_eui }) => {
     };
 
     // Fetch data only if all filter values are provided
-    if (filter.beforeDate && filter.afterDate) {
+    if (filter.startDate && filter.endDate) {
       fetchHistory();
     }
   }, [filter, apiKey]);

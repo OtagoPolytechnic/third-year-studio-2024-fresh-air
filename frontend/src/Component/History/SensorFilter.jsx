@@ -7,7 +7,7 @@ export const SensorFilter = ({ onFilterChange }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onFilterChange({ StartDate, endDate });
+    onFilterChange({ startDate, endDate });
   };
 
   return (
