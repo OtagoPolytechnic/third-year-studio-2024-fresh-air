@@ -13,8 +13,6 @@ services:
       - POSTGRES_DB=co2-db
     ports:
       - "5432:5432"
-    volumes:
-      - ./backend/pgdata:/var/lib/postgresql/data
 
   frontend:
     container_name: co2-frontend
@@ -25,8 +23,6 @@ services:
     restart: always
     environment:
       - VITE_BACKEND_API_KEY=http://co2-api.duckdns.org
-    volumes:
-      - ./frontend:/app
 
   backend:
     container_name: co2-backend
@@ -39,8 +35,6 @@ services:
     restart: always
     environment:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
-    volumes:
-      - ./backend:/api
 
   nginx:
     image: co2-nginx
