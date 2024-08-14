@@ -48,7 +48,7 @@ export const Homepage = () => {
         {devices.map((device) => (
           <div key={device.dev_eui} className="flex justify-center">
             <li>
-              <NavLink to={`/D-Block/${device.room_number}`} className="link">
+              <NavLink to={`/D-Block/${device.room_number}`} className="link" data-cy={device.room_number}>
                 <Co2Sensor room_number={device.room_number} co2={co2Levels[device.dev_eui] || 400} size="max-content"/>
               </NavLink>
             </li>
