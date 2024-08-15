@@ -105,7 +105,7 @@ export const SensorHistory = ({ dev_eui }) => {
             <Line dataKey="co2" fill="#8884d8" />
           </LineChart>
         </ResponsiveContainer>  
-        <ErrorMessage />
+        <ErrorMessage data-cy="errormessage" />
         {/* Render the SensorFilter component and pass the filter state setter */}
         <QuickFilter onFilterChange={setFilter} />
         <SensorFilter onFilterChange={setFilter} /> 
