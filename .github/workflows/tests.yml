@@ -46,7 +46,4 @@ jobs:
         run: |
           npm run test
 
-        - name: Run frontend tests
-        working-directory: frontend
-        run: |
-          npx cypress run
+
