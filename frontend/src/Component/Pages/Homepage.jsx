@@ -41,7 +41,7 @@ export const Homepage = () => {
   
   return (
     <div className="pt-20 text-center">
-      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl sm:text-2xl">Welcome to D-Block CO<sub>2</sub> Monitor</div>
+      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl">Welcome to D-Block CO<sub>2</sub> Monitor</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Create one grid container outside the loop */}
