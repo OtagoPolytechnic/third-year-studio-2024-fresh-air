@@ -3,18 +3,18 @@ volumes:
   postgres_stag:
 
 services:
-  co2-db:
-    container_name: co2-db
-    image: postgres:16.2
-    restart: always
-    environment:
-      - POSTGRES_USER=co2-user
-      - POSTGRES_PASSWORD=Decom123
-      - POSTGRES_DB=co2-db
-    ports:
-      - "5432:5432"
-    volumes:
-    - ./backend/pgdata:/var/lib/postgresql/data
+  # co2-db:
+  #   container_name: co2-db
+  #   image: postgres:16.2
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=co2-user
+  #     - POSTGRES_PASSWORD=Decom123
+  #     - POSTGRES_DB=co2-db
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #   - ./backend/pgdata:/var/lib/postgresql/data
 
   frontend:
     container_name: co2-frontend
@@ -32,8 +32,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    depends_on:
-      - co2-db
+    # depends_on:
+    #   - co2-db
     restart: always
     environment:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
@@ -50,4 +50,4 @@ services:
     depends_on:
       - frontend
       - backend
-      - co2-db
+      # - co2-db
