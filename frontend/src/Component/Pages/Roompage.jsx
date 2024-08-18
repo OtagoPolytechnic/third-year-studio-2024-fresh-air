@@ -14,6 +14,7 @@ export const RoomPage = () => {
   useEffect(() => {
     const fetchDevices = async () => {
       try {
+        console.log("frontend socket",socket);
         const response = await fetch(`${apiKey}/api/v1/devices`);
         const data = await response.json();
         // Getting the data from the api fetch for room number and dev_eui
