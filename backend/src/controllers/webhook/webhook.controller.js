@@ -51,6 +51,7 @@ export const handleWebhook = async (req, res) => {
 
     // Emit the data to the websocket
     emitter.emit('webhook', { message: 'New data received', timestamp: Date.now() });
+    console.log('Data emitted to websocket', sensorData);
 
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,

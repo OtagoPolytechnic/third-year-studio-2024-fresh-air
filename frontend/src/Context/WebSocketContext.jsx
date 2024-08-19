@@ -3,13 +3,15 @@ import { useState, createContext, useContext, useEffect } from 'react';
 export const WebSocketContext = createContext(null);
 
 export const useWebSocket = () => useContext(WebSocketContext);
+
 export const WebSocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
     const [isConnected, setIsConnected] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const ws = new WebSocket('wss://co2-api.duckdns.org');
+        // TODO Change after testing
+        const ws = new WebSocket('ws://localhost:3000');
 
         ws.onopen = () => {
             console.log('Connected to the websocket');
@@ -18,6 +20,7 @@ export const WebSocketProvider = ({ children }) => {
 
         ws.onmessage = (message) => {
             setSocket(message.data);
+            console.log('Message received:', message.data);
         };
 
         ws.onerror = (err) => {
