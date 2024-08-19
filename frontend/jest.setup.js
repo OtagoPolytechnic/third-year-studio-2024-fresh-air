@@ -1,6 +1,9 @@
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 global.fetch = fetch;
+
+const ResizeObserver = require('./src/__mocks__/resize-observer').ResizeObserver;
+global.ResizeObserver = ResizeObserver;
 
 Object.defineProperty(global, 'import', {
   value: {

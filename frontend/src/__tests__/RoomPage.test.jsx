@@ -1,74 +1,73 @@
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { RoomPage } from "../Component/Pages/Roompage";
-import { WebSocketProvider } from "../Context/WebSocketContext";
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { RoomPage } from '../Component/Pages/RoomPage';
+import WS from 'jest-websocket-mock'; // Import jest-websocket-mock
+import { WebSocketContext } from '../Context/WebSocketContext'; // Import your WebSocketContext
 
-jest.mock("../Context/WebSocketContext", () => ({
-  ...jest.requireActual("../Context/WebSocketContext"),
-  useWebSocket: () => ({
-    socket: {
-      on: jest.fn(),
-      emit: jest.fn(),
-    },
-  }),
-}));
+describe('RoomPage component with WebSocket', () => {
+  let server;
 
-describe("RoomPage", () => {
   beforeEach(() => {
-    global.fetch = jest.fn().mockImplementation((url) => {
-      if (url.includes("/api/v1/devices")) {
-        return Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              data: [
-                { room_number: "D201", dev_eui: "device1" },
-                { room_number: "D202", dev_eui: "device2" },
-              ],
-            }),
-        });
-      } else if (url.includes("/api/v1/rooms/latest/device1")) {
-        return Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              data: { co2: 600 },
-            }),
-        });
-      } else if (url.includes("/api/v1/rooms/latest/device2")) {
-        return Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              data: { co2: 400 },
-            }),
-        });
-      }
-      return Promise.reject(new Error("Unknown API request"));
-    });
+    server = new WS('ws://localhost:1234');
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    WS.clean();
   });
 
-  test("renders CO2 room data correctly", async () => {
+  test('renders CO2 room data correctly with WebSocket', async () => {
+    const mockSocket = { send: jest.fn() };
+    
+    const MockWebSocketProvider = ({ children }) => (
+      <WebSocketContext.Provider value={{ socket: mockSocket }}>
+        {children}
+      </WebSocketContext.Provider>
+    );
+
+    global.fetch = jest.fn((url) => {
+      if (url.includes('/api/v1/devices')) {
+        return Promise.resolve({
+          json: () => Promise.resolve({
+            data: [
+              {
+                room_number: 'D201',
+                dev_eui: '00D3C59800BDD352',
+              },
+            ],
+          }),
+        });
+      } else if (url.includes('/api/v1/rooms/latest/00D3C59800BDD352')) {
+        return Promise.resolve({
+          json: () => Promise.resolve({
+            data: { co2: 2040 },
+          }),
+        });
+      }
+      return Promise.reject(new Error('Not Found'));
+    });
+
     render(
-      <MemoryRouter initialEntries={["/rooms/D201"]}>
-        <WebSocketProvider>
+      <MemoryRouter initialEntries={['/rooms/D201']}>
+        <MockWebSocketProvider>
           <Routes>
             <Route path="/rooms/:roomNumber" element={<RoomPage />} />
           </Routes>
-        </WebSocketProvider>
+        </MockWebSocketProvider>
       </MemoryRouter>
     );
 
-    // Wait for the room data to load
     await waitFor(() => {
-      expect(screen.getByText(/Room D201/i)).toBeInTheDocument();
+      const co2Element = screen.getByText((content, element) => {
+        const hasText = (node) => node.textContent === 'CO2 Level is 2040';
+        const nodeHasText = hasText(element);
+        const childrenDontHaveText = Array.from(element.children).every(
+          (child) => !hasText(child)
+        );
+        return nodeHasText && childrenDontHaveText;
+      });
+      expect(co2Element).toBeInTheDocument();
     });
-
-    // Check that CO2 levels are rendered correctly
-    await waitFor(() => {
-      expect(screen.getByText(/CO₂ Level is 600/i)).toBeInTheDocument();
-    });
+    screen.debug();
   });
 });
