@@ -1,54 +1,74 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { RoomPage } from '../Component/Pages/RoomPage';
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { RoomPage } from "../Component/Pages/Roompage";
+import { WebSocketProvider } from "../Context/WebSocketContext";
 
-describe('RoomPage component', () => {
-  beforeAll(() => {
-    // Mocking the global fetch function to return mocked data
-    global.fetch = jest.fn((url) =>
-      Promise.resolve({
-        json: () => {
-          if (url.includes('/api/v1/devices')) {
-            return Promise.resolve({
+jest.mock("../Context/WebSocketContext", () => ({
+  ...jest.requireActual("../Context/WebSocketContext"),
+  useWebSocket: () => ({
+    socket: {
+      on: jest.fn(),
+      emit: jest.fn(),
+    },
+  }),
+}));
+
+describe("RoomPage", () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockImplementation((url) => {
+      if (url.includes("/api/v1/devices")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
               data: [
-                {
-                  room_number: 'D201',
-                  dev_eui: '00D3C59800BDD352',
-                },
+                { room_number: "D201", dev_eui: "device1" },
+                { room_number: "D202", dev_eui: "device2" },
               ],
-            });
-          } else if (url.includes('/api/v1/rooms/latest')) {
-            return Promise.resolve({
-              data: { co2: 2040 },
-            });
-          }
-        },
-      })
-    );
+            }),
+        });
+      } else if (url.includes("/api/v1/rooms/latest/device1")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              data: { co2: 600 },
+            }),
+        });
+      } else if (url.includes("/api/v1/rooms/latest/device2")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              data: { co2: 400 },
+            }),
+        });
+      }
+      return Promise.reject(new Error("Unknown API request"));
+    });
   });
 
-  test('renders CO2 room data correctly', async () => {
-    // Render the RoomPage component within a MemoryRouter that has route parameter
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("renders CO2 room data correctly", async () => {
     render(
-      <MemoryRouter initialEntries={['/rooms/D201']}>
-        <Routes>
-          <Route path="/rooms/:roomNumber" element={<RoomPage />} />
-        </Routes>
+      <MemoryRouter initialEntries={["/rooms/D201"]}>
+        <WebSocketProvider>
+          <Routes>
+            <Route path="/rooms/:roomNumber" element={<RoomPage />} />
+          </Routes>
+        </WebSocketProvider>
       </MemoryRouter>
     );
 
-    // Wait for the CO2 element to be rendered and check if it is in the document
+    // Wait for the room data to load
     await waitFor(() => {
-      const co2Element = screen.getByText((content, element) => {
-        const hasText = (node) => node.textContent === 'CO2 Level is 2040';
-        const nodeHasText = hasText(element);
-        const childrenDontHaveText = Array.from(element.children).every(
-          (child) => !hasText(child)
-        );
-        return nodeHasText && childrenDontHaveText;
-      });
-      expect(co2Element).toBeInTheDocument();
+      expect(screen.getByText(/Room D201/i)).toBeInTheDocument();
+    });
+
+    // Check that CO2 levels are rendered correctly
+    await waitFor(() => {
+      expect(screen.getByText(/CO₂ Level is 600/i)).toBeInTheDocument();
     });
   });
 });
