@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { RoomPage } from '../Component/Pages/RoomPage';
-import WS from 'jest-websocket-mock'; // Import jest-websocket-mock
-import { WebSocketContext } from '../Context/WebSocketContext'; // Import your WebSocketContext
+import WS from 'jest-websocket-mock'; 
+import { WebSocketContext } from '../Context/WebSocketContext'; 
 
 describe('RoomPage component with WebSocket', () => {
   let server;
@@ -68,6 +68,5 @@ describe('RoomPage component with WebSocket', () => {
       });
       expect(co2Element).toBeInTheDocument();
     });
-    screen.debug();
   });
 });
