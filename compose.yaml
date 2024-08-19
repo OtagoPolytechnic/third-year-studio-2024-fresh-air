@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - VITE_BACKEND_API_KEY=http://co2-api.op-bit-nz
+      - VITE_BACKEND_API_KEY=http://co2-api.duckdns.org
     ports:
       - "8080:80"
 
@@ -78,7 +78,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - VITE_BACKEND_API_KEY=http://co2-api.test.op-bit.nz
+      - VITE_BACKEND_API_KEY=http://co2-api.test.duckdns.org
     ports:
       - "8082:80"
 
@@ -109,4 +109,3 @@ services:
     depends_on:
       - frontend-testing
       - backend-testing
-      - co2-db-testing
