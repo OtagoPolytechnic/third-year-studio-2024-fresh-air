@@ -12,10 +12,12 @@ export const RoomPage = () => {
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
   const { roomNumber } = useParams();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDevices = async () => {
       try {
+        setError(null);
         const response = await fetch(`${apiKey}/api/v1/devices`);
         const data = await response.json();
         // Getting the data from the api fetch for room number and dev_eui
@@ -35,7 +37,8 @@ export const RoomPage = () => {
         setCo2Levels(co2Data);
         setIsLoading(false);  
       } catch (error) {
-        console.error('Error fetching devices or CO2 levels:', error);
+        setError(error.message);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -70,7 +73,7 @@ export const RoomPage = () => {
       ))}
        </>
         ) : (
-          <p>Failed to load data</p>
+          <p>{(error)}</p>
         )}
       </>
     </div>
