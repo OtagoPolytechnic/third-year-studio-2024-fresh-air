@@ -9,7 +9,7 @@
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",
     "generate": "npx prisma generate",
-    "migrate": "prisma migrate dev --name ",
+    "migrate": "prisma migrate",
     "test": "jest --detectOpenHandles",
     "prismaStudio": "prisma studio",
     "pretty:check": "prettier --check .",

@@ -3,17 +3,21 @@ import { useParams } from "react-router-dom";
 import { Co2Sensor } from "../Co2/Co2Sensor";
 import { useWebSocket } from "../../Context/WebSocketContext";
 import { SensorHistory } from "../History/SensorHistory";
+import { LoadingSpinner } from "../Spinner/LoadingSpinner";
 
 export const RoomPage = () => {
   const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
   const { socket } = useWebSocket();
+  const [isLoading, setIsLoading] = useState(true);
   const [devices, setDevices] = useState([]);
   const [co2Levels, setCo2Levels] = useState({});
   const { roomNumber } = useParams();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDevices = async () => {
       try {
+        setError(null);
         const response = await fetch(`${apiKey}/api/v1/devices`);
         const data = await response.json();
         // Getting the data from the api fetch for room number and dev_eui
@@ -31,8 +35,11 @@ export const RoomPage = () => {
           co2Data[device.dev_eui] = co2Info.data.co2;
         }));
         setCo2Levels(co2Data);
+        setIsLoading(false);  
       } catch (error) {
-        console.error('Error fetching devices or CO2 levels:', error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchDevices();
@@ -47,20 +54,28 @@ export const RoomPage = () => {
     }));
 
   return (
-    <div className="pt-20 lg:pt-0 text-center">
+    <div>
+      <>
+        {isLoading ? (
+          <div className="pt-40">
+            <LoadingSpinner  />
+          </div>
+        ) : roomData ? (
+          <>
       {/* Maps the data thar gives us the co2 level for the gauge */}
       {roomData.map(item => (
         <div key={item.dev_eui}>
-          <h1 className="text-6xl">{`Room ${item.room_number}`}</h1>
-          <h1 className="text-6xl">
-            CO<sub>2</sub> Level is {item.co2}
-          </h1>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center pt-20">
             <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
           </div>
           <SensorHistory dev_eui={item.dev_eui} />
         </div>
       ))}
+       </>
+        ) : (
+          <p>{(error)}</p>
+        )}
+      </>
     </div>
   );
 };
