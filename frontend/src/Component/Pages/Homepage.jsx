@@ -69,6 +69,7 @@ export const Homepage = () => {
                     <NavLink
                       to={`/D-Block/${device.room_number}`}
                       className="link"
+                      data-cy={device.room_number} 
                     >
                       <Co2Sensor
                         room_number={device.room_number}

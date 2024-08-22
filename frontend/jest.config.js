@@ -11,6 +11,7 @@ export default {
       tsconfig: 'tsconfig.json',
     },
   },
+  setupFiles: ['./jest.setup.js'],
   setupFilesAfterEnv: ['@testing-library/jest-dom'],
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
