@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - VITE_BACKEND_API_KEY=http://co2-api.duckdns.org
+      - VITE_BACKEND_API_KEY=http://co2-api.op-bit.nz
 
   backend:
     container_name: co2-backend
@@ -46,7 +46,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "80:80"
+      - "443:80"
     depends_on:
       - frontend
       - backend
