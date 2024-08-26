@@ -92,7 +92,7 @@ export const SensorHistory = ({ dev_eui }) => {
   return (
 
     <div className="p-8">
-      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto" data-cy="SensorHistory">
+      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto text-gray-900" data-cy="SensorHistory">
         <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
         <ResponsiveContainer width="95%" height={400}>
           <LineChart width={1000} height={500} data={sortedData}>

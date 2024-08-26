@@ -13,7 +13,7 @@ export const SensorFilter = ({ onFilterChange }) => {
   return (
     <form onSubmit={handleSubmit} className="p-4 mb-8 border border-gray-300 rounded-lg shadow-md" data-cy="SensorFilter">
       <div className="mb-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">Start Date:</label>
+        <label className="block mb-2 text-sm font-medium text-gray-900">Start Date:</label>
         <input
           data-cy="startLabel"
           type="date"
@@ -24,7 +24,7 @@ export const SensorFilter = ({ onFilterChange }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-2 text-sm font-medium text-gray-700">End Date:</label>
+        <label className="block mb-2 text-sm font-medium text-gray-900">End Date:</label>
         <input
           data-cy="endLabel"
           type="date"
