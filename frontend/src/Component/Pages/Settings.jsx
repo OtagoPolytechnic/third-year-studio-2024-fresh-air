@@ -2,14 +2,16 @@ import { UpdateInput } from "../UpdateSensor/UpdateSensorSubComponents/UpdateSen
 import { colors } from "../../utils/background/colorBackground"
 import { backgroundStorage } from "../../utils/constants/constants";
 import DropDown from "../Dropdown/Dropdown";
+import { useLocalStorage } from "../../Context/LocalStorageContext";
 
-
-const handleOnChange = (item) => {
-    // takes the value from the dropdown, and sets it in localStorage
-    localStorage.setItem(backgroundStorage, item.target.value);
-}
 
 const Settings = () => {
+    const { changeBackground } = useLocalStorage();
+
+    const handleOnChange = (colorOption) => {
+        changeBackground(colorOption.target.value);
+    }
+
     return (
         <div className="pt-20">
             <DropDown placeHolderText="Select Background Color" handleChange={handleOnChange} options={colors} />
