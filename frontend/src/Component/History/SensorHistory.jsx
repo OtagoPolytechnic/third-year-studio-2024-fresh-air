@@ -31,7 +31,6 @@ export const SensorHistory = ({ dev_eui }) => {
       try {
           const response = await fetch(`${apiKey}/api/v1/rooms/history/${dev_eui}?beforeDate=${filter.startDate}&afterDate=${filter.endDate}`);
           if (response.ok) {
-            console.log("This is")
             setError("");
           const data = await response.json();
           setSensorData(data);
@@ -93,7 +92,7 @@ export const SensorHistory = ({ dev_eui }) => {
   return (
 
     <div className="p-8">
-      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto">
+      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto" data-cy="SensorHistory">
         <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
         <ResponsiveContainer width="95%" height={400}>
           <LineChart width={1000} height={500} data={sortedData}>
@@ -106,7 +105,7 @@ export const SensorHistory = ({ dev_eui }) => {
             <Line dataKey="co2" fill="#8884d8" />
           </LineChart>
         </ResponsiveContainer>  
-        <ErrorMessage />
+        <ErrorMessage data-cy="errormessage" />
         {/* Render the SensorFilter component and pass the filter state setter */}
         <QuickFilter onFilterChange={setFilter} />
         <SensorFilter onFilterChange={setFilter} /> 

@@ -10,6 +10,13 @@ import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
 import { initializeWebSocket } from './websocket/websocket.js';
 
+// TODO: ADD
+// Load SSL/TLS certificates
+// const options = {
+//   cert: fs.readFileSync('path/to/cert.pem'),
+//   key: fs.readFileSync('path/to/key.pem')
+// };
+
 const port = PORTS.SERVER_PORT;
 // basePath sets up the /api/v1 endpoint
 const basePath = `/${INDEX_PATHS.BASE_URL}/${INDEX_PATHS.CURRENT_VERSION}`;
@@ -27,6 +34,13 @@ app.use(`${basePath}/rooms`, payload);
 app.use(`${basePath}/devices`, device);
 app.use(`${basePath}/blocks`, block);
 
+
+// TODO: ADD
+// When SSL is enabled
+// const server = https.createServer(options, app);
+// server.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

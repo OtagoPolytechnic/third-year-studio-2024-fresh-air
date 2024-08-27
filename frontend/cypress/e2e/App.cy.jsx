@@ -1,40 +1,37 @@
-describe('Homepage spec', () => {
+describe('Routing Tests', () => {
+
   it('Visits Home Page', () => {
-    cy.visit('http://co2-app.duckdns.org')
-    cy.get('[data-cy="h1Welcome"]').should('have.text','Welcome to D-Block CO2 Monitor')
-  })
+    cy.visit('http://localhost:5173/')
+    cy.get('[data-cy="h1Welcome"]').should('have.text', 'Welcome to D-Block CO2 Monitor');
+  });
+
+  it('NavBar returns to homepage', () => {
+    cy.visit('http://localhost:5173/D-Block/D202')
+    cy.contains('a', 'Home').click();
+    cy.url().should('eq', 'http://localhost:5173/')
+    cy.get('[data-cy="h1Welcome"]').should('have.text', 'Welcome to D-Block CO2 Monitor');
+  });
+
   it('Visits Room D201', () => {
-    cy.visit('http://co2-app.duckdns.org/')
-    cy.get('[data-cy="D201"]').click()
-    cy.url().should('eq', 'http://co2-app.duckdns.org/D-Block/D201')
-    cy.wait(100)
-    cy.get('[data-cy="D201"]').should('be.visible')
-  })
+    cy.visit('http://localhost:5173/')
+      .get('[data-cy="D201"]').click()
+      .url().should('eq', 'http://localhost:5173/D-Block/D201')
+      .get('[id*="reactgooglegraph-"]').should('be.visible');
+
+  });
+
   it('Visits Room D202', () => {
-    cy.visit('http://co2-app.duckdns.org/')
-    cy.get('[data-cy="D202"]').click()
-    cy.url().should('eq', 'http://co2-app.duckdns.org/D-Block/D202')
-    cy.wait(100)
-    cy.get('[data-cy="D202"]').should('be.visible')
-  })
+    cy.visit('http://localhost:5173/')
+      .get('[data-cy="D202"]').click()
+      .url().should('eq', 'http://localhost:5173/D-Block/D202')
+      .get('[id*="reactgooglegraph-"]').should('be.visible').should('be.visible');
+  });
+
   it('Visits Room D207', () => {
-    cy.visit('http://co2-app.duckdns.org/')
-    cy.get('[data-cy="D207"]').click()
-    cy.url().should('eq', 'http://co2-app.duckdns.org/D-Block/D207')
-    cy.wait(100)
-    cy.get('[data-cy="D207"]').should('be.visible')
-  })
-  it('Visits Room D207 TD', () => {
-    cy.visit('http://co2-app.duckdns.org/')
-    cy.get('[data-cy="D207 TD"]').click()
-    cy.url().should('eq', 'http://co2-app.duckdns.org/D-Block/D207%20Testing')
-    cy.wait(100)
-    cy.get('[data-cy="D207 TD"]').should('be.visible')
-  })
-  it('Visits Sensor History', () => {
-    cy.visit('http://co2-app.duckdns.org/')
-    cy.get('[data-cy="SensorHistory"]').click()
-    cy.url().should('eq', 'http://co2-app.duckdns.org/SensorHistory')
-    cy.get('[class="recharts-wrapper"]').should('be.visible')
-  })
-})
+    cy.visit('http://localhost:5173/')
+      .get('[data-cy="D207"]').click()
+      .url().should('eq', 'http://localhost:5173/D-Block/D207')
+      .get('[id*="reactgooglegraph-"]').should('be.visible');
+  });
+
+});

@@ -36,10 +36,10 @@ export const QuickFilter = ({ onFilterChange }) => {
   };
 
   return (
-    <div>
-      <QuickFilterButton label="Today" onClick={setToday} />
-      <QuickFilterButton label="Last week" onClick={setThisWeek} />
-      <QuickFilterButton label="Last month" onClick={setThisMonth} />
+    <div data-cy="QuickFilter">
+      <QuickFilterButton data-cy="FilterToday" label="Today" onClick={setToday} />
+      <QuickFilterButton data-cy="FilterWeek" label="Last week" onClick={setThisWeek} />
+      <QuickFilterButton data-cy="FilterMonth" label="Last month" onClick={setThisMonth} />
     </div>
   );
 };
