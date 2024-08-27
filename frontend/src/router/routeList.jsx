@@ -12,5 +12,10 @@ export const routes = [
     {
         path: "/D-Block/:roomNumber",
         element: <RoomPage/>
+    },
+    {
+        path:"/settings",
+        label: "Settings",
+        element: <Homepage/>
     }
 ]
