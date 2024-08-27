@@ -2,11 +2,11 @@ import { UpdateInput } from "../UpdateSensor/UpdateSensorSubComponents/UpdateSen
 import { colors } from "../../utils/background/colorBackground"
 import { backgroundStorage } from "../../utils/constants/constants";
 import DropDown from "../Dropdown/Dropdown";
-import { useLocalStorage } from "../../Context/LocalStorageContext";
+import { useStorage } from "../../Context/LocalStorageContext";
 
 
 const Settings = () => {
-    const { changeBackground } = useLocalStorage();
+    const { changeBackground } = useStorage();
 
     const handleOnChange = (colorOption) => {
         changeBackground(colorOption.target.value);

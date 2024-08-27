@@ -4,7 +4,7 @@ import { backgroundStorage } from "../utils/constants/constants";
 
 const LocalStorageContext = createContext();
 
-const useLocalStorage = () => {
+const useStorage = () => {
     return useContext(LocalStorageContext);
 };
 
@@ -16,10 +16,14 @@ const LocalStorageProvider = ({children}) => {
         setBackground(newColor);
       };
 
-    // get the background color from localStorage
-    useEffect(() => {
-        setBackground(localStorage.getItem(backgroundStorage));
-    }, []);
+      useEffect(() => {
+        const storedBackground = localStorage.getItem(backgroundStorage);
+        console.log("Stored background from localStorage:", storedBackground);
+        if (storedBackground) {
+            setBackground(storedBackground);
+            console.log(background)
+        }
+    }, [background]);
 
     return (
         <LocalStorageContext.Provider value={{background, setBackground, changeBackground}}>
@@ -28,5 +32,5 @@ const LocalStorageProvider = ({children}) => {
     );
 }
 
-export {LocalStorageProvider, useLocalStorage};
+export {LocalStorageProvider, useStorage};
 
