@@ -51,7 +51,7 @@ export const Homepage = () => {
 
   return (
     <div className="pt-20 text-center">
-      <h1 data-cy="h1Welcome" className="text-6xl ">
+      <h1 data-cy="h1Welcome" className="text-5xl font-poppins">
         Welcome to D-Block CO<sub>2</sub> Monitor
       </h1>
       <>
