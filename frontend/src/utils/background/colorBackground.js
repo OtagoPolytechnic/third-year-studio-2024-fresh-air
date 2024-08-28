@@ -1,5 +1,5 @@
 export const colors = [
-    { value: "bg-default", text: "Default" },
+    { value: "bg-white", text: "Default" },
     { value: "bg-blue-grey", text: "Blue Grey" },
     { value: "bg-aqua", text: "Aqua" },
     { value: "bg-turquoise", text: "Turquoise" },
