@@ -19,9 +19,9 @@ const NavBar = () => {
           ))}
 			</ul>
       <div className={'ml-4'}>
-			<button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
+			{/* <button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
         Login
-         </button>
+         </button> */}
 		</div>
     </div>
 	</div>
