@@ -50,7 +50,7 @@ export const Homepage = () => {
   }, [socket]);
 
   return (
-    <div className="pt-20 text-center">
+    <div className="text-center">
       <h1 data-cy="h1Welcome" className="text-6xl ">
         Welcome to D-Block CO<sub>2</sub> Monitor
       </h1>
