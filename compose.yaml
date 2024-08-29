@@ -51,7 +51,7 @@ services:
     volumes:
       - /data/production/nginx:/etc/nginx
     ports:
-      - "80:80"
+      - "433:80"
     depends_on:
       - frontend
       - backend
