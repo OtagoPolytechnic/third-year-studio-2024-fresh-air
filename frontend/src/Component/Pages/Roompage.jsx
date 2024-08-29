@@ -58,7 +58,7 @@ export const RoomPage = () => {
       <>
         {isLoading ? (
           <div className="pt-40">
-            <LoadingSpinner  />
+            <LoadingSpinner data-testid="loading-spinner" />
           </div>
         ) : roomData ? (
           <>
@@ -66,9 +66,9 @@ export const RoomPage = () => {
       {roomData.map(item => (
         <div key={item.dev_eui}>
           <div className="flex justify-center items-center pt-20">
-            <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
+            <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" data-testid="co2-sensor" />
           </div>
-          <SensorHistory dev_eui={item.dev_eui} />
+          <SensorHistory dev_eui={item.dev_eui} data-testid="sensor-history" />
         </div>
       ))}
        </>
