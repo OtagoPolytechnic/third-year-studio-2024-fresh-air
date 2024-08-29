@@ -26,8 +26,8 @@ export const Login = () => {
   };
 
   return (
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 border rounded-lg mx-64 shadow-lg">
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="flex min-h-full flex-col justify-center px-10 py-8 lg:mx-64 md:mr-14 md:mx-14 border rounded-lg mx-4 mr-4 shadow-lg">
+      <div class="mx-auto w-full max-w">
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Log in to your account
         </h2>
@@ -62,7 +62,7 @@ export const Login = () => {
             placeholder="Password"
             class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-400 sm:text-sm sm:leading-6"
           />
-          <p>{user ? `Logged in as ${user}` : 'Not logged in'}</p>
+          {/* <p>{user ? `Logged in as ${user}` : 'Not logged in'}</p> */}
           {!user  && (
           <button
             disabled={user}
