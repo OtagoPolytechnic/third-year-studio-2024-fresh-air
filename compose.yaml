@@ -49,7 +49,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - /data/production/nginx:/etc/nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "433:80"
     depends_on:
