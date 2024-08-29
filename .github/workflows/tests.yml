@@ -46,4 +46,27 @@ jobs:
         run: |
           npm run test
 
+      - name: Install dependencies and run frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run dev &
+        env:
+          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres   
+          
+      - name: Wait for services to start
+        run: |
+          sleep 10
+
+      - name: Run frontend component tests
+        working-directory: frontend
+        run: |
+          npm run test Co2Sensor
+          npm run test SensorHistory
+
+      - name: Run frontend Cypress tests
+        working-directory: frontend
+        run: |
+          npx cypress run
+
 
