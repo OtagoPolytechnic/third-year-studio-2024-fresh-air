@@ -50,7 +50,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - data/production/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /data/production/nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
     depends_on:
