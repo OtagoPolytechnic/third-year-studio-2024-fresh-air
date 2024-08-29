@@ -11,7 +11,7 @@ export const WebSocketProvider = ({ children }) => {
 
     useEffect(() => {
         // TODO Change after testing
-        const ws = new WebSocket('ws://localhost:3000');
+        const ws = new WebSocket('wss://co2-api.duckdns.org');
 
         ws.onopen = () => {
             console.log('Connected to the websocket');
