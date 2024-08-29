@@ -52,7 +52,7 @@ jobs:
           npm install
           npm run dev &
         env:
-          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres   
+          VITE_BACKEND_API_KEY: http://co2-api.duckdns.org
           
       - name: Wait for services to start
         run: |
