@@ -52,7 +52,7 @@ jobs:
           npm install
           npm run dev &
         env:
-          VITE_BACKEND_API_KEY: https://localhost:3000
+          VITE_BACKEND_API_KEY: http://co2-api.duckdns.org
           
       - name: Wait for services to start
         run: |
