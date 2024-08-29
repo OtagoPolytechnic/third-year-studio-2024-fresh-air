@@ -68,5 +68,11 @@ jobs:
         working-directory: frontend
         run: |
           npx cypress run
-
+          
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
 
