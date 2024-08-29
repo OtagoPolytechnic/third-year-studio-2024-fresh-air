@@ -96,17 +96,3 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
     ports:
       - "8083:3000"
-
-  nginx-testing:
-    container_name: co2-nginx-testing
-    image: co2-nginx
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    volumes:
-      - /data/testing/nginx/nginx-testing.conf:/etc/nginx/nginx.conf
-    ports:
-      - "8084:80"
-    depends_on:
-      - frontend-testing
-      - backend-testing
