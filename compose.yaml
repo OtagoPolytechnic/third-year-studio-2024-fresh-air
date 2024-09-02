@@ -50,14 +50,13 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/letsencrypt  # Mount volume for SSL certificates
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - frontend
       - backend
-      
+
   # Testing Environment
   co2-db-testing:
     container_name: co2-db-testing
