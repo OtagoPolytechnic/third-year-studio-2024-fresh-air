@@ -18,10 +18,8 @@ const LocalStorageProvider = ({children}) => {
 
       useEffect(() => {
         const storedBackground = localStorage.getItem(backgroundStorage);
-        console.log("Stored background from localStorage:", storedBackground);
         if (storedBackground) {
             setBackground(storedBackground);
-            console.log(background)
         }
     }, [background]);
 
