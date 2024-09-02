@@ -1,75 +1,81 @@
+// src/__tests__/RoomPage.test.jsx
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { RoomPage } from '../Component/Pages/RoomPage';
-import { WebSocketContext } from '../Context/WebSocketContext';
 import '@testing-library/jest-dom';
+import { RoomPage } from '../Component/Pages/RoomPage';
+import { WebSocketProvider, WebSocketContext } from '../Context/WebSocketContext';
 
-// Mock the fetch API for different test cases
-beforeEach(() => {
-  global.fetch = jest.fn();
-});
+const mockWebSocket = {
+    socket: null,
+    isConnected: true,
+    error: null,
+    sendMessage: jest.fn(),
+};
 
-afterEach(() => {
-  jest.resetAllMocks();
-});
+const MockWebSocketProvider = ({ children }) => (
+    <WebSocketContext.Provider value={mockWebSocket}>
+        {children}
+    </WebSocketContext.Provider>
+);
 
 describe('RoomPage component', () => {
-  it('renders loading spinner while fetching data', () => {
-    const mockSocket = {
-      on: jest.fn(),
-      emit: jest.fn(),
-      close: jest.fn(),
-    };
-
-    render(
-      <WebSocketContext.Provider value={{ socket: mockSocket }}>
-        <RoomPage />
-      </WebSocketContext.Provider>
-    );
-
-    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
-  });
-
-  test('renders CO2 data and history components correctly', async () => {
-    const mockData = {
-      deviceName: 'D201',
-      co2Level: 2040,
-      history: [{ date: '2024-08-28', level: 1900 }],
-    };
-
-    global.fetch.mockResolvedValueOnce({
-      json: async () => mockData,
-      ok: true,
+    beforeEach(() => {
+        jest.clearAllMocks();
+        global.fetch = jest.fn((url) => {
+            if (url.includes('/api/v1/devices')) {
+                return Promise.resolve({
+                    json: () => Promise.resolve({
+                        co2: 800,
+                        history: [],
+                    }),
+                });
+            }
+            return Promise.reject(new Error('Not Found'));
+        });
     });
 
-    await act(async () => {
-      render(
-        <WebSocketContext.Provider value={{ socket: { on: jest.fn(), emit: jest.fn(), close: jest.fn() } }}>
-          <RoomPage />
-        </WebSocketContext.Provider>
-      );
+    it('renders without crashing', async () => {
+        await act(async () => {
+            render(
+                <MockWebSocketProvider>
+                    <RoomPage />
+                </MockWebSocketProvider>
+            );
+        });
+
+        screen.debug(); // Print out the HTML to see what is rendered
+        expect(screen.queryByTestId('loading-spinner')).toBeInTheDocument();
     });
 
-    await waitFor(() => {
-      expect(screen.getByText('D201')).toBeInTheDocument();
-      expect(screen.getByText(/CO2 Level is 2040/i)).toBeInTheDocument();
-      expect(screen.getByText('Sensor History')).toBeInTheDocument();
-    });
-  });
+    it('fetches data and displays CO2 sensor', async () => {
+        await act(async () => {
+            render(
+                <MockWebSocketProvider>
+                    <RoomPage />
+                </MockWebSocketProvider>
+            );
+        });
 
-  test('handles error state correctly', async () => {
-    global.fetch.mockRejectedValueOnce(new Error('API Error'));
-
-    await act(async () => {
-      render(
-        <WebSocketContext.Provider value={{ socket: { on: jest.fn(), emit: jest.fn(), close: jest.fn() } }}>
-          <RoomPage />
-        </WebSocketContext.Provider>
-      );
+        await waitFor(() => {
+            expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+            expect(screen.queryByTestId('co2-sensor')).toBeInTheDocument();
+            expect(screen.queryByTestId('sensor-history')).toBeInTheDocument();
+        });
     });
 
-    await waitFor(() => {
-      expect(screen.getByText(/API Error/i)).toBeInTheDocument();
+    it('handles errors gracefully', async () => {
+        global.fetch.mockImplementationOnce(() => Promise.reject(new Error('Fetch error')));
+
+        await act(async () => {
+            render(
+                <MockWebSocketProvider>
+                    <RoomPage />
+                </MockWebSocketProvider>
+            );
+        });
+
+        await waitFor(() => {
+            expect(screen.queryByText(/Fetch error/i)).toBeInTheDocument();
+        });
     });
-  });
 });
