@@ -13,11 +13,16 @@ import block from './routes/blocks/block.route.js';
 import { initializeWebSocket } from './websocket/websocket.js';
 
 // Load SSL/TLS certificates
+// const credentials = {
+//   cert: fs.readFileSync(process.env.SSL_CERT_PATH, 'utf8'),
+//   key: fs.readFileSync(process.env.SSL_KEY_PATH, 'utf8'),
+//   ca: fs.readFileSync(process.env.SSL_CA_PATH, 'utf8')
+// };
+
 const credentials = {
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH, 'utf8'),
-  key: fs.readFileSync(process.env.SSL_KEY_PATH, 'utf8'),
-  ca: fs.readFileSync(process.env.SSL_CA_PATH, 'utf8')
-};
+  cert: fs.readFileSync('./cert.pem', 'utf8'),
+  key: fs.readFileSync('./key.pem', 'utf8'),
+}
 
 const port = PORTS.SERVER_PORT;
 
