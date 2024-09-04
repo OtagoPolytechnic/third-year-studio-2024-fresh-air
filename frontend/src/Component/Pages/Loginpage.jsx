@@ -7,9 +7,6 @@ export const LoginPage = () => {
       <div className="pt-40">
         <Login />
       </div>
-      <div className="pt-40">
-        <Logout />
-      </div>
     </>
   );
 };

@@ -21,7 +21,6 @@ const FirestoreAuthProvider = ({children}) => {
 
     useEffect(() => {
         return onAuthStateChanged(auth, (user) => {
-            console.log(user)
             user ? setUser(user.uid) : setUser(null);
         });
     }, []);

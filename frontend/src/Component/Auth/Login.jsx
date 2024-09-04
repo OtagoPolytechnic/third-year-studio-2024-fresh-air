@@ -21,7 +21,6 @@ export const Login = () => {
   };
 
   const handleModal = () => {
-    console.log('hello');
     setModal(false);
   };
 
