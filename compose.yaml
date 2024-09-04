@@ -1,4 +1,3 @@
-
 volumes:
   postgres:
   postgres_stag:
@@ -62,6 +61,7 @@ services:
       - frontend
       - backend
 
+
   # Testing Environment
   co2-db-testing:
     container_name: co2-db-testing
@@ -74,7 +74,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - /data/testing/db/pgdata-testing:/var/lib/postgresql/data-testing
+      - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
 
   frontend-testing:
     container_name: co2-frontend-testing
@@ -101,3 +101,4 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
     ports:
       - "8083:3000"
+
