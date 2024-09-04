@@ -81,7 +81,9 @@ export const SensorHistory = ({ dev_eui }) => {
   const ErrorMessage = () => {
     if (error) {
       return(        
-        <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+        <div  class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" 
+        data-testid="errormessage" 
+        role="alert">
           <p class="text-lg">{error}</p>
         </div>  
       );
