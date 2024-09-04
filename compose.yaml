@@ -44,7 +44,6 @@ services:
       - "8081:3000"
 
   nginx:
-    container_name: third-year-studio-2024-fresh-air-nginx-1
     image: nginx:latest
     build:
       context: ./nginx
@@ -101,4 +100,3 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
     ports:
       - "8083:3000"
-
