@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Co2Sensor } from '../Co2/Co2Sensor';
 import { useWebSocket } from '../../Context/WebSocketContext';
 import { LoadingSpinner } from '../Spinner/LoadingSpinner';
+import ChartGauge from '../Co2/ChartGauge';
 
 export const Homepage = () => {
   const { socket } = useWebSocket();
