@@ -16,6 +16,8 @@ services:
       - "5432:5432"
     volumes:
       - /data/production/db/pgdata:/var/lib/postgresql/data
+    networks:
+      - co2-network
 
   frontend:
     container_name: co2-frontend
@@ -28,7 +30,9 @@ services:
       - VITE_BACKEND_API_KEY=http://co2-api.duckdns.org
     ports:
       - "8080:80"
-
+    networks:
+      - co2-network
+      
   backend:
     container_name: co2-backend
     image: backend-co2-app
@@ -42,18 +46,22 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
     ports:
       - "8081:3000"
-
+    networks:
+      - co2-network
   nginx:
     image: nginx:latest
     build:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - /etc/nginx/sites-available/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt:/etc/letsencrypt
+      - /etc/ssl/certs/dhparam.pem:/etc/ssl/certs/dhparam.pem
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - co2-network
 
 
   # Testing Environment
@@ -95,3 +103,7 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
     ports:
       - "8083:3000"
+
+networks:
+  co2-network:
+    driver: bridge
