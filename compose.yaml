@@ -45,7 +45,11 @@ services:
       - "8081:3000"
 
   nginx:
+    container_name: third-year-studio-2024-fresh-air-nginx-1
     image: nginx:latest
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/live.conf:/etc/nginx/live.conf
