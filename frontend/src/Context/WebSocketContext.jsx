@@ -11,7 +11,7 @@ export const WebSocketProvider = ({ children }) => {
 
     useEffect(() => {
         // TODO Change after testing
-        const ws = new WebSocket('wss://co2-api.duckdns.org');
+        const ws = new WebSocket('wss://co2-app.op.bit.nz/api');
 
         ws.onopen = () => {
             console.log('Connected to the websocket');
