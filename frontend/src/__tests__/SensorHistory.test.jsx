@@ -19,6 +19,7 @@ describe('SensorHistory', () => {
     // Waiting for the chart wrapper to show
     waitFor(() => {
       // Checking if recharts bar appears
+      screen.debug();
       expect(screen.getByTestId('recharts-wrapper')).toBeInTheDocument();
     });
   });
@@ -32,8 +33,13 @@ describe('SensorHistory', () => {
       const chartWrapper = screen.getByTestId('recharts-wrapper');
       fireEvent.mouseOver(chartWrapper);
 
+      screen.debug();
       // Checking if tooltip appears
       expect(screen.getByTestId('tooltip')).toBeInTheDocument();
     });
+  });
+
+  it('renders error message when dates are not there', () => {
+    render(<SensorHistory />);
   });
 });

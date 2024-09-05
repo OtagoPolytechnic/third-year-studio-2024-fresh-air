@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Co2Sensor } from '../Component/Co2/Co2Sensor';
 
 // Mocks the Chart component
