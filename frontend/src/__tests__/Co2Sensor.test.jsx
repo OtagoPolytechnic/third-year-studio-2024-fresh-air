@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Co2Sensor } from '../Component/Co2/Co2Sensor';
 
 // Mocks the Chart component
@@ -39,29 +39,34 @@ describe('Co2Sensor', () => {
     const { container } = render(<Co2Sensor co2={800} />);
     expect(container).toBeDefined();
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data="Label,Value,,800"]')).toBeInTheDocument();
   });
 
   test('handles missing co2 prop', () => {
     const { container } = render(<Co2Sensor room_number="D202" />);
     expect(container).toBeDefined();
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data="Label,Value,D202,NaN"]')).toBeInTheDocument();
   });
 
   test('handles invalid CO2 value (negative number)', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2={-100} />);
     expect(container).toBeDefined();
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data="Label,Value,D202,-100"]')).toBeInTheDocument();
   });
 
   test('handles invalid CO2 value (non-numeric)', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2="invalid" />);
     expect(container).toBeDefined();
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data="Label,Value,D202,NaN"]')).toBeInTheDocument();
   });
 
   test('handles extreme CO2 values', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2={100000} />);
     expect(container).toBeDefined();
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
+    expect(container.querySelector('[data="Label,Value,D202,100000"]')).toBeInTheDocument();
   });
 });
