@@ -38,35 +38,30 @@ describe('Co2Sensor', () => {
   test('handles missing room_number prop', () => {
     const { container } = render(<Co2Sensor co2={800} />);
     expect(container).toBeDefined();
-    // Verify the component still renders, but you might want to test how it behaves with a missing room number
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
   });
 
   test('handles missing co2 prop', () => {
     const { container } = render(<Co2Sensor room_number="D202" />);
     expect(container).toBeDefined();
-    // Verify the component still renders, but you might want to test how it behaves with a missing CO2 value
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
   });
 
   test('handles invalid CO2 value (negative number)', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2={-100} />);
     expect(container).toBeDefined();
-    // Verify how the component behaves with a negative CO2 value
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
   });
 
   test('handles invalid CO2 value (non-numeric)', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2="invalid" />);
     expect(container).toBeDefined();
-    // Verify how the component behaves with a non-numeric CO2 value
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
   });
 
   test('handles extreme CO2 values', () => {
     const { container } = render(<Co2Sensor room_number="D202" co2={100000} />);
     expect(container).toBeDefined();
-    // Verify how the component handles very high CO2 values
     expect(container.querySelector('[chartType="Gauge"]')).toBeInTheDocument();
   });
 });
