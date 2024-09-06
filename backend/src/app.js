@@ -33,7 +33,7 @@ const server = app.listen(port, () => {
 
 
 // Initialize WebSocket with the HTTPS server
-const { wss, emitter } = initializeWebSocket(httpsServer);
+const { wss, emitter } = initializeWebSocket(server);
 
 
 export { app, server, emitter };
