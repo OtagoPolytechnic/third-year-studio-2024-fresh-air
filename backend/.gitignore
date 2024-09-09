@@ -25,4 +25,5 @@ dist-ssr
 
 .env*
 # postgres db volume
-pgdata
+pgdata/
+pgdata-testing/
