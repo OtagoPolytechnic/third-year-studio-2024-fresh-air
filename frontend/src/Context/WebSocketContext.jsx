@@ -10,7 +10,6 @@ export const WebSocketProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // TODO Change after testing
         const ws = new WebSocket('wss://co2-app.op.bit.nz/api');
 
         ws.onopen = () => {

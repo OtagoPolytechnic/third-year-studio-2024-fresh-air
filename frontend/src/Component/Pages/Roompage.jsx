@@ -65,7 +65,7 @@ export const RoomPage = () => {
       {/* Maps the data thar gives us the co2 level for the gauge */}
       {roomData.map(item => (
         <div key={item.dev_eui}>
-          <div className="flex justify-center items-center pt-20">
+          <div className="flex justify-center items-center">
             <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
           </div>
           <SensorHistory dev_eui={item.dev_eui} />
