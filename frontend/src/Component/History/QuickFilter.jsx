@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-const QuickFilterButton = ({ label, onClick }) => (
+const QuickFilterButton = ({ label, onClick, isActive }) => (
   <button
     onClick={onClick}
     type="button"
-    className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-black hover:text-white"
+    className={`py-2.5 px-5 me-2 mb-2 text-sm font-medium rounded-full border ${isActive ? 'bg-black text-white border-black' : 'bg-white text-gray-900 border-gray-200'} hover:bg-black hover:text-white`}
     aria-label={label}
   >
     {label}
@@ -12,9 +12,16 @@ const QuickFilterButton = ({ label, onClick }) => (
 );
 
 export const QuickFilter = ({ onFilterChange }) => {
+  const [activeFilter, setActiveFilter] = useState("Today");
+
+  useEffect(() => {
+    setToday();
+  }, []);
+
   const setToday = () => {
     const today = new Date().toISOString().split("T")[0];
-    onFilterChange({ startDate: today, endDate: today });    
+    onFilterChange({ startDate: today, endDate: today }); 
+    setActiveFilter("Today");   
   };
 
   const setThisWeek = () => {
@@ -24,6 +31,7 @@ export const QuickFilter = ({ onFilterChange }) => {
     const startDate = sevenDaysAgo.toISOString().split("T")[0];
     const endDate = new Date().toISOString().split("T")[0];
     onFilterChange({ startDate, endDate });
+    setActiveFilter("Week");
   };
 
   const setThisMonth = () => {
@@ -33,13 +41,14 @@ export const QuickFilter = ({ onFilterChange }) => {
     const startDate = aMonthAgo.toISOString().split("T")[0];
     const endDate = new Date().toISOString().split("T")[0];
     onFilterChange({ startDate, endDate });
+    setActiveFilter("Month");
   };
 
   return (
     <div data-cy="QuickFilter">
-      <QuickFilterButton data-cy="FilterToday" label="Today" onClick={setToday} />
-      <QuickFilterButton data-cy="FilterWeek" label="Last week" onClick={setThisWeek} />
-      <QuickFilterButton data-cy="FilterMonth" label="Last month" onClick={setThisMonth} />
+      <QuickFilterButton data-cy="FilterToday" label="Today" isActive={activeFilter === "Today"} onClick={setToday} />
+      <QuickFilterButton data-cy="FilterWeek" label="Last week" isActive={activeFilter === "Week"} onClick={setThisWeek} />
+      <QuickFilterButton data-cy="FilterMonth" label="Last month" isActive={activeFilter === "Month"} onClick={setThisMonth} />
     </div>
   );
 };
