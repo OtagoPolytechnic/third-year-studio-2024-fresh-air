@@ -4,6 +4,7 @@ import { UpdateSensor } from "../Component/UpdateSensor/UpdateSensor";
 import { RoomPage } from "../Component/Pages/Roompage";
 import Settings from "../Component/Pages/Settings";
 import { routerLabels } from "../utils/router/routerLabels";
+import { LoginPage } from "../Component/Pages/Loginpage";
 
 export const routes = [
     {
@@ -20,5 +21,10 @@ export const routes = [
         path:"/settings",
         label: routerLabels.settings,
         element: <Settings/>
+    },
+      {
+        path: "/login",
+        label: 'Login',
+        element: <LoginPage/>
     }
 ]
