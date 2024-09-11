@@ -1,6 +1,17 @@
 import { routerLabels } from "./routerLabels";
 
-// Filtering the router to remove the block route
-export const filterRouter = (router) => {
-  return router.filter((route) => route.label !== routerLabels.block);
-};
+// These routes are not displayed when user is authenticated
+const excludedRoutesForAuthenticated = [routerLabels.login, routerLabels.block];
+
+// These routes are not displayed when user is not authenticated
+const excludedRoutesForUnAuthenticated = [
+  routerLabels.logout,
+  routerLabels.dashboard,
+  routerLabels.block,
+];
+
+// Filter the routes based on the user's authentication status
+export const filterRouter = (router, user) => {
+  const excludedRoutes = user ? excludedRoutesForAuthenticated : excludedRoutesForUnAuthenticated;
+  return router.filter((route) => !excludedRoutes.includes(route.label));
+}
