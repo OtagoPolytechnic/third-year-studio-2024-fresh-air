@@ -8,7 +8,7 @@ import { UpdateForm } from "./UpdateSensorSubComponents/UpdateForm";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
-export const UpdateSensor = () =>  {
+export const UpdateSensor = ({styles}) =>  {
   const { items, apiError, resetApiError, updateSensorRequest, updateSuccess, resetUpdateSuccess } = useUpdateSensor(`${apiKey}/api/v1/devices`);
   const [selectedItem, setSelectedItem] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -47,8 +47,8 @@ export const UpdateSensor = () =>  {
 }
 
   return (
-    <div className="pt-20 lg:pt-0 flex justify-center items-center">
-      <section className='border rounded-lg shadow-lg mx-2 mt-2 sm:w-[500px] sm:max-h-[150px] bg-[#F2F2F2]'>
+    <section className={`pt-20 lg:pt-0 flex justify-center items-center ${styles}`}>
+      <div className='border rounded-lg shadow-lg mx-2 mt-2 sm:w-[500px] sm:max-h-[150px] bg-[#F2F2F2]'>
         <h1 className={'ml-2'}>Rename Sensor</h1>
         {items.length > 0 && (
           <UpdateForm
@@ -64,7 +64,7 @@ export const UpdateSensor = () =>  {
           updateSuccessful={updateSuccess}
           />
         )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
