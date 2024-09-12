@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  FirestoreAuthProvider,
   useUserAuth
 } from '../../Context/FirestoreAuthContext';
 import PopUp from './PopUp';
+import Logout from './Logout';
+import { getUserList } from '../../utils/firestoreFunctions/firestoreFunctions';
 
 export const Login = () => {
   const { login, user } = useUserAuth();
   const [modal, setModal] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const userList = await getUserList({ collectionName: 'users' });
+        setUsers(userList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,6 +37,8 @@ export const Login = () => {
   const handleModal = () => {
     setModal(false);
   };
+
+
 
   return (
     <div class="flex min-h-full flex-col justify-center px-10 py-8 lg:mx-64 md:mr-14 md:mx-14 border rounded-lg mx-4 mr-4 shadow-lg">
@@ -73,7 +89,14 @@ export const Login = () => {
 
           )}
         </form>
+        <Logout/>
       </div>
+      {users.map((user) => (
+        <div key={user.userId}>
+          <p>{user.userId}</p>
+          <p>{user.role}</p>
+        </div>
+      ))}
       {modal && <PopUp handleClick={handleModal}  />}
     </div>
   );
