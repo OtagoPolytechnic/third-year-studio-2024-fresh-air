@@ -95,7 +95,7 @@ export const SensorHistory = ({ dev_eui }) => {
 
     <div className="p-8">
       <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto" data-testid="SensorHistory" data-cy="SensorHistory">
-        <h1 className="text-2xl text-center font-bold mb-4">Sensor History</h1>
+        <h1 className="text-2xl text-center font-bold mb-4" data-testid="SensorHistoryTitle">Sensor History</h1>
         <ResponsiveContainer width="95%" height={400}>
           <LineChart width={1000} height={500} data={sortedData}>
             <CartesianGrid strokeDasharray="10 5 3 5" />
