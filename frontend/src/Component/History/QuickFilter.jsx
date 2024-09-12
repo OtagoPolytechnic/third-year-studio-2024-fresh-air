@@ -23,7 +23,7 @@ export const QuickFilter = ({ onFilterChange }) => {
     onFilterChange({ startDate: today, endDate: today }); 
     setActiveFilter("Today");   
   };
-
+ 
   const setThisWeek = () => {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
