@@ -11,35 +11,54 @@ beforeAll(() => {
   };
 });
 
+const mockData = [
+  { time: '2024-09-01', value: 400 },
+  { time: '2024-09-02', value: 450 },
+  { time: '2024-09-03', value: 420 },
+];
+
 describe('SensorHistory', () => {
-  it('renders Sensor History and checks if recharts appears', () => {
-    render(<SensorHistory />);
+  it('renders Sensor History and checks if recharts appears with data', async () => {
+    render(<SensorHistory data={mockData} />);
+
+    // Check if the title is rendered
     expect(screen.getByText('Sensor History')).toBeInTheDocument();
 
-    // Waiting for the chart wrapper to show
-    waitFor(() => {
-      // Checking if recharts bar appears
-      screen.debug();
-      expect(screen.getByTestId('recharts-wrapper')).toBeInTheDocument();
+    // Wait for the chart wrapper to appear
+    await waitFor(() => {
+      const chartWrapper = screen.getByTestId('SensorHistory');
+      expect(chartWrapper).toBeInTheDocument();
+
+      // Check if the bars or data points are rendered with correct data
+      mockData.forEach(item => {
+        expect(screen.queryByText(item.time)).toBeInTheDocument();
+        expect(screen.queryByText(item.value.toString())).toBeInTheDocument();
+      });
     });
   });
 
-  it('displays tooltip on hover', () => {
-    render(<SensorHistory />);
+  it('displays correct tooltip on hover', async () => {
+    render(<SensorHistory data={mockData} />);
 
-    // Waiting for the chart wrapper to show
-    waitFor(() => {
-      // Simulates hover
-      const chartWrapper = screen.getByTestId('recharts-wrapper');
+    // Wait for the chart to appear
+    await waitFor(async() => {
+      const chartWrapper = screen.getByTestId('SensorHistory');
+      expect(chartWrapper).toBeInTheDocument();
+
+      // Simulate hover over the chartWrapper
       fireEvent.mouseOver(chartWrapper);
 
-      screen.debug();
-      // Checking if tooltip appears
-      expect(screen.getByTestId('tooltip')).toBeInTheDocument();
-    });
-  });
+      // Use waitFor to ensure that async changes (like tooltips appearing) are handled
+      await waitFor(() => {
+        // Check if the tooltip appears and contains the correct data
+        const tooltip = screen.queryByTestId('tooltip');
+        expect(tooltip).toBeInTheDocument();
 
-  it('renders error message when dates are not there', () => {
-    render(<SensorHistory />);
+        if (tooltip) {
+          expect(tooltip).toHaveTextContent('2024-09-01');
+          expect(tooltip).toHaveTextContent('400');
+        }
+      });
+    });
   });
 });
