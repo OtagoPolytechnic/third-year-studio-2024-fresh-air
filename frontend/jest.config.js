@@ -1,4 +1,5 @@
 export default {
+  verbose: false, // Reduce the amount of output in the terminal
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },

@@ -96,16 +96,17 @@ export const SensorHistory = ({ dev_eui }) => {
     <div className="p-8">
       <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto" data-testid="SensorHistory" data-cy="SensorHistory">
         <h1 className="text-2xl text-center font-bold mb-4" data-testid="SensorHistoryTitle">Sensor History</h1>
-        <ResponsiveContainer width="95%" height={400}>
+        <ResponsiveContainer data-testid="rechartsGraph" width="95%" height={400}>
+        {console.log(sortedData)} {/* Add this log */}
           <LineChart data-testid="rechartsGraph" width={1000} height={500} data={sortedData}>
             <CartesianGrid strokeDasharray="10 5 3 5" />
             <XAxis dataKey="createdAt" tick={null} />{" "}
             {/* Tick removes the date below the grid */}
-            <YAxis type="number" domain={[0, 3000]} />
+            <YAxis yAxisId="left" type="number" domain={[0, 3000]} />
             <Tooltip data-testid="tooltip" content={<CustomTooltip />} />
             <Legend />
-            <Line dataKey="co2" fill="#8884d8" />
-          </LineChart>
+            <Line yAxisId="left" dataKey="co2" fill="#8884d8" />
+          </LineChart> 
         </ResponsiveContainer>  
         <ErrorMessage data-cy="errormessage" />
         {/* Render the SensorFilter component and pass the filter state setter */}

@@ -1,91 +1,120 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { SensorHistory } from '../Component/History/SensorHistory';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import SensorHistory from "../Component/History/SensorHistory";
 
-// Mock ResizeObserver for testing
-beforeAll(() => {
-  global.ResizeObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-});
+// Mock the Recharts components
+jest.mock("recharts", () => ({
+  LineChart: ({ children }) => <div>{children}</div>,
+  Line: () => <div>Line Mock</div>,
+  XAxis: () => <div>X-Axis Mock</div>,
+  YAxis: () => <div>Y-Axis Mock</div>,
+  CartesianGrid: () => <div>CartesianGrid Mock</div>,
+  Tooltip: () => <div>Tooltip Mock</div>,
+  Legend: () => <div>Legend Mock</div>,
+  ResponsiveContainer: ({ children }) => <div>{children}</div>,
+}));
 
-jest.mock('recharts', () => {
-    const OriginalModule = jest.requireActual('recharts')
-    return {
-        ...OriginalModule,
-        ResponsiveContainer: ({ children }) => (
-            <OriginalModule.ResponsiveContainer width={500} height={400}>
-                {children}
-            </OriginalModule.ResponsiveContainer>
-        ),
-    }
-})
+// Mock SensorFilter and QuickFilter components
+jest.mock("../Component/History/SensorFilter", () => ({
+  SensorFilter: ({ onFilterChange }) => (
+    <button
+      onClick={() => onFilterChange({ startDate: "2023-01-01", endDate: "2023-01-31" })}
+      data-testid="sensor-filter-button"
+    >
+      Apply Sensor Filter
+    </button>
+  ),
+}));
+jest.mock("../Component/History/QuickFilter", () => ({
+  QuickFilter: ({ onFilterChange }) => (
+    <button
+      onClick={() => onFilterChange({ startDate: "2023-02-01", endDate: "2023-02-28" })}
+      data-testid="quick-filter-button"
+    >
+      Apply Quick Filter
+    </button>
+  ),
+}));
 
-const mockData = [
-  { createdAt: '2024-09-01', co2: 400, temperature: 20 },
-  { createdAt: '2024-09-02', co2: 450, temperature: 21 },
-  { createdAt: '2024-09-03', co2: 420, temperature: 23 },
-  { createdAt: '2024-09-01', co2: 400, temperature: 20 },
-  { createdAt: '2024-09-02', co2: 450, temperature: 21 },
-  { createdAt: '2024-09-03', co2: 420, temperature: 23 },
-  { createdAt: '2024-09-01', co2: 400, temperature: 20 },
-  { createdAt: '2024-09-02', co2: 450, temperature: 21 },
-  { createdAt: '2024-09-03', co2: 420, temperature: 23 },
-];
+describe("SensorHistory Component", () => {
+  const dev_eui = "some-dev-eui";
+  const mockFetchResponse = [
+    { id: 1, co2: 500, temperature: 22, createdAt: "2023-01-01T10:00:00Z" },
+    { id: 2, co2: 600, temperature: 24, createdAt: "2023-01-02T10:00:00Z" },
+  ];
 
-describe('SensorHistory', () => {
-  it('renders Sensor History', async () => {
-    render(<SensorHistory data={mockData} />);
-
-    // Check if the title is rendered
-    expect(screen.getByTestId('SensorHistoryTitle'));
-
-    // Wait for the chart wrapper to appear
-    await waitFor(() => {
-      const LineGraph = screen.getByTestId('rechartsGraph');
-      expect(LineGraph).toBeInTheDocument();
-    });
+  beforeEach(() => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ data: mockFetchResponse }),
+      })
+    );
   });
 
-  // it('Renders data in recharts', async () => {
-  //   render(<SensorHistory data={mockData} />);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-  //   // Wait for the chart wrapper to appear
-  //   await waitFor(() => {
-  //     const chartWrapper = screen.getByTestId('SensorHistory');
-  //     expect(chartWrapper).toBeInTheDocument();
+  it("renders the SensorHistory component and chart", async () => {
+    render(<SensorHistory dev_eui={dev_eui} />);
 
-  //     // Check if the bars or data points are rendered with correct data
-  //     mockData.forEach(item => {
-  //       expect(screen.queryByText(item.time)).toBeInTheDocument();
-  //       expect(screen.queryByText(item.value.toString())).toBeInTheDocument();
-  //     });
-  //   });
-  // });
-//   it('displays correct tooltip on hover', async () => {
-//     render(<SensorHistory data={mockData} />);
+    // Assert that the title is rendered
+    expect(screen.getByTestId("SensorHistoryTitle")).toHaveTextContent("Sensor History");
 
-//     // Wait for the chart to appear
-//     await waitFor(async() => {
-//       const chartWrapper = screen.getByTestId('SensorHistory');
-//       expect(chartWrapper).toBeInTheDocument();
+    // Apply filters to trigger data fetch
+    fireEvent.click(screen.getByTestId("sensor-filter-button"));
 
-//       // Simulate hover over the chartWrapper
-//       fireEvent.mouseOver(chartWrapper);
+    // Wait for the fetch to be completed
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
 
-//       // Use waitFor to ensure that async changes (like tooltips appearing) are handled
-//       await waitFor(() => {
-//         // Check if the tooltip appears and contains the correct data
-//         const tooltip = screen.queryByTestId('tooltip');
-//         expect(tooltip).toBeInTheDocument();
+    // Assert that the chart and mocked components are rendered
+    expect(screen.getByText("X-Axis Mock")).toBeInTheDocument();
+    expect(screen.getByText("Y-Axis Mock")).toBeInTheDocument();
+    expect(screen.getByText("Line Mock")).toBeInTheDocument();
+  });
 
-//         if (tooltip) {
-//           expect(tooltip).toHaveTextContent('2024-09-01');
-//           expect(tooltip).toHaveTextContent('400');
-//         }
-//       });
-//     });
-//   });
+  it("displays error message when no data is available", async () => {
+    // Mock fetch to return a 404 status
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 404,
+      json: () => Promise.resolve({}),
+    });
+
+    render(<SensorHistory dev_eui={dev_eui} />);
+
+    // Apply filters to trigger data fetch
+    fireEvent.click(screen.getByTestId("sensor-filter-button"));
+
+    // Wait for the fetch to complete
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+
+    // Assert that the error message is displayed
+    expect(screen.getByTestId("errormessage")).toHaveTextContent(
+      "There is no Co2 data between the dates: 2023-01-01 and 2023-01-31."
+    );
+  });
+
+  it("displays the custom tooltip on hover", async () => {
+    render(<SensorHistory dev_eui={dev_eui} />);
+
+    // Apply filter to trigger data fetch
+    fireEvent.click(screen.getByTestId("sensor-filter-button"));
+
+    // Wait for the fetch to be completed
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+
+    // Simulate hovering over the chart data
+    const tooltip = screen.getByTestId("tooltip");
+    fireEvent.mouseOver(tooltip);
+
+    // Assert that the tooltip is displayed with correct content
+    await waitFor(() => {
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip).toHaveTextContent("Date");
+      expect(tooltip).toHaveTextContent("Temperature");
+      expect(tooltip).toHaveTextContent("CO2 Level");
+    });
+  });
 });
