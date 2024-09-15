@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useUserAuth } from '../../Context/FirestoreAuthContext';
 import PopUp from './PopUp';
-import Logout from './Logout';
 
 export const Login = () => {
   const { login, user } = useUserAuth();
@@ -71,7 +70,6 @@ export const Login = () => {
               </button>
             )}
           </form>
-          <Logout />
         </div>
         {modal && <PopUp handleClick={handleModal} headerText={'Successfully logged in'} pText={'Account has been successfully logged in, you can now access the dashboard.'} />}
       </div>
