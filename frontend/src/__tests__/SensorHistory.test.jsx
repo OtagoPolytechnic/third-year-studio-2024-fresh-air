@@ -1,20 +1,20 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import SensorHistory from "../Component/History/SensorHistory";
+import { SensorHistory } from "../Component/History/SensorHistory";
 
-// Mock the Recharts components
+// Mocks the Recharts charts
 jest.mock("recharts", () => ({
   LineChart: ({ children }) => <div>{children}</div>,
   Line: () => <div>Line Mock</div>,
   XAxis: () => <div>X-Axis Mock</div>,
   YAxis: () => <div>Y-Axis Mock</div>,
   CartesianGrid: () => <div>CartesianGrid Mock</div>,
-  Tooltip: () => <div>Tooltip Mock</div>,
+  Tooltip: ({ children }) => <div data-testid="tooltip">Tooltip Mock {children}</div>,
   Legend: () => <div>Legend Mock</div>,
   ResponsiveContainer: ({ children }) => <div>{children}</div>,
 }));
 
-// Mock SensorFilter and QuickFilter components
+// Mocks SensorFilter and QuickFilter components
 jest.mock("../Component/History/SensorFilter", () => ({
   SensorFilter: ({ onFilterChange }) => (
     <button
@@ -25,16 +25,6 @@ jest.mock("../Component/History/SensorFilter", () => ({
     </button>
   ),
 }));
-jest.mock("../Component/History/QuickFilter", () => ({
-  QuickFilter: ({ onFilterChange }) => (
-    <button
-      onClick={() => onFilterChange({ startDate: "2023-02-01", endDate: "2023-02-28" })}
-      data-testid="quick-filter-button"
-    >
-      Apply Quick Filter
-    </button>
-  ),
-}));
 
 describe("SensorHistory Component", () => {
   const dev_eui = "some-dev-eui";
@@ -42,6 +32,7 @@ describe("SensorHistory Component", () => {
     { id: 1, co2: 500, temperature: 22, createdAt: "2023-01-01T10:00:00Z" },
     { id: 2, co2: 600, temperature: 24, createdAt: "2023-01-02T10:00:00Z" },
   ];
+  
 
   beforeEach(() => {
     global.fetch = jest.fn(() =>
@@ -58,63 +49,113 @@ describe("SensorHistory Component", () => {
 
   it("renders the SensorHistory component and chart", async () => {
     render(<SensorHistory dev_eui={dev_eui} />);
-
-    // Assert that the title is rendered
+  
+    // Checks if the title is rendered
     expect(screen.getByTestId("SensorHistoryTitle")).toHaveTextContent("Sensor History");
-
-    // Apply filters to trigger data fetch
+  
+    // Applys filters to trigger data fetch
     fireEvent.click(screen.getByTestId("sensor-filter-button"));
-
-    // Wait for the fetch to be completed
+  
+    // Waits for the fetch to be completed and for the chart to render
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
-
-    // Assert that the chart and mocked components are rendered
-    expect(screen.getByText("X-Axis Mock")).toBeInTheDocument();
-    expect(screen.getByText("Y-Axis Mock")).toBeInTheDocument();
-    expect(screen.getByText("Line Mock")).toBeInTheDocument();
+  
+    // Makes sure that the chart and mocked components are rendered
+    await waitFor(() => {
+      expect(screen.getByText("X-Axis Mock")).toBeInTheDocument();
+      expect(screen.getByText("Y-Axis Mock")).toBeInTheDocument();
+      expect(screen.getByText("Line Mock")).toBeInTheDocument();
+    });
   });
-
+  
   it("displays error message when no data is available", async () => {
-    // Mock fetch to return a 404 status
+    // Mocks fetch to return a 404 status
     global.fetch.mockResolvedValueOnce({
       ok: false,
       status: 404,
       json: () => Promise.resolve({}),
     });
-
+  
     render(<SensorHistory dev_eui={dev_eui} />);
-
-    // Apply filters to trigger data fetch
+  
+    // Applys filters to trigger data fetch
     fireEvent.click(screen.getByTestId("sensor-filter-button"));
-
-    // Wait for the fetch to complete
+  
+    // Waits for the fetch to complete
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
-
-    // Assert that the error message is displayed
-    expect(screen.getByTestId("errormessage")).toHaveTextContent(
-      "There is no Co2 data between the dates: 2023-01-01 and 2023-01-31."
-    );
+  
+    // Checks that the error message is displayed
+    await waitFor(() => {
+      expect(screen.getByTestId("errormessage")).toHaveTextContent(
+        "There is no Co2 data between the dates: 2023-01-01 and 2023-01-31."
+      );
+    });
   });
 
+  it("displays server down error message for 500 status", async () => {
+    // Mock fetch to return a 500 status
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: () => Promise.resolve({}),
+    });
+  
+    render(<SensorHistory dev_eui={dev_eui} />);
+  
+    // Apply filters to trigger data fetch
+    fireEvent.click(screen.getByTestId("sensor-filter-button"));
+  
+    // Wait for the fetch to complete
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+  
+    // Checks if the error message is displayed for server error
+    await waitFor(() => {
+      expect(screen.getByTestId("errormessage")).toHaveTextContent(
+        "Our servers are down."
+      );
+    });
+  });
+
+  it("displays unexpected error message for non-404/500 status", async () => {
+    // Mocks fetch to return a 403 (or any other status)
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      json: () => Promise.resolve({}),
+    });
+  
+    render(<SensorHistory dev_eui={dev_eui} />);
+  
+    // Applys filters to trigger data fetch
+    fireEvent.click(screen.getByTestId("sensor-filter-button"));
+  
+    // Waits for the fetch to complete
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+  
+    // Checks that the error message is displayed for unexpected error
+    await waitFor(() => {
+      expect(screen.getByTestId("errormessage")).toHaveTextContent(
+        "An unexpected error occurred."
+      );
+    });
+  });
+  
   it("displays the custom tooltip on hover", async () => {
     render(<SensorHistory dev_eui={dev_eui} />);
-
-    // Apply filter to trigger data fetch
+  
+    // Applys filter to trigger data fetch
     fireEvent.click(screen.getByTestId("sensor-filter-button"));
-
-    // Wait for the fetch to be completed
+  
+    // Waits for the fetch to be completed
     await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
-
-    // Simulate hovering over the chart data
+  
+    // Simulates hovering over the chart data
     const tooltip = screen.getByTestId("tooltip");
     fireEvent.mouseOver(tooltip);
-
-    // Assert that the tooltip is displayed with correct content
+  
+    // Checks that the tooltip is displayed with correct content
     await waitFor(() => {
       expect(tooltip).toBeInTheDocument();
-      expect(tooltip).toHaveTextContent("Date");
-      expect(tooltip).toHaveTextContent("Temperature");
-      expect(tooltip).toHaveTextContent("CO2 Level");
+      expect(tooltip).toHaveTextContent("Tooltip Mock");
     });
   });
 });

@@ -97,7 +97,6 @@ export const SensorHistory = ({ dev_eui }) => {
       <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto" data-testid="SensorHistory" data-cy="SensorHistory">
         <h1 className="text-2xl text-center font-bold mb-4" data-testid="SensorHistoryTitle">Sensor History</h1>
         <ResponsiveContainer data-testid="rechartsGraph" width="95%" height={400}>
-        {console.log(sortedData)} {/* Add this log */}
           <LineChart data-testid="rechartsGraph" width={1000} height={500} data={sortedData}>
             <CartesianGrid strokeDasharray="10 5 3 5" />
             <XAxis dataKey="createdAt" tick={null} />{" "}
