@@ -50,19 +50,63 @@ describe('Routing Tests with Mocked Data', () => {
     "temperature": "22",
     "createdAt": "2024-09-16T01:25:05.736Z",
     "updatedAt": "2024-09-16T01:25:05.736Z",
-    "deviceId": "eui-2000024b080301f5",
+    "deviceId": "eui-1000024b080301f5",
     "dev_eui": "1000024b080301f5",
     "device": {
       "id": 2,
       "room_number": null,
-      "deviceId": "eui-2000024b080301f5",
-      "dev_eui": "2000024b080301f5",
+      "deviceId": "eui-1000024b080301f5",
+      "dev_eui": "1000024b080301f5",
       "createdAt": "2024-09-16T01:25:05.695Z",
       "updatedAt": "2024-09-16T01:25:05.695Z",
       "blockId": 2
     }
   }
   }).as('getRoomData');
+
+  cy.intercept('GET', '**/api/v1/rooms/latest/2000024b080301f5', {
+    "statusCode": 200,
+"data": {
+  "id": 4,
+  "co2": "478",
+  "temperature": "22",
+  "createdAt": "2024-09-16T01:25:05.736Z",
+  "updatedAt": "2024-09-16T01:25:05.736Z",
+  "deviceId": "eui-2000024b080301f5",
+  "dev_eui": "2000024b080301f5",
+  "device": {
+    "id": 2,
+    "room_number": "D202",
+    "deviceId": "eui-2000024b080301f5",
+    "dev_eui": "2000024b080301f5",
+    "createdAt": "2024-09-16T01:25:05.695Z",
+    "updatedAt": "2024-09-16T01:25:05.695Z",
+    "blockId": 2
+  }
+}
+}).as('getRoomData');
+
+cy.intercept('GET', '**/api/v1/rooms/latest/3000024b080301f5', {
+  "statusCode": 200,
+"data": {
+"id": 4,
+"co2": "647",
+"temperature": "22",
+"createdAt": "2024-09-16T01:25:05.736Z",
+"updatedAt": "2024-09-16T01:25:05.736Z",
+"deviceId": "eui-3000024b080301f5",
+"dev_eui": "3000024b080301f5",
+"device": {
+  "id": 2,
+  "room_number": "D207",
+  "deviceId": "eui-3000024b080301f5",
+  "dev_eui": "3000024b080301f5",
+  "createdAt": "2024-09-16T01:25:05.695Z",
+  "updatedAt": "2024-09-16T01:25:05.695Z",
+  "blockId": 2
+}
+}
+}).as('getRoomData');
 
   })
 
