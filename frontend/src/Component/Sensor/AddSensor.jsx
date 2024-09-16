@@ -1,8 +1,6 @@
-// Name (string) and Device EUI or MAC Address (string) example: Device Name and FF:FF:FF:FF:FF:FF
-
 import React from 'react';
 import { UpdateButton } from './UpdateSensorSubComponents/UpdateButton';
-import { UpdateFieldResponse } from './UpdateSensorSubComponents/UpdateFieldResponse';
+// import { UpdateFieldResponse } from './UpdateSensorSubComponents/UpdateFieldResponse';
 
 export const AddSensor = ({ styles }) => {
   return (
