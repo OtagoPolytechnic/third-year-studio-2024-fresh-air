@@ -19,11 +19,13 @@ export const Homepage = () => {
         setError(null);
         const response = await fetch(`${apiKey}/api/v1/devices`);
         const data = await response.json();
+        console.log(data);
         // Getting the data from the api fetch for room number and dev_eui
         const extractedData = data.data.map((device) => ({
           room_number: device.room_number,
           dev_eui: device.dev_eui
         }));
+        console.log(extractedData)
         setDevices(extractedData);
 
         const co2Data = {};
@@ -34,6 +36,7 @@ export const Homepage = () => {
               `${apiKey}/api/v1/rooms/latest/${device.dev_eui}`
             );
             const co2Info = await co2Response.json();
+            console.log(co2Info);
             co2Data[device.dev_eui] = co2Info.data.co2;
           })
         );
