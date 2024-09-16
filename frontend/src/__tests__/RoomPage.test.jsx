@@ -1,29 +1,29 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'; // For matchers like .toBeInTheDocument()
+import '@testing-library/jest-dom';
 import { RoomPage } from '../Component/Pages/Roompage';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
-// Mock the fetch API globally
+// Mocks the fetch API globally
 global.fetch = jest.fn();
 
-// Mock the WebSocket context so we don't deal with actual WebSocket functionality
+// Mocks the WebSocket context so we don't deal with actual WebSocket functionality
 jest.mock('../Context/WebSocketContext', () => ({
   useWebSocket: () => ({
     socket: {}, // Return an empty object for socket, as we are not testing WebSocket functionality
   }),
 }));
 
-// Mock the LoadingSpinner component
+// Mocks the LoadingSpinner component
 jest.mock('../Component/Spinner/LoadingSpinner', () => ({
   LoadingSpinner: () => <div data-testid="mock-loading-spinner">Mocked Loading Spinner</div>,
 }));
 
-// Mock the Co2Sensor component
+// Mocks the Co2Sensor component
 jest.mock('../Component/Co2/Co2Sensor', () => ({
   Co2Sensor: () => <div data-testid="co2-sensor">Mocked Co2 Sensor</div>,
 }));
 
-// Mock the SensorHistory component
+// Mocks the SensorHistory component
 jest.mock('../Component/History/SensorHistory', () => ({
   SensorHistory: () => <div>SensorHistory</div>,
 }));
@@ -41,12 +41,12 @@ const mockCo2Data = {
 };
 
 beforeEach(() => {
-  // Reset mock fetch before each test
+  // Resets mock fetch before each test
   fetch.mockReset();
 });
 
 test('should render SensorHistory and Co2Sensor components when data is fetched', async () => {
-  // Mock the fetch calls for devices and CO2 levels
+  // Mocks the fetch calls for devices and CO2 levels
   fetch
     .mockResolvedValueOnce({
       json: async () => mockDevicesData,
@@ -58,7 +58,7 @@ test('should render SensorHistory and Co2Sensor components when data is fetched'
       json: async () => mockCo2Data,
     }); // Third call to fetch CO2 data for device2
 
-  // Render the component inside a MemoryRouter with the correct route
+  // Renders the component inside a MemoryRouter with the correct route
   render(
     <MemoryRouter initialEntries={['/rooms/101']}>
       <Routes>
@@ -67,15 +67,15 @@ test('should render SensorHistory and Co2Sensor components when data is fetched'
     </MemoryRouter>
   );
 
-  // Ensure the mocked loading spinner appears initially
+  // Ensures the mocked loading spinner appears initially
   expect(screen.getByTestId('mock-loading-spinner')).toBeInTheDocument();
 
-  // Wait for the Co2Sensor elements to be rendered
+  // Waits for the Co2Sensor elements to be rendered
   await waitFor(() => {
     const co2Sensors = screen.getAllByTestId('co2-sensor');
     expect(co2Sensors.length).toBeGreaterThan(0); // Expect at least one sensor
   });
 
-  // Check if SensorHistory is also rendered
+  // Checks if SensorHistory is also rendered
   expect(screen.getByText('SensorHistory')).toBeInTheDocument();
 }, 10000);
