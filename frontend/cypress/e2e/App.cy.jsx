@@ -89,19 +89,19 @@ describe('Routing Tests with Mocked Data', () => {
     cy.get('[id*="reactgooglegraph-"]').should('be.visible');
   });
 
-  // it('Visits Room D202 and verifies chart is visible', () => {
-  //   cy.visit('http://localhost:5173/');
-  //   cy.wait('@getSensorData'); // Ensure data is loaded
-  //   cy.get('[data-cy="D202"]').click();
-  //   cy.url().should('eq', 'http://localhost:5173/D-Block/D202');
-  //   cy.get('[id*="reactgooglegraph-"]').should('be.visible');
-  // });
+  it('Visits Room D202 and verifies chart is visible', () => {
+    cy.visit('http://localhost:5173/');
+    cy.wait('@getSensorData'); // Ensure data is loaded
+    cy.get('[data-cy="D202"]').click();
+    cy.url().should('eq', 'http://localhost:5173/D-Block/D202');
+    cy.get('[id*="reactgooglegraph-"]').should('be.visible');
+  });
 
-  // it('Visits Room D207 and verifies chart is visible', () => {
-  //   cy.visit('http://localhost:5173/');
-  //   cy.wait('@getSensorData'); // Ensure data is loaded
-  //   cy.get('[data-cy="D207"]').click();
-  //   cy.url().should('eq', 'http://localhost:5173/D-Block/D207');
-  //   cy.get('[id*="reactgooglegraph-"]').should('be.visible');
-  // });
+  it('Visits Room D207 and verifies chart is visible', () => {
+    cy.visit('http://localhost:5173/');
+    cy.wait('@getSensorData'); // Ensure data is loaded
+    cy.get('[data-cy="D207"]').click();
+    cy.url().should('eq', 'http://localhost:5173/D-Block/D207');
+    cy.get('[id*="reactgooglegraph-"]').should('be.visible');
+  });
 });
