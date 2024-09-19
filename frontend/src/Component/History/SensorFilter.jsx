@@ -16,6 +16,7 @@ export const SensorFilter = ({ onFilterChange }) => {
         <label className="block mb-2 text-sm font-medium text-gray-900">Start Date:</label>
         <input
           data-cy="startLabel"
+          data-testid="startLabel"
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
@@ -27,6 +28,7 @@ export const SensorFilter = ({ onFilterChange }) => {
         <label className="block mb-2 text-sm font-medium text-gray-900">End Date:</label>
         <input
           data-cy="endLabel"
+          data-testid="endLabel"
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
@@ -34,7 +36,7 @@ export const SensorFilter = ({ onFilterChange }) => {
           required
         />
       </div>
-      <button data-cy="submitButton" type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      <button data-cy="submitButton" data-testid="submitButton" type="submit" className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
         Apply Filter
       </button>
     </form>
