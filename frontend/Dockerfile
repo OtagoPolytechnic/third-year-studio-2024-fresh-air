@@ -8,8 +8,6 @@ ENV VITE_BACKEND_API_KEY=$VITE_BACKEND_API_KEY
 RUN npm run build
 
 FROM nginx:alpine3.18
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/nginx-test.conf /etc/nginx/nginx-testing.conf
 COPY --from=frontend-build /frontend/dist /usr/share/nginx/html
 EXPOSE 80
 EXPOSE 443
