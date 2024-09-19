@@ -4,85 +4,83 @@ volumes:
 
 services:
   # Live Environment
-  co2-db:
-    image: postgres:16.2
-    restart: always
-    environment:
-      - POSTGRES_USER=co2-user
-      - POSTGRES_PASSWORD=Decom123
-      - POSTGRES_DB=co2-db
-    expose:
-      - "5432"
-    volumes:
-      - /data/production/db/pgdata:/var/lib/postgresql/data
+  # co2-db:
+  #   image: postgres:16.2
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=co2-user
+  #     - POSTGRES_PASSWORD=Decom123
+  #     - POSTGRES_DB=co2-db
+  #   expose:
+  #     - "5432"
+  #   volumes:
+  #     - /data/production/db/pgdata:/var/lib/postgresql/data
 
-  backend:
-    image: backend-co2-app
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    depends_on:
-      - co2-db
-    restart: always
-    environment:
-      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
-    expose:
-      - "3000"
-    ports:
-      - "3000:3000"
+  # backend:
+  #   image: backend-co2-app
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - co2-db
+  #   restart: always
+  #   environment:
+  #     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
+  #   expose:
+  #     - "3000"
+  #   ports:
+  #     - "3000:3000"
 
-  frontend:
-    image: frontend-co2-app
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    depends_on:
-      - backend
-    restart: always
-    environment:
-      - VITE_BACKEND_API_KEY=http://localhost:3000
-    ports:
-      - "8080:80"
+  # frontend:
+  #   image: frontend-co2-app
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - VITE_BACKEND_API_KEY=http://localhost:3000
+  #   ports:
+  #     - "8080:80"
 
   # Testing Environment
-#  co2-db-testing:
-#    container_name: co2-db-testing
-#    image: postgres:16.2
-#    restart: always
-#    environment:
-#      - POSTGRES_USER=co2-user
-#      - POSTGRES_PASSWORD=Decom123
-#      - POSTGRES_DB=co2-db-testing
-#    ports:
-#      - "5433:5432"
-#    volumes:
-#      - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
+  co2-db-testing:
+   image: postgres:16.2
+   restart: always
+   environment:
+     - POSTGRES_USER=co2-user
+     - POSTGRES_PASSWORD=Decom123
+     - POSTGRES_DB=co2-db-testing
+   expose:
+     - "5433"
+   volumes:
+     - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
 
-#  frontend-testing:
-#    container_name: co2-frontend-testing
-#    image: frontend-co2-app
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#    restart: always
-#    environment:
-#      - VITE_BACKEND_API_KEY=http://co2-api.test.duckdns.org
-#    ports:
-#      - "8082:80"
+  backend-testing:
+   image: backend-co2-app
+   build:
+     context: ./backend
+     dockerfile: Dockerfile
+   depends_on:
+     - co2-db-testing
+   restart: always
+   environment:
+     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5433/co2-db-testing
+   expose:
+      - "3001"
+   ports:
+      - "8082:3000"
 
-#  backend-testing:
-#    container_name: co2-backend-testing
-#    image: backend-co2-app
-#    build:
-#      context: ./backend
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - co2-db-testing
-#    restart: always
-#    environment:
-#      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
-#    ports:
-#      - "8083:3000"
-#networks:
-#  co2-network:
-#    driver: bridge
+  frontend-testing:
+   image: frontend-co2-app
+   build:
+     context: ./frontend
+     dockerfile: Dockerfile
+   depends_on:
+      - backend-testing
+   restart: always
+   environment:
+     - VITE_BACKEND_API_KEY=http://localhost:3001
+   ports:
+     - "8081:80"
