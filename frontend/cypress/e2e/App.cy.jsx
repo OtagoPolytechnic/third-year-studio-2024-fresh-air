@@ -1,10 +1,8 @@
 describe('Routing Tests with Mocked Data', () => {
   beforeEach(() => {
     // Load fixture data before each test
-    cy.fixture('mockedData').as('mockedData');
 
     // Intercept the network request to your backend API with mocked data
-    // cy.intercept('GET', 'http://co2-app.op-bit.nz/api/v1/devices', { fixtures: 'mockedData' }).as('getSensorData');
   cy.intercept('GET', '**/api/v1/devices', {
     statusCode: 200,
     body: {
