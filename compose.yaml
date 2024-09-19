@@ -28,7 +28,7 @@ services:
       - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
     expose:
       - "3000"
-    ports:
+   ports:
       - "3000:3000"
 
   frontend:
@@ -53,7 +53,7 @@ services:
      - POSTGRES_PASSWORD=Decom123
      - POSTGRES_DB=co2-db-testing
    expose:
-     - "5433"
+     - "5432"
    volumes:
      - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
 
@@ -66,11 +66,9 @@ services:
      - co2-db-testing
    restart: always
    environment:
-     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5433/co2-db-testing
-   expose:
-      - "3001"
+     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
    ports:
-      - "8082:3000"
+      - "3001:3000"
 
   frontend-testing:
    image: frontend-co2-app
