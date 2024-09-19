@@ -94,10 +94,10 @@ export const SensorHistory = ({ dev_eui }) => {
   return (
 
     <div className="p-8">
-      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto text-gray-900" data-testid="SensorHistory" data-cy="SensorHistory">
-        <h1 className="text-2xl text-center font-bold mb-4" data-testid="SensorHistoryTitle">Sensor History</h1>
+      <div className="recharts-wrapper mt-8 w-full max-w-4xl mx-auto text-gray-900"  data-testid="SensorHistory" data-cy="SensorHistory">
+        <h1 className="text-2xl text-center font-bold mb-4" data-testid="SensorHistoryTitle" >Sensor History</h1>
         <ResponsiveContainer data-testid="rechartsGraph" width="95%" height={400}>
-          <LineChart data-testid="rechartsGraph"  width={1000} height={500} data={sortedData}>
+          <LineChart data-testid="rechartsGraph" width={1000} height={500} data={sortedData}>
             <CartesianGrid strokeDasharray="10 5 3 5" />
             <XAxis dataKey="createdAt" tick={null} />{" "}
             {/* Tick removes the date below the grid */}
