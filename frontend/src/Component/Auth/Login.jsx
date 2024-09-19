@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import {
-  FirestoreAuthProvider,
   useUserAuth
 } from '../../Context/FirestoreAuthContext';
 import PopUp from './PopUp';
+import { Navigate } from 'react-router-dom';
 
 export const Login = () => {
   const { login, user } = useUserAuth();
@@ -19,6 +19,10 @@ export const Login = () => {
       alert(error);
     }
   };
+
+  if (user && modal === false) {
+    return <Navigate to={'/'} replace={true} />;
+  }
 
   const handleModal = () => {
     setModal(false);
