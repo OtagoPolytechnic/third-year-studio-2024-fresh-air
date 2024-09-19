@@ -1,4 +1,4 @@
-export const PopUp = ({ handleClick }) => {
+export const PopUp = ({ handleClick, headerText, pText, error }) => {
   return (
     <div
       class="relative z-10"
@@ -16,21 +16,30 @@ export const PopUp = ({ handleClick }) => {
           <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div class="sm:flex sm:items-start">
-                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                <div
+                  className={`mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${error ? 'bg-red-500' : 'bg-green-100'} sm:mx-0 sm:h-10 sm:w-10`}
+                >
                   <svg
-                    class="h-6 w-6 text-green-600"
+                    className={`h-6 w-6 ${error ? 'text-white' : 'text-green-600'}`}
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
+                    {error ? (
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    ) : (
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    )}
                   </svg>
                 </div>
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
@@ -38,12 +47,10 @@ export const PopUp = ({ handleClick }) => {
                     class="text-base font-semibold leading-6 text-gray-900"
                     id="modal-title"
                   >
-                    Successfully logged in
+                    {headerText}
                   </h3>
                   <div class="mt-2">
-                    <p class="text-sm text-gray-500">
-                      Account has been successfully logged in, you can now access the dashboard.
-                    </p>
+                    <p class="text-sm text-gray-500">{pText}</p>
                   </div>
                 </div>
               </div>
