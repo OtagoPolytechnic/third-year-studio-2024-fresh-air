@@ -43,6 +43,8 @@ services:
   #     - VITE_BACKEND_API_KEY=http://localhost:3000
   #   ports:
   #     - "8080:80"
+  #   volumes:
+  #     - ./frontend/nginx/ngnix.conf:/etc/nginx/conf.d/default.conf
 
   # Testing Environment
   co2-db-testing:
@@ -84,3 +86,5 @@ services:
      - VITE_BACKEND_API_KEY=http://localhost:3001
    ports:
      - "8081:80"
+  volumes:
+        - ./frontend/nginx/ngnix.conf:/etc/nginx/conf.d/default.conf
