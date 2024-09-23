@@ -27,7 +27,7 @@ const FirestoreAuthProvider = ({ children }) => {
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.error(error);
+     throw new Error(error.error);
     }
   };
 

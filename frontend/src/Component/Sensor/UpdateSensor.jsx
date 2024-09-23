@@ -48,7 +48,7 @@ export const UpdateSensor = ({styles}) =>  {
 
   return (
     <section className={` ${styles}`}>
-      <div className='border rounded-lg shadow-lg sm:w-[500px] sm:max-h-[150px] bg-gray-200'>
+      <div className='border rounded-lg shadow-lg max-w-lg bg-gray-200'>
         <h1 className={'ml-2 text-center'}>Rename Sensor</h1>
         {items.length > 0 && (
           <UpdateForm

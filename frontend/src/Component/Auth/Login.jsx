@@ -6,16 +6,30 @@ import { Navigate } from 'react-router-dom';
 export const Login = () => {
   const { login, user } = useUserAuth();
   const [modal, setModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ headerText: '', pText: '' });
+  const [error, setError] = useState(false);
 
+  console.log(error)
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(false);
     const { email, pwd } = e.target.elements;
     try {
+      setError(false);
       await login(email.value, pwd.value);
-      setModal(true);
+      setModalContent({
+        headerText: 'Successfully logged in',
+        pText: 'Account has been successfully logged in, you can now access the dashboard.'
+      });
     } catch (error) {
-      alert(error);
+      console.log('here')
+      setModalContent({
+        headerText: 'Failed to login',
+        pText: error.message || 'An error occurred while trying to login. Check that your email/password are correct.'
+      });
+      setError(true);
     }
+    setModal(true);
   };
 
   if (user && modal === false) {
@@ -76,7 +90,7 @@ export const Login = () => {
             )}
           </form>
         </div>
-        {modal && <PopUp handleClick={handleModal} headerText={'Successfully logged in'} pText={'Account has been successfully logged in, you can now access the dashboard.'} />}
+        {modal && <PopUp error={error} handleClick={handleModal} headerText={modalContent.headerText} pText={modalContent.pText} />}
       </div>
     </>
   );

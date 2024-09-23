@@ -5,7 +5,7 @@ import TextInput from '../Input/TextInput';
 import Label from '../Label/Label';
 import SelectInput from '../Input/SelectInput';
 import PopUp from './PopUp';
-const Register = () => {
+const Register = ({styles}) => {
   const [modal, setModal] = useState(false);
   const [modalContent, setModalContent] = useState({ headerText: '', pText: '' });
   const [error, setError] = useState(false);
@@ -36,7 +36,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center px-10 py-8 lg:mx-64 md:mr-14 md:mx-14 border rounded-lg mx-4 mr-4 shadow-lg">
+    <div className={`${styles}`}>
       <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
         Register new user
       </h2>
