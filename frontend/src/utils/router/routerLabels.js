@@ -5,5 +5,4 @@ export const routerLabels = {
     login: "Login",
     logout: "Logout",
     dashboard: "Dashboard",
-    
 };

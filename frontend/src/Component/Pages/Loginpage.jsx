@@ -1,5 +1,4 @@
 import Login from '../Auth/Login';
-import Logout from '../Auth/Logout';
 
 export const LoginPage = () => {
   return (

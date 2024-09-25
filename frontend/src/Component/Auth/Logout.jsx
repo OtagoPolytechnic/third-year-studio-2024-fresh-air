@@ -1,10 +1,10 @@
 import {
-  FirestoreAuthProvider,
   useUserAuth
 } from '../../Context/FirestoreAuthContext';
+import { Navigate } from 'react-router-dom';
 
 export const Logout = () => {
-  const { logout} = useUserAuth();
+  const { logout, user} = useUserAuth();
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -14,6 +14,10 @@ export const Logout = () => {
       alert(error);
     }
   };
+
+  if (!user) {
+    return <Navigate to={'/'} replace={true} />;
+  }
 
   return (
     <div className="flex items-center justify-center">

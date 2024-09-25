@@ -2,9 +2,11 @@ import { NavLink } from 'react-router-dom';
 import { routes } from '../../router/routeList';
 import logo from '../../Imgs/logo-black.png';
 import { filterRouter } from '../../utils/router/filterRouter';
+import { useUserAuth } from '../../Context/FirestoreAuthContext';
 
 const NavBar = () => {
-  const filteredRoutes = filterRouter(routes);
+  const { user } = useUserAuth();
+  const filteredRoutes = filterRouter(routes, user);
 
   return (
     <nav
@@ -30,6 +32,7 @@ const NavBar = () => {
               </NavLink>
             </li>
           ))}
+          
         </ul>
       </header>
     </nav>

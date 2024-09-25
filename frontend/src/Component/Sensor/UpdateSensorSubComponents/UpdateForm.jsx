@@ -31,7 +31,7 @@ export const UpdateForm = ({styles, onSubmit, onChange, onInput, inputValue, dro
       value={inputValue}
       />
       <section className={"grid grid-cols-2 grid-rows-1 items-center mt-2"}>
-      <UpdateButton style={'bg-green-500 w-[150px] h-[50px] text-white rounded-md mt-2 ml-4 mb-2 sm:mt-0'} type={'submit'} text="Update Name"/>
+      <UpdateButton style={'bg-green-500 w-[150px] h-[45px] text-white rounded-md ml-4 my-2 sm:mt-0'} type={'submit'} text="Update Name"/>
       <UpdateFieldResponse styles={`${ formError || apiError ? 'text-red-500' : 'text-green-500'} mr-2 text-center`} text={updateSuccessful || formError || apiError}/>
       </section>
     </form>
