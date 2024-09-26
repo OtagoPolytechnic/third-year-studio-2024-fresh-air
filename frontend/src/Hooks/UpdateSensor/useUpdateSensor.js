@@ -59,6 +59,7 @@ export const useUpdateSensor = (apiKey) => {
 
   const fetchData = async () => {
     try {
+
       const response = await fetch(apiKey);
       const data = await response.json();
       const mappedData = data.data.map((item) => {
@@ -71,12 +72,16 @@ export const useUpdateSensor = (apiKey) => {
       setItems(mappedData);
     } catch (error) {
       setApiError(error);
+    } finally {
+      resetApiError();
+      resetUpdateSuccess();
     }
   };
 
   useEffect(() => {
+    console.log('test')
     fetchData();
-  }, []);
+  }, [updateSuccess, apiError]);
 
   return { items, apiError, resetApiError, updateSensorRequest, updateSuccess, resetUpdateSuccess };
 };
