@@ -47,7 +47,9 @@ jobs:
           npm run test
 
       - name: Run seed script
-        run: npm run seed:cypress
+        working-directory: backend
+        run: |
+          npm run seed:cypress
 
       - name: Install dependencies and run frontend
         working-directory: frontend
