@@ -17,7 +17,7 @@ const options = {
   greenTo: 1000,
   minorTicks: 10,
   min: 400,
-  max: 5000
+  max: 5000,
 };
 
 export const Co2Sensor = ({ room_number, co2, size }) => {
@@ -30,6 +30,7 @@ export const Co2Sensor = ({ room_number, co2, size }) => {
   return (
     <div className="text-gray-900">
       <Chart
+        data-testid="co2-sensor"
         chartType="Gauge"
         data={data}
         options={options}
