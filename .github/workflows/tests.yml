@@ -50,6 +50,8 @@ jobs:
         working-directory: backend
         run: |
           npm run seed:cypress
+        env:
+          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
 
       - name: Install dependencies and run frontend
         working-directory: frontend
