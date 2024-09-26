@@ -46,4 +46,42 @@ jobs:
         run: |
           npm run test
 
+      - name: Run seed script
+        working-directory: backend
+        run: |
+          npm run generate  
+          npm run migrate
+          npm run seed:cypress
+        env:
+          DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+
+      - name: Install dependencies and run frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run dev &
+        env:
+          VITE_BACKEND_API_KEY: http://localhost:3000
+          
+      - name: Wait for services to start
+        run: |
+          sleep 10
+
+      - name: Run frontend component tests
+        working-directory: frontend
+        run: |
+          npm run test Co2Sensor
+          npm run test SensorHistory
+
+      - name: Run frontend Cypress tests
+        working-directory: frontend
+        run: |
+          npx cypress run
+          
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: frontend/cypress/screenshots
 

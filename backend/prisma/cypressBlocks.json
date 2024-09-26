@@ -1,0 +1,15 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "blockName": "D-Block",
+        "deviceId": "eui-1000024b080301f5"
+      },
+      {
+        "id": 2,
+        "blockName": "C-Block",
+        "deviceId": "eui-2000024b080301f5"
+      }
+    ]
+  }
+  
