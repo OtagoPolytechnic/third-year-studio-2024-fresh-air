@@ -12,8 +12,8 @@ const DashBoard = () => {
       {/* <AddSensor styles={'lg:col-start-1 lg:col-span-2 col-start-1 col-span-2'} /> */}
       {/* <UpdateSensor styles={'lg:col-start-4 lg:row-start-1 lg:col-span-3 col-start-1 col-span-3'} /> */}
       {/* <Register styles={'lg:col-start-1 lg:row-start-2 lg:col-span-3 col-start-1 col-span-full'} /> */}
-    <CreateBlock styles={'lg:col-start-4 lg:row-start-1 lg:col-span-2 col-start-1 col-span-3'} />
-    {/* <UpdateBlock/> */}
+    {/* <CreateBlock styles={'lg:col-start-4 lg:row-start-1 lg:col-span-2 col-start-1 col-span-3'} /> */}
+    <UpdateBlock/>
     </section>
     </>
   );

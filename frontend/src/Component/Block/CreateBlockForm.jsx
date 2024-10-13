@@ -29,12 +29,7 @@ const CreateBlockForm = ({
           type={'submit'}
           text="Create Block"
         />
-<UpdateFieldResponse
-          styles={`${
-            formError || apiError ? 'text-red-500' : updateSuccessful ? 'text-green-500' : ''
-          } mr-2 text-center`}
-          text={updateSuccessful || formError || apiError}
-        />
+      <UpdateFieldResponse styles={`${ formError || apiError ? 'text-red-500' : 'text-green-500'} mr-2 text-center`} text={updateSuccessful || formError || apiError}/>
       </section>
     </form>
   );

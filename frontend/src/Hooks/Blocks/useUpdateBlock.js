@@ -13,14 +13,15 @@ export const useUpdateBlock = (apiKey) => {
         setUpdateSuccess('');
     };
     
-    const updateBlockRequest = async (endpoint, blockName) => {
+    const updateBlockRequest = async (endpoint, blockName, updatedName) => {
         try {
+            console.log('Block', blockName);
         const updateBlock = await fetch(`${endpoint}/${blockName}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ blockName: blockName }),
+            body: JSON.stringify({ blockName: updatedName }),
         });
     
         const confirmUpdate = await updateBlock.json();
@@ -31,7 +32,7 @@ export const useUpdateBlock = (apiKey) => {
             return setUpdateSuccess(message);
         }
         else {
-            console.clear();
+            // console.clear();
             setApiError(message);
         }
     
