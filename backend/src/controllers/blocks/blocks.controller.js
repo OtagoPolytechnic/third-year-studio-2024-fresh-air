@@ -55,6 +55,11 @@ const getBlock = async (req, res) => {
             room_number: true,
             deviceId: true,
             dev_eui: true,
+            block: {
+              select: {
+                blockName: true,
+              }
+            },
           },
         },
       },

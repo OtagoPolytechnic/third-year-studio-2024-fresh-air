@@ -73,6 +73,13 @@ const getAllDevices = async (req, res) => {
       orderBy: {
         [sortBy]: sortOrder,
       },
+      include: {
+        block: {
+          select: {
+            blockName: true,
+          },
+        }
+      },
       take: Number(amount),
       skip: Number(page - 1) * Number(amount),
     });
@@ -145,6 +152,74 @@ const updateDeviceRoom = async (req, res) => {
   }
 };
 
-//TODO!!!! Add device to a block
+const updateDeviceBlock = async (req, res) => {
+  try {
+    const dev_eui = req.params.dev_eui;
 
-export { getDevice, getAllDevices, updateDeviceRoom };
+    const { blockName } = req.body;
+
+    const getDevice = await prisma.device.findFirst({
+      where: { dev_eui: String(dev_eui) },
+    });
+
+    if (!getDevice || getDevice.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: `Device ${dev_eui} not found in the database`,
+      });
+    }
+
+    const updatedBlockName = await prisma.device.update({
+      where: { dev_eui: String(dev_eui) },
+      data: { blockName },
+    });
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      message: `Device Block updated successfully`,
+      data: updatedBlockName,
+    });
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.statusCode,
+      message: error.message
+    });
+  }
+
+}
+
+const getDeviceLatestData = async (req, res) => {
+  try {
+    const room_number = req.params.room_number;
+    const device = await prisma.device.findFirst({
+      where: { room_number: String(room_number) },
+      include: {
+        sensorData: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+          take: 1,
+        },
+      },
+    });
+
+    if (!device || device.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: `Device with room number ${room_number} not found on the server`,
+      });
+    }
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      data: device,
+    });
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.status,
+      message: error.message,
+    });
+}
+};
+
+export { getDevice, getAllDevices, updateDeviceRoom, updateDeviceBlock, getDeviceLatestData }

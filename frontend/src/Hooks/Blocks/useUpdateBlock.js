@@ -32,7 +32,7 @@ export const useUpdateBlock = (apiKey) => {
             return setUpdateSuccess(message);
         }
         else {
-            // console.clear();
+            console.clear();
             setApiError(message);
         }
     
