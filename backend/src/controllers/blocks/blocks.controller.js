@@ -148,7 +148,7 @@ const createBlock = async (req, res) => {
     if (!blockNamePattern.test(blockName)) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({
         statusCode: res.statusCode,
-        message: 'Block name must be in the format [Uppercase Letter]-block',
+        message: 'Block name must be in the format [Uppercase Letter]-Block',
       });
     }
 
