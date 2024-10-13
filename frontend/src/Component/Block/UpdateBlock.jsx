@@ -20,7 +20,6 @@ const UpdateBlock = ({styles}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(selectedItem);
         try {
             resetUpdateSuccess();
             resetApiError();

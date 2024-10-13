@@ -29,7 +29,6 @@ const CreateBlock = ({styles}) => {
     }
 
     const handleChange = (event) => {
-        console.log(event.target.value);
         setInputValue(event.target.value);
     };
 

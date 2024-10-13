@@ -15,7 +15,6 @@ const AddDeviceToBlock = ({styles}) => {
 
     
     const handleDeviceChange = (event) => {
-        console.log(event.target.value);
         setSelectedDevice(event.target.value);
     };
 
@@ -25,7 +24,6 @@ const AddDeviceToBlock = ({styles}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(event);
         try {
             resetUpdateSuccess();
             resetApiError();
