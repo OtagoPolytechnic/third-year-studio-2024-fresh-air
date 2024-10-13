@@ -162,6 +162,7 @@ const updateDeviceBlock = async (req, res) => {
       where: { dev_eui: String(dev_eui) },
     });
 
+
     if (!getDevice || getDevice.length === 0) {
       return res.status(STATUS_CODES.NOT_FOUND).json({
         statusCode: res.statusCode,
@@ -171,8 +172,10 @@ const updateDeviceBlock = async (req, res) => {
 
     const updatedBlockName = await prisma.device.update({
       where: { dev_eui: String(dev_eui) },
-      data: { blockName },
+      data: { block: { connect: { blockName } } },
     });
+
+    console.log(updatedBlockName);
 
     return res.status(STATUS_CODES.OK).json({
       statusCode: res.statusCode,

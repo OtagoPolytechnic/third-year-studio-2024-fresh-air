@@ -15,7 +15,6 @@ export const useUpdateBlock = (apiKey) => {
     
     const updateBlockRequest = async (endpoint, blockName, updatedName) => {
         try {
-            console.log('Block', blockName);
         const updateBlock = await fetch(`${endpoint}/${blockName}`, {
             method: 'PUT',
             headers: {

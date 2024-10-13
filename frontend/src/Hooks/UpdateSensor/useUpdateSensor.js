@@ -65,7 +65,7 @@ export const useUpdateSensor = (apiKey) => {
         return {
           id: item.id,
           dev_eui: item.dev_eui,
-          roomNumber: item.room_number
+          room_number: item.room_number
         };
       });
       setItems(mappedData);

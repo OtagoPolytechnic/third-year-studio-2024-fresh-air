@@ -3,7 +3,7 @@ import { useUpdateBlock } from "../../Hooks/Blocks/useUpdateBlock";
 import { UpdateBlockForm } from "./UpdateBlockSubComponents/UpdateBlockForm";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
-const UpdateBlock = () => {
+const UpdateBlock = ({styles}) => {
     const { items, apiError, resetApiError, updateBlockRequest, updateSuccess, resetUpdateSuccess } = useUpdateBlock(`${apiKey}/api/v1/blocks`);
     const [selectedItem, setSelectedItem] = useState('');
     const [inputValue, setInputValue] = useState('');
@@ -42,7 +42,9 @@ const UpdateBlock = () => {
     };
 
     return (
-        <div>
+        <section className={styles}>
+            <div className={'border rounded-lg shadow-lg max-w-lg bg-gray-200'}>
+            <h1 className={'ml-2 text-center font-bold'}>Update Block</h1>
             <UpdateBlockForm 
             styles={'flex flex-col'}
             onSubmit={handleSubmit}
@@ -55,7 +57,8 @@ const UpdateBlock = () => {
             apiError={apiError}
             formError={error}
             />
-        </div>
+            </div>
+        </section>
     )
 }
 

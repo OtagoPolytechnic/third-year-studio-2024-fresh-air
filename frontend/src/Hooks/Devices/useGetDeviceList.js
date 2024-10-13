@@ -18,7 +18,6 @@ export const useGetDeviceList = (apiKey) => {
                 };
             });
             setDevices(mappedData);
-            console.log(mappedData);
         } catch (error) {
             setApiError(error);
         }

@@ -14,7 +14,6 @@ export const useGetBlockList = (apiKey) => {
         };
       });
       setBlocks(mappedData);
-      console.log(mappedData);
     } catch (error) {
       setApiError(error);
     }

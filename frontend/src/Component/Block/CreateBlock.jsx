@@ -34,7 +34,9 @@ const CreateBlock = ({styles}) => {
     };
 
     return (
-        <section className={`${styles}`}>
+        <section className={styles}>
+            <div className={'border rounded-lg shadow-lg max-w-lg bg-gray-200'}>
+            <h1 className={'ml-2 text-center font-bold'}>Create Block</h1>
             <CreateBlockForm
             styles={'flex flex-col'}
             onSubmit={handleSubmit}
@@ -44,6 +46,7 @@ const CreateBlock = ({styles}) => {
             apiError={apiError}
             updateSuccessful={updateSuccess}
             />
+            </div>
             </section>
     );
 }
