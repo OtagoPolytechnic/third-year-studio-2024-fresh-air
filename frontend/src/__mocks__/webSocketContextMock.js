@@ -1,5 +1,3 @@
-// __mocks__/webSocketContextMock.js
-
 import React, { createContext, useContext } from 'react';
 
 const WebSocketContext = createContext({
