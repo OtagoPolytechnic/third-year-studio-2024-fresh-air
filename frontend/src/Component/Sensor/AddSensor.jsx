@@ -45,7 +45,7 @@ export const AddSensor = ({ styles }) => {
         <div>
           <UpdateButton
             style={
-              'bg-green-500 w-[150px] h-[45px] text-white rounded-md ml-6 my-2 sm:mt-0'
+              'bg-blue-500 w-[150px] h-[45px] text-white rounded-md ml-6 my-2 sm:mt-0'
             }
             type={'submit'}
             text="Add device"
