@@ -70,6 +70,7 @@ export const useUpdateSensor = (apiKey) => {
         };
       });
       setItems(mappedData);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     } catch (error) {
       setApiError(error);
     } finally {
