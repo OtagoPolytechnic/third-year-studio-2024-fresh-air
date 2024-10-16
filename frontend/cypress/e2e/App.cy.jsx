@@ -1,7 +1,24 @@
 describe('Routing Tests with Mocked Data', () => {
-  it('Visits Home Page', () => {
-    cy.visit('http://localhost:5173/')
-    cy.get('[data-cy="h1Welcome"]').should('have.text', 'Welcome to D-Block CO2 Monitor');
+  it('Visits Home Page and tests load time', () => {
+    cy.visit('http://localhost:5173/', {
+      onBeforeLoad(win) {
+        // Marks the start time it takes to load the page
+        win.performance.mark('start-loading');
+      },
+      onLoad(win) {
+        cy.get('[data-cy="h1Welcome"]').should('have.text', 'Welcome to D-Block CO2 Monitor');
+        // Marks the end time
+        win.performance.mark('end-loading');
+        // Calculates the difference between start and end time
+        win.performance.measure('pageLoad', 'start-loading', 'end-loading');
+      },
+    }).then(() => {
+      cy.window().then((win) => {
+        const loadTime = win.performance.getEntriesByName('pageLoad')[0].duration;
+        cy.log(`Home page load time: ${loadTime} ms`);
+        expect(loadTime).to.be.lessThan(3000);
+      });
+    });
   });
 
   it('NavBar returns to homepage', () => {
