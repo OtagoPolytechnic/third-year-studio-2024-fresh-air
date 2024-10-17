@@ -5,37 +5,32 @@ import { useWebSocket } from "../../Context/WebSocketContext";
 import { SensorHistory } from "../History/SensorHistory";
 import { LoadingSpinner } from "../Spinner/LoadingSpinner";
 
+const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
+
 export const RoomPage = () => {
-  const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
   const { socket } = useWebSocket();
   const [isLoading, setIsLoading] = useState(true);
   const [devices, setDevices] = useState([]);
-  const [co2Levels, setCo2Levels] = useState({});
-  const { roomNumber } = useParams();
   const [error, setError] = useState(null);
+  const { roomNumber } = useParams();
 
   useEffect(() => {
     const fetchDevices = async () => {
       try {
         setError(null);
-        const response = await fetch(`${apiKey}/api/v1/devices`);
+        const response = await fetch(`${apiKey}/api/v1/devices/latest/${roomNumber}`);
         const data = await response.json();
-        // Getting the data from the api fetch for room number and dev_eui
-        const extractedData = data.data.map(device => ({
-          room_number: device.room_number,
-          dev_eui: device.dev_eui,
-        }));
+        if (data.statusCode === 404) {
+          setError(data.message);
+        };
+        // setDevices with room_number, dev_eui, co2
+        const extractedData = {
+          room_number: data.data.room_number,
+          dev_eui: data.data.dev_eui,
+          co2: data.data.sensorData.map(sensor => sensor.co2)[0],
+        };
         setDevices(extractedData);
-
-        const co2Data = {};
-        await Promise.all(extractedData.map(async (device) => {
-          // This fetches the co2 level for each room
-          const co2Response = await fetch(`${apiKey}/api/v1/rooms/latest/${device.dev_eui}`);
-          const co2Info = await co2Response.json();
-          co2Data[device.dev_eui] = co2Info.data.co2;
-        }));
-        setCo2Levels(co2Data);
-        setIsLoading(false);  
+       
       } catch (error) {
         setError(error.message);
       } finally {
@@ -45,13 +40,6 @@ export const RoomPage = () => {
     fetchDevices();
   }, [socket]);
 
-  const roomData = devices
-    .filter(device => device.room_number === roomNumber)
-    .map(device => ({
-      ...device,
-      // this allows the co2 level to show where it is on the gauge
-      co2: co2Levels[device.dev_eui] || 400,
-    }));
 
   return (
     <div>
@@ -60,17 +48,15 @@ export const RoomPage = () => {
           <div className="pt-40">
             <LoadingSpinner />
           </div>
-        ) : roomData ? (
+        ) : devices ? (
           <>
       {/* Maps the data thar gives us the co2 level for the gauge */}
-      {roomData.map(item => (
-        <div key={item.dev_eui}>
+        <div key={devices.dev_eui}>
           <div className="flex justify-center items-center" data-testid="co2-sensor">
-            <Co2Sensor room_number={item.room_number} co2={item.co2} size="24rem" />
+            <Co2Sensor room_number={devices.room_number} co2={devices.co2 || 400} size="24rem" />
           </div>
-          <SensorHistory dev_eui={item.dev_eui} />
+          <SensorHistory dev_eui={devices.dev_eui} />
         </div>
-      ))}
        </>
         ) : (
           <p>{(error)}</p>

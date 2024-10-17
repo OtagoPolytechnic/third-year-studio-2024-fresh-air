@@ -11,7 +11,7 @@ export const UpdateDropdown = ({styles, value, headerValue, optionHeaderText, di
                 <>
             {sensorData.map(child => (
                 <option key={child.id} value={child.dev_eui}>
-                    {`${child.dev_eui} [${child.roomNumber !== null ? child.roomNumber : sensorUnassigned}]`}
+                    {`${child.dev_eui} [${child.room_number !== null ? child.room_number : sensorUnassigned}] ${child.blockName ? child.blockName : ''}`}
                 </option>
             ))}
             </>
