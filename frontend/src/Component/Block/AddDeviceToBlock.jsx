@@ -6,8 +6,8 @@ import { useAddDeviceToBlock } from '../../Hooks/Devices/useAddDeviceToBlock';
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const AddDeviceToBlock = ({styles}) => {
-    const { devices, apiError } = useGetDeviceList(`${apiKey}/api/v1/devices`);
     const { blocks, blockError } = useGetBlockList(`${apiKey}/api/v1/blocks`);
+    const { devices, apiError } = useGetDeviceList(`${apiKey}/api/v1/devices`);
     const [selectedDevice, setSelectedDevice] = useState('');
     const [selectedBlock, setSelectedBlock] = useState('');
     const { addDeviceToBlockRequest, resetApiError, resetUpdateSuccess, updateSuccess } = useAddDeviceToBlock(`${apiKey}/api/v1/blocks`);

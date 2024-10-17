@@ -14,12 +14,12 @@ export const useGetDeviceList = (apiKey) => {
                     id: item.id,
                     room_number: item.room_number,
                     dev_eui: item.dev_eui,
-                    blockName: item.block.blockName,
+                    blockName: item.block ? item.block.blockName : "[Unassigned]",
                 };
             });
             setDevices(mappedData);
         } catch (error) {
-            setApiError(error);
+            setApiError(error.message);
         }
     };
 

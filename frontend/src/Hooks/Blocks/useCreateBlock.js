@@ -52,7 +52,7 @@ export const useCreateBlock = (apiKey) => {
             });
             setItems(mappedData);
         } catch (error) {
-            setApiError(error);
+            setApiError(error.message);
         }
     };
 
