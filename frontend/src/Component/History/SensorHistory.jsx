@@ -69,7 +69,7 @@ export const SensorHistory = ({ dev_eui }) => {
       const { co2, temperature, createdAt } = payload[0].payload;
       return (
         <div className="bg-gray-200 text-black text-xl p-1 border-solid border-2 border-black" data-testid="tooltip">
-          <p>Date: {new Date(createdAt).toLocaleString()}</p>
+          <p>Date: {new Date(createdAt).toLocaleString("en-NZ")}</p>
           <p>Temperature: {temperature}°C</p>
           <p>CO2 Level: {co2}</p>
         </div>
