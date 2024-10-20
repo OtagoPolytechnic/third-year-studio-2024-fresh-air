@@ -10,17 +10,16 @@ export const WebSocketProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // TODO Change after testing
-        const ws = new WebSocket('ws://localhost:3000');
+        const ws = new WebSocket('wss://co2-app.op-bit.nz/api');
 
         ws.onopen = () => {
-            console.log('Connected to the websocket');
+            // console.log('Connected to the websocket');
             setIsConnected(true);
         };
 
         ws.onmessage = (message) => {
             setSocket(message.data);
-            console.log('Message received:', message.data);
+            // console.log('Message received:', message.data);
         };
 
         ws.onerror = (err) => {
@@ -29,7 +28,7 @@ export const WebSocketProvider = ({ children }) => {
         };
 
         ws.onclose = () => {
-            console.log('Disconnected from the websocket');
+            // console.log('Disconnected from the websocket');
             setIsConnected(false);
         };
 

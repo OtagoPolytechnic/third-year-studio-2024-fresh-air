@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "react-google-charts";
+import React, { useState, useEffect } from 'react';
+import { Chart } from 'react-google-charts';
 
 const getData = (room_nu, co2) => {
   return [
-    ["Label", "Value"],
-    [room_nu, parseInt(co2)],
+    ['Label', 'Value'],
+    [room_nu, parseInt(co2)]
   ];
 };
 
@@ -17,7 +17,7 @@ const options = {
   greenTo: 1000,
   minorTicks: 10,
   min: 400,
-  max: 5000
+  max: 5000,
 };
 
 export const Co2Sensor = ({ room_number, co2, size }) => {
@@ -28,12 +28,15 @@ export const Co2Sensor = ({ room_number, co2, size }) => {
   }, [room_number, co2]);
 
   return (
-    <Chart
-      chartType="Gauge"
-      data={data}
-      options={options}
-      width={size}
-      height={size}
-    />
+    <div className="text-gray-900">
+      <Chart
+        data-testid="co2-sensor"
+        chartType="Gauge"
+        data={data}
+        options={options}
+        width={size}
+        height={size}
+      />
+    </div>
   );
 };

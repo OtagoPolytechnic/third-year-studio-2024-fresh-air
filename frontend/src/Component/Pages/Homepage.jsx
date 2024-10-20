@@ -50,10 +50,8 @@ export const Homepage = () => {
   }, [socket]);
 
   return (
-    <div className="pt-20 text-center">
-      <h1 data-cy="h1Welcome" className="text-6xl ">
-        Welcome to D-Block CO<sub>2</sub> Monitor
-      </h1>
+    <div className="text-center">
+      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">Welcome to D-Block CO<sub>2</sub> Monitor</div>
       <>
         {isLoading ? (
           <>
@@ -62,9 +60,9 @@ export const Homepage = () => {
         ) : devices ? (
           <>
           {/* Create one grid container outside the loop */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
               {devices.map((device) => (
-                <div key={device.dev_eui} className="flex justify-center">
+                <div key={device.dev_eui} className="flex justify-center text-gray-900">
                   <li>
                     <NavLink
                       to={`/D-Block/${device.room_number}`}
