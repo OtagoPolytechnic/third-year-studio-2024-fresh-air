@@ -15,7 +15,8 @@
     "pretty:check": "prettier --check .",
     "pretty:fix": "prettier --write .",
     "commit": "git-cz",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "seed:cypress": "node prisma/cypressSeed.js"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,29 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "room_number": "D201",
+        "deviceId": "eui-1000024b080301f5",
+        "dev_eui": "1000024b080301f5",
+        "createdAt": "2021-06-02T09:00:00.000Z",
+        "blockId": 1
+      },
+      {
+        "id": 2,
+        "room_number": "D202",
+        "deviceId": "eui-2000024b080301f5",
+        "dev_eui": "2000024b080301f5",
+        "createdAt": "2021-06-02T09:00:00.000Z",
+        "blockId": 2
+      },
+      {
+        "id": 3,
+        "room_number": "D207",
+        "deviceId": "eui-3000024b080301f5",
+        "dev_eui": "3000024b080301f5",
+        "createdAt": "2021-06-02T09:00:00.000Z",
+        "blockId": 1
+      }
+    ]
+  }
+  

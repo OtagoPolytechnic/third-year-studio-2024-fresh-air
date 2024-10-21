@@ -5,6 +5,7 @@ import { routerLabels } from "../utils/router/routerLabels";
 import { LoginPage } from "../Component/Pages/Loginpage";
 import DashBoard from "../Component/Pages/Dashboard";
 import Logout from "../Component/Auth/Logout";
+import BlockPage from "../Component/Pages/BlockPage";
 
 export const routes = [
     {
@@ -13,9 +14,14 @@ export const routes = [
         element: <Homepage/>
     },
     {
-        path: "/D-Block/:roomNumber",
+        path: "/:blockName/:roomNumber",
         label: routerLabels.block,
         element: <RoomPage/>
+    },
+    {
+        path: "/:blockName",
+        label: routerLabels.blockName,
+        element: <BlockPage/>
     },
     {
         path:"/settings",

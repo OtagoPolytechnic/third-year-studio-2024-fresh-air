@@ -19,9 +19,12 @@ export const QuickFilter = ({ onFilterChange }) => {
   }, []);
 
   const setToday = () => {
-    const today = new Date().toISOString().split("T")[0];
-    onFilterChange({ startDate: today, endDate: today }); 
-    setActiveFilter("Today");   
+    // get the full day for the today filter starts from 00:00:00 to now
+    const now = new Date();
+    const startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).toISOString();
+    const endDate = now.toISOString();
+    onFilterChange({ startDate, endDate });
+    setActiveFilter("Today");
   };
  
   const setThisWeek = () => {
