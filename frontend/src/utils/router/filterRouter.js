@@ -1,14 +1,18 @@
+import router from "../../router/router";
 import { routerLabels } from "./routerLabels";
 
 // These routes are not displayed when user is authenticated
-const excludedRoutesForAuthenticated = [routerLabels.login, routerLabels.block, routerLabels.blockName];
+const excludedRoutesForAuthenticated = [routerLabels.login, routerLabels.block, routerLabels.blockName, routerLabels.blocks, routerLabels.devices, routerLabels.users];
 
 // These routes are not displayed when user is not authenticated
 const excludedRoutesForUnAuthenticated = [
   routerLabels.logout,
-  routerLabels.dashboard,
+  routerLabels.admin,
   routerLabels.block,
   routerLabels.blockName,
+  routerLabels.blocks,
+  routerLabels.devices,
+  routerLabels.users,
 ];
 
 // Filter the routes based on the user's authentication status

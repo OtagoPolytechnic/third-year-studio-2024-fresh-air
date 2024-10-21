@@ -6,7 +6,7 @@ import UpdateBlock from '../Block/UpdateBlock';
 import AddDeviceToBlock from '../Block/AddDeviceToBlock';
 
 
-const DashBoard = () => {
+const Admin = () => {
   return (
     <>
     <section className="lg:mx-16 mx-4 justify-center items-center grid grid-cols-2 lg:grid-cols-6 grid-rows-3">
@@ -21,4 +21,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default Admin;
