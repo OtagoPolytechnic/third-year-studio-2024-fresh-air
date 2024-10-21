@@ -3,7 +3,10 @@ import { RoomPage } from "../Component/Pages/Roompage";
 import Settings from "../Component/Pages/Settings";
 import { routerLabels } from "../utils/router/routerLabels";
 import { LoginPage } from "../Component/Pages/Loginpage";
-import DashBoard from "../Component/Pages/Dashboard";
+import Admin from "../Component/Pages/Admin";
+import Devices from "../Component/Pages/Devices";
+import Blocks from "../Component/Pages/Blocks";
+import Users from "../Component/Pages/Users";
 import Logout from "../Component/Auth/Logout";
 import BlockPage from "../Component/Pages/BlockPage";
 
@@ -24,19 +27,34 @@ export const routes = [
         element: <BlockPage/>
     },
     {
-        path:"/settings",
-        label: routerLabels.settings,
-        element: <Settings/>
-    },
-      {
         path: "/login",
         label: routerLabels.login,
         element: <LoginPage/>
     },
     {
-        path: "/dashboard",
-        label: routerLabels.dashboard,
-        element: <DashBoard/>
+        path: "/admin",
+        label: routerLabels.admin,
+        element: <Admin/>
+    },
+    {
+        path: "/admin/blocks",
+        label: routerLabels.blocks,
+        element: <Blocks/>
+    },
+    {
+        path: "/admin/users",
+        label: routerLabels.users,
+        element: <Users/>
+    },
+    {
+        path: "/admin/devices",
+        label: routerLabels.devices,
+        element: <Devices/>
+    },
+    {
+        path:"/settings",
+        label: routerLabels.settings,
+        element: <Settings/>
     },
     {
         path: "/logout",
