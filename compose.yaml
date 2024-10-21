@@ -4,47 +4,47 @@ volumes:
 
 services:
   # Live Environment
-  # co2-db:
-  #   image: postgres:16.2
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_USER=co2-user
-  #     - POSTGRES_PASSWORD=Decom123
-  #     - POSTGRES_DB=co2-db
-  #   expose:
-  #     - "5432"
-  #   volumes:
-  #     - /data/production/db/pgdata:/var/lib/postgresql/data
+  co2-db:
+   image: postgres:16.2
+   restart: always
+   environment:
+     - POSTGRES_USER=co2-user
+     - POSTGRES_PASSWORD=Decom123
+     - POSTGRES_DB=co2-db
+   expose:
+     - "5432"
+   volumes:
+     - /data/production/db/pgdata:/var/lib/postgresql/data
 
-  # backend:
-  #   image: backend-co2-app
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - co2-db
-  #   restart: always
-  #   environment:
-  #     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
-  #   expose:
-  #     - "3000"
-  #   ports:
-  #     - "3000:3000"
+  backend:
+   image: backend-co2-app
+   build:
+     context: ./backend
+     dockerfile: Dockerfile
+   depends_on:
+     - co2-db
+   restart: always
+   environment:
+     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
+   expose:
+     - "3000"
+   ports:
+     - "3000:3000"
 
-  # frontend:
-  #   image: frontend-co2-app
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - VITE_BACKEND_API_KEY=http://localhost:3000
-  #   ports:
-  #     - "8080:80"
-  #   volumes:
-  #     - ./frontend/nginx/ngnix.conf:/etc/nginx/conf.d/default.conf
+  frontend:
+   image: frontend-co2-app
+   build:
+     context: ./frontend
+     dockerfile: Dockerfile
+   depends_on:
+     - backend
+   restart: always
+   environment:
+     - VITE_BACKEND_API_KEY=http://localhost:3000
+   ports:
+     - "8080:80"
+   volumes:
+     - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
   # Testing Environment
   co2-db-testing:
@@ -53,7 +53,7 @@ services:
    environment:
      - POSTGRES_USER=co2-user
      - POSTGRES_PASSWORD=Decom123
-     - POSTGRES_DB=co2-db-testing
+     - POSTGRES_DB=co2-db
    expose:
      - "5432"
    volumes:
@@ -68,7 +68,7 @@ services:
      - co2-db-testing
    restart: always
    environment:
-     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db-testing:5432/co2-db-testing
+     - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
    ports:
       - "3001:3000"
 
@@ -85,4 +85,4 @@ services:
    ports:
      - "8081:80"
    volumes:
-     - ./frontend/nginx/ngnix.conf:/etc/nginx/conf.d/default.conf
+     - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
