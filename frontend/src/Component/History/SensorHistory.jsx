@@ -34,7 +34,6 @@ export const SensorHistory = ({ dev_eui }) => {
             setError("");
           const data = await response.json();
           setSensorData(data);
-          console.log('Fetched data:', data); // Log fetched data
         } else {
           if (response.status === 404){
             setError(`There is no Co2 data between the dates: ${filter.startDate} and ${filter.endDate}.`);

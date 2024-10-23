@@ -15,7 +15,6 @@ export const useAddDeviceToBlock = (apiKey) => {
 
     const addDeviceToBlockRequest = async (endpoint, blockName, deviceName) => {
         try {
-            console.log(blockName);
             const addDevice = await fetch(`${endpoint}/addBlock/${deviceName}`, {
                 method: "PUT",
                 headers: {

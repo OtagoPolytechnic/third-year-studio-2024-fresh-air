@@ -102,6 +102,7 @@ const getBlockRecentSensor = async (req, res) => {
               select: {
                 co2: true,
                 temperature: true,
+                createdAt: true,
               },
               take: 1,
               orderBy: {
