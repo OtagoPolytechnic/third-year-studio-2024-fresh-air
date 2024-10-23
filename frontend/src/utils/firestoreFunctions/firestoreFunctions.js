@@ -11,7 +11,6 @@ export const getUserList = async ({ collectionName }) => {
     const userDocs = snapshot.docs.map((doc) => {
       return doc.data();
     });
-    console.log(userDocs);
     return userDocs;
   } catch (error) {
     throw error;

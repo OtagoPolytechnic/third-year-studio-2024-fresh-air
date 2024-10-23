@@ -80,7 +80,6 @@ export const useUpdateSensor = (apiKey) => {
   };
 
   useEffect(() => {
-    console.log('test')
     fetchData();
   }, [updateSuccess, apiError]);
 
