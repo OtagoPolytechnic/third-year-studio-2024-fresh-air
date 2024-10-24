@@ -52,6 +52,7 @@ jobs:
           npm run generate  
           npm run migrate
           npm run seed:cypress
+          npm run dev
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
           FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
