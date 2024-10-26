@@ -34,7 +34,7 @@ export const routes = [
         element: <LoginPage/>
     },
     {
-        path: "/dashboard",
+        path: "/admin",
         label: routerLabels.dashboard,
         element: <DashBoard/>
     },

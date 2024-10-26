@@ -5,5 +5,5 @@ export const routerLabels = {
     settings: "Settings",
     login: "Login",
     logout: "Logout",
-    dashboard: "Dashboard",
+    dashboard: "Admin",
 };
