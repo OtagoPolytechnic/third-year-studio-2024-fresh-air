@@ -47,16 +47,6 @@ const DashBoard = () => {
       ) : (
         <>
         <AdminPanel/>
-          <section className={'flex justify-end items-center mt-4 mx-4 mb-2'}>
-            <button
-              className={'px-4 py-2 text-white bg-blue-500 rounded-lg mx-2'}
-            >
-              Add User
-            </button>
-            <button className={'px-4 py-2 text-white bg-blue-500 rounded-lg'}>
-              Add Device
-            </button>
-          </section>
           <section
             className={
               'relative overflow-x-auto mx-4 rounded-lg border shadow-sm '
