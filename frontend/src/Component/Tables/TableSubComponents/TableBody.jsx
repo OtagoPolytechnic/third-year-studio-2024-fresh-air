@@ -13,6 +13,7 @@ const TableBody = ({ tableFields }) => {
             <UpdateButton
               text="Edit"
               style="py-2 px-4 text-white bg-blue-500 rounded-lg"
+              onClick={(() => console.log(item))}
             />
           </td>
         </tr>
