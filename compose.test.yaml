@@ -1,0 +1,44 @@
+volumes:
+  postgres:
+
+version: '3'
+services:
+  co2-db-testing:
+    image: postgres:16.2
+    restart: always
+    environment:
+      - POSTGRES_USER=co2-user
+      - POSTGRES_PASSWORD=Decom123
+      - POSTGRES_DB=co2-db-testing
+    expose:
+      - "5432"
+    volumes:
+      - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
+
+  backend-testing:
+    image: backend-co2-app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - co2-db-testing
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://co2-user:Decom123@co2-db:5432/co2-db
+    ports:
+      - "3001:3000"
+
+  frontend-testing:
+    image: frontend-co2-app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - backend-testing
+    restart: always
+    environment:
+      - VITE_BACKEND_API_KEY=http://localhost:3001
+    ports:
+      - "8081:80"
+    volumes:
+      - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
