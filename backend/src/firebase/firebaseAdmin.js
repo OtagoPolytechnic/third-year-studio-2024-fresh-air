@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-const core = require('@actions/core');
+import * as core from '@actions/core';
 
 const serviceAccount = {
   type: process.env.FIREBASE_TYPE,
