@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+const core = require('@actions/core');
 
 const serviceAccount = {
   type: process.env.FIREBASE_TYPE,
@@ -14,7 +15,7 @@ const serviceAccount = {
   universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN,
 };
 
-console.log('Service Account:', serviceAccount);
+core.info('Service Account:', serviceAccount);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
