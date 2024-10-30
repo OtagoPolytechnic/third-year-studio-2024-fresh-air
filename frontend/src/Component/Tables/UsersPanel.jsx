@@ -1,16 +1,17 @@
-import AdminTable from './TableSubComponents/Admin/AdminTable';
 import TableButton from './TableSubComponents/TableButton';
+import UsersTable from './TableSubComponents/User/UsersTable';
 
-const AdminPanel = () => {
+const UsersPanel = () => {
   return (
     <>
-      <TableButton text={'Add Device'} />
+      <TableButton text={'Add User'} />
       <section
         className={'relative overflow-x-auto mx-4 rounded-lg border shadow-sm'}
-      > <AdminTable />
+      >
+        <UsersTable/>
       </section>
     </>
   );
 };
 
-export default AdminPanel;
+export default UsersPanel;

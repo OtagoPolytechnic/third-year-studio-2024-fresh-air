@@ -1,7 +1,7 @@
-import { UpdateButton } from '../../Sensor/UpdateSensorSubComponents/UpdateButton';
-import TableItem from './TableItem';
+import { UpdateButton } from '../../../Sensor/UpdateSensorSubComponents/UpdateButton';
+import TableItem from '../TableItem';
 
-const TableBody = ({ tableFields }) => {
+const AdminTableBody = ({ tableFields }) => {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
       {tableFields.map((item) => (
@@ -22,4 +22,4 @@ const TableBody = ({ tableFields }) => {
   );
 };
 
-export default TableBody;
+export default AdminTableBody;

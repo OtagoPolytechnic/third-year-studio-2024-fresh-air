@@ -13,4 +13,14 @@ const createUser = async (req, res) => {
     }
   };
 
-export default createUser;
+  const listUsers = async (req, res) => {
+    try {
+      const listUsers = await auth.listUsers();
+      const users = listUsers.users.map((userRecord) => userRecord.toJSON());
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(500).json({ error: 'Failed to list users' });
+    }
+  }
+
+export { createUser, listUsers };

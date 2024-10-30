@@ -1,12 +1,12 @@
-import TableHeaders from "./TableHeaders";
-import { useGetDeviceList } from "../../../Hooks/Devices/useGetDeviceList";
-import TableBody from "./TableBody";
-import { tableHeaders } from "../../../utils/constants/constants";
-import useSortableData from "../../../Hooks/Tables/useSortableTable";
+import TableHeaders from "../TableHeaders";
+import { useGetDeviceList } from "../../../../Hooks/Devices/useGetDeviceList";
+import AdminTableBody from "./AdminTableBody";
+import { tableHeaders } from "../../../../utils/constants/constants";
+import useSortableData from "../../../../Hooks/Tables/useSortableTable";
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
-const Table = () => {
+const AdminTable = () => {
     const { devices: initialData, apiError } = useGetDeviceList(`${apiKey}/api/v1/devices`);
     const { sortedData, onSort, sortConfig } = useSortableData(initialData);
     
@@ -17,11 +17,11 @@ const Table = () => {
           ) : (
             <table className={'w-full text-sm text-left text-gray-500 divide-y divide-gray-200'}>
               <TableHeaders headers={tableHeaders} onSort={onSort} sortConfig={sortConfig} />
-              <TableBody tableFields={sortedData} />
+              <AdminTableBody tableFields={sortedData} />
             </table>
           )}
         </>
       );
     };
     
-    export default Table;
+    export default AdminTable;
