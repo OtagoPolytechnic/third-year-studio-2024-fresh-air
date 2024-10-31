@@ -58,6 +58,12 @@ jobs:
         run: |
           npm run test
 
+      - name: Debug FIREBASE_PRIVATE_KEY
+        run: echo $FIREBASE_PRIVATE_KEY
+        env:
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+
+
       - name: Run seed script
         working-directory: backend
         run: |
