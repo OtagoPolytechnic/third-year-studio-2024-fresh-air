@@ -36,6 +36,7 @@ jobs:
           npm run dev &
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+          SERVICEACCOUNT: ${{ secrets.serviceAccount }}
 
       - name: Wait for services to start
         run: |
@@ -56,7 +57,7 @@ jobs:
           npm run dev
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
-          SERVICEACCOUNT: ${{ secrets.SERVICEACCOUNT }}
+          SERVICEACCOUNT: ${{ secrets.serviceAccount }}
 
       - name: Install dependencies and run frontend
         working-directory: frontend
