@@ -28,6 +28,33 @@ jobs:
         with:
           node-version: 20.9.0
 
+      - name: Debug FIREBASE_PRIVATE_KEY
+        run: echo  ${{ secrets.FIREBASE_TYPE }}
+          echo  ${{ secrets.FIREBASE_PROJECT_ID }}
+          echo  ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          echo  ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          echo  ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          echo ${{ secrets.FIREBASE_CLIENT_ID }}
+          echo  ${{ secrets.FIREBASE_AUTH_URI }}
+          echo ${{ secrets.FIREBASE_TOKEN_URI }}
+          echo ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+          echo  ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+          echo  ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
+          echo  ${{ secrets.FIREBASE_DATABASE_URL }}
+        env:
+          FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+          FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+          FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+          FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+          FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+          FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+
       - name: Install dependencies and run backend
         working-directory: backend
         run: |
@@ -57,12 +84,6 @@ jobs:
         working-directory: backend
         run: |
           npm run test
-
-      - name: Debug FIREBASE_PRIVATE_KEY
-        run: echo $FIREBASE_PRIVATE_KEY
-        env:
-          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-
 
       - name: Run seed script
         working-directory: backend
