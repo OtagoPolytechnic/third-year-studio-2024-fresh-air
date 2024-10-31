@@ -29,7 +29,8 @@ jobs:
           node-version: 20.9.0
 
       - name: Debug FIREBASE_PRIVATE_KEY
-        run: echo  ${{ secrets.FIREBASE_TYPE }}
+        run: |
+          echo  ${{ secrets.FIREBASE_TYPE }}
           echo  ${{ secrets.FIREBASE_PROJECT_ID }}
           echo  ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
           echo  ${{ secrets.FIREBASE_PRIVATE_KEY }}
