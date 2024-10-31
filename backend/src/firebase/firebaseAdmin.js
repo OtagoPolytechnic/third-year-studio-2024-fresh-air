@@ -15,25 +15,10 @@ const serviceAccount = {
   universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN,
 };
 
-if (!serviceAccount.private_key) {
-  core.setFailed("FIREBASE_PRIVATE_KEY is not defined or incorrectly formatted.");
-  process.exit(1);
-}
-
-try {
-  admin.initializeApp({
+admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: process.env.FIREBASE_DATABASE_URL
   });
-  core.info('Firebase Admin initialized successfully.');
-} catch (error) {
-  core.setFailed(`Firebase Admin initialization failed: ${error.message}`);
-}
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: process.env.FIREBASE_DATABASE_URL
-//   });
 
   const firestore = admin.firestore();
   const auth = admin.auth();
