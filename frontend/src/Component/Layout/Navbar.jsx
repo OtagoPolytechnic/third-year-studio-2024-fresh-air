@@ -3,10 +3,20 @@ import { routes } from '../../router/routeList';
 import logo from '../../Imgs/logo-black.png';
 import { filterRouter } from '../../utils/router/filterRouter';
 import { useUserAuth } from '../../Context/FirestoreAuthContext';
+import { useState } from 'react';
+import { routerLabels } from "../../utils/router/routerLabels";
 
 const NavBar = () => {
   const { user } = useUserAuth();
   const filteredRoutes = filterRouter(routes, user);
+  const [showAdminDropdown, setShowAdminDropdown] = useState(false);
+
+  // Admin dropdown items with updated paths
+  const adminDropdownRoutes = [
+    { label: routerLabels.devices, path: '/admin/devices' },
+    { label: routerLabels.blocks, path: '/admin/blocks' },
+    { label: routerLabels.users, path: '/admin/users' },
+  ];
 
   return (
     <nav
@@ -19,7 +29,13 @@ const NavBar = () => {
         </NavLink>
         <ul className="flex font-semibold" role="menu" aria-label="Primary Navigation">
           {filteredRoutes.map((route, index) => (
-            <li key={index} className="px-2 lg:pb-1 hover:text-black" role="none">
+            <li 
+              key={index} 
+              className="relative px-2 lg:pb-1 hover:text-black" 
+              onMouseEnter={() => setShowAdminDropdown(route.label === routerLabels.admin)} 
+              onMouseLeave={() => setShowAdminDropdown(false)} 
+              role="none"
+            >
               <NavLink
                 to={route.path}
                 className={({ isActive }) =>
@@ -30,9 +46,24 @@ const NavBar = () => {
               >
                 {route.label}
               </NavLink>
+              {route.label === routerLabels.admin && showAdminDropdown && (
+                <ul className="absolute bg-white shadow-md mt-1 z-10">
+                  {adminDropdownRoutes.map((adminRoute, adminIndex) => (
+                    <li key={adminIndex} className="hover:bg-gray-100">
+                      <NavLink 
+                        to={adminRoute.path} 
+                        className={({ isActive }) => 
+                          isActive ? 'text-black block px-4 py-2' : 'text-gray-500 block px-4 py-2'
+                        }
+                      >
+                        {adminRoute.label}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
-          
         </ul>
       </header>
     </nav>
