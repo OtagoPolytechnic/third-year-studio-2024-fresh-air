@@ -5,5 +5,8 @@ export const routerLabels = {
     settings: "Settings",
     login: "Login",
     logout: "Logout",
-    dashboard: "Dashboard",
+    admin: "Admin",
+    blocks: "Blocks",
+    users: "Users",
+    devices: "Devices",
 };

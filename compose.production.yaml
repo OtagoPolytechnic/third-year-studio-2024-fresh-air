@@ -28,7 +28,7 @@ services:
     expose:
       - "3000"
     ports:
-      - "3000:3000"
+     - "3000:3000"
 
   frontend:
     image: frontend-co2-app
