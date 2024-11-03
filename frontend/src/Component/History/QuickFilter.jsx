@@ -15,8 +15,18 @@ export const QuickFilter = ({ onFilterChange }) => {
   const [activeFilter, setActiveFilter] = useState("Today");
 
   useEffect(() => {
-    setToday();
+    setLast24Hours();
   }, []);
+
+  const setLast24Hours = () => {
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    const startDate = yesterday.toISOString();
+    const endDate = now.toISOString();
+    onFilterChange({ startDate, endDate });
+    setActiveFilter("Last 24 hours");
+  };
 
   const setToday = () => {
     // get the full day for the today filter starts from 00:00:00 to now
@@ -49,6 +59,7 @@ export const QuickFilter = ({ onFilterChange }) => {
 
   return (
     <div data-cy="QuickFilter">
+      <QuickFilterButton data-cy="FilterLast24Hours" label="Last 24 hours" isActive={activeFilter === "Last 24 hours"} onClick={setLast24Hours} />
       <QuickFilterButton data-cy="FilterToday" label="Today" isActive={activeFilter === "Today"} onClick={setToday} />
       <QuickFilterButton data-cy="FilterWeek" label="Last week" isActive={activeFilter === "Week"} onClick={setThisWeek} />
       <QuickFilterButton data-cy="FilterMonth" label="Last month" isActive={activeFilter === "Month"} onClick={setThisMonth} />
