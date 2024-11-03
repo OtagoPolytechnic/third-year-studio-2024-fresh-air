@@ -11,7 +11,6 @@ const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 const UserTableBody = ({ tableFields }) => {
   const { modal, setModal } = useModal();
   const { user } = useUserAuth();
-  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleClick = async (userId) => {
     setModal('showDeleteModal', true);

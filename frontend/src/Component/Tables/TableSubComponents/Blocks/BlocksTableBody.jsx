@@ -1,13 +1,12 @@
 import { UpdateButton } from "../../../Sensor/UpdateSensorSubComponents/UpdateButton";
 import TableItem from "../TableItem";
-import PopUp from "../../../Auth/PopUp";
 import useModal from "../../../../Hooks/Modal/useModal";
-const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
+import UpdateBlock from '../../../Block/UpdateBlock';
+
 
 const BlocksTableBody = ({ tableFields }) => {
     const { modal, setModal } = useModal();
-    
-    
+
     return (
         <>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -18,18 +17,15 @@ const BlocksTableBody = ({ tableFields }) => {
                 <UpdateButton
                     text="Update"
                     style="py-2 px-4 text-white bg-blue-500 hover:bg-sky-500 rounded-lg"
-                    onClick={() => console.log(item.blockName)}
+                    onClick={() => setModal('showUpdateModal', true)}
                 />
                 </td>
             </tr>
             ))}
         </tbody>
-        {modal("showDeleteModal") && (
-            <PopUp
-            handleClick={() => setModal("showDeleteModal", false)}
-            title="Delete block"
-            message="Are you sure you want to delete this block?"
-            confirm={() => setModal("showDeleteModal", false)}
+        {modal('showUpdateModal') && (
+            <UpdateBlock
+            onClick={() => setModal('showUpdateModal', false)}
             />
         )}
         </>
