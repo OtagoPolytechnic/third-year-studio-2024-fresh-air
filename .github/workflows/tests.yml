@@ -8,6 +8,7 @@ on:
 jobs:
   Test-Suite:
     runs-on: ubuntu-latest
+    environment: admin_sdk
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -36,6 +37,18 @@ jobs:
           npm run dev &
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+          FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+          FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+          FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+          FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+          FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+          FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
 
       - name: Wait for services to start
         run: |
@@ -49,12 +62,25 @@ jobs:
       - name: Run seed script
         working-directory: backend
         run: |
+          npm install
           npm run generate  
           npm run migrate
           npm run seed:cypress
           npm run dev
         env:
           DATABASE_URL: postgresql://postgres:mysecretpassword@localhost:5432/postgres
+          FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+          FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+          FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+          FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+          FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+          FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
 
       - name: Install dependencies and run frontend
         working-directory: frontend
@@ -64,15 +90,14 @@ jobs:
         env:
           VITE_BACKEND_API_KEY: http://localhost:3000
           
-      - name: Wait for services to start
+      - name: Wait for frontend services to start
         run: |
           sleep 10
 
       - name: Run frontend component tests
         working-directory: frontend
         run: |
-          npm run test Co2Sensor
-          npm run test SensorHistory
+          npm run test
 
       - name: Run frontend Cypress tests
         working-directory: frontend
@@ -85,4 +110,3 @@ jobs:
         with:
           name: cypress-screenshots
           path: frontend/cypress/screenshots
-
