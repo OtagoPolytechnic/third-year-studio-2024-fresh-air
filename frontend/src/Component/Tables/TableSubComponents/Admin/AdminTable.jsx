@@ -12,6 +12,10 @@ const AdminTable = () => {
     
     return (
         <>
+        {sortedData.length === 0 ? (
+          <h1 className={'text-2xl text-center'}>No data available</h1>
+        ) : (
+          <>
           {apiError ? (
             <div className={'bg-red-500 text-white p-4'}>Error: {apiError}</div>
           ) : (
@@ -20,8 +24,10 @@ const AdminTable = () => {
               <AdminTableBody tableFields={sortedData} />
             </table>
           )}
+          </>
+          )}
         </>
-      );
+        );
     };
     
     export default AdminTable;

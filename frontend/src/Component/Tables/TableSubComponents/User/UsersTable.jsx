@@ -7,9 +7,13 @@ import { useGetUserList } from "../../../../Hooks/Users/useGetUserList";
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const UsersTable = () => {
-    const { users: initialData, apiError } = useGetUserList(`${apiKey}/api/v1/users/listUsers`);
+    const { users: initialData, apiError } = useGetUserList(`${apiKey}/api/v1/users`);
     const { sortedData, onSort, sortConfig } = useSortableData(initialData);
     return (
+        <>
+        {sortedData.length === 0 ? (
+            <h1 className={'text-2xl text-center'}>No users found</h1>
+        ) : (
         <>
         {apiError ? (
             <div className={'bg-red-500 text-white p-4'}>Error: {apiError}</div>
@@ -18,6 +22,8 @@ const UsersTable = () => {
                 <TableHeaders headers={tableHeadersUsers} onSort={onSort} sortConfig={sortConfig} />
                 <UserTableBody tableFields={sortedData} />
             </table>
+        )}
+        </>
         )}
         </>
     );

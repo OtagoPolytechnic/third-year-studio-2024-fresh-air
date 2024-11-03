@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     }
   };
 
-  const listUsers = async (req, res) => {
+  const getUserList = async (req, res) => {
     try {
       const listUsers = await auth.listUsers();
       const users = listUsers.users.map((userRecord) => userRecord.toJSON());
@@ -23,4 +23,17 @@ const createUser = async (req, res) => {
     }
   }
 
-export { createUser, listUsers };
+  const deleteUser = async (req, res) => {
+    try {
+      const { uid } = req.body;
+      await auth.deleteUser(uid);
+      return res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      return res.status(500).json({
+        error: 'Failed to delete user',
+      });
+    }
+  };
+
+export { createUser, getUserList, deleteUser };
+

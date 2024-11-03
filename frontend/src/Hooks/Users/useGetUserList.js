@@ -8,7 +8,6 @@ export const useGetUserList = (apiKey) => {
         try {
             const response = await fetch(apiKey);
             const data = await response.json();
-            console.log(data[0]);
             const mappedData = data.map((item) => {
                 return {
                     uid: item.uid,
