@@ -1,7 +1,6 @@
 import { UpdateButton } from "../../../Sensor/UpdateSensorSubComponents/UpdateButton";
 import TableItem from "../TableItem";
 import useModal from "../../../../Hooks/Modal/useModal";
-import UpdateBlock from '../../../Block/UpdateBlock';
 
 
 const BlocksTableBody = ({ tableFields }) => {
@@ -15,19 +14,15 @@ const BlocksTableBody = ({ tableFields }) => {
                 <TableItem item={item.blockName} />
                 <td className="text-right pr-2 py-2 flex justify-end">
                 <UpdateButton
-                    text="Update"
-                    style="py-2 px-4 text-white bg-blue-500 hover:bg-sky-500 rounded-lg"
-                    onClick={() => setModal('showUpdateModal', true)}
+                    text="Delete"
+                    style="py-2 px-4 text-white bg-red-500 hover:bg-red-400 rounded-lg"
+                    // onClick={() => setModal('showDeleteModal', true)}
+                    onClick={() => alert('Under Construction')}
                 />
                 </td>
             </tr>
             ))}
         </tbody>
-        {modal('showUpdateModal') && (
-            <UpdateBlock
-            onClick={() => setModal('showUpdateModal', false)}
-            />
-        )}
         </>
     );
     };

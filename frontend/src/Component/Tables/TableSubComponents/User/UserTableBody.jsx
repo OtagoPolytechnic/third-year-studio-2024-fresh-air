@@ -46,7 +46,7 @@ const UserTableBody = ({ tableFields }) => {
               {user !== item.uid && (
                 <UpdateButton
                   text="Delete"
-                  style="py-2 px-4 text-white bg-red-500 rounded-lg"
+                  style="py-2 px-4 text-white bg-red-500 hover:bg-red-400 rounded-lg"
                   onClick={() => handleClick(item.uid)}
                 />
               )}
