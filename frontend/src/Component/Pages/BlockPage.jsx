@@ -25,7 +25,8 @@ useEffect(() => {
           room_number: device.room_number,
           dev_eui: device.dev_eui,
           co2: device.sensorData.map(sensor => sensor.co2)[0],
-      }));
+          temperature: device.sensorData.map(sensor => sensor.temperature)[0]
+        }));
         setDevices(extractedData);
       } catch (error) {
         setError(error.message); 
@@ -40,7 +41,7 @@ useEffect(() => {
   console.log(devices);
     return (
     <div className="text-center">
-      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">Welcome to {blockName}  CO<sub>2</sub> Monitor</div>
+      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">{blockName} CO<sub>2</sub> Monitor</div>
       <>
         {isLoading ? (
           <>
