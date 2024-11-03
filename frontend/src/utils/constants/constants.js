@@ -13,3 +13,7 @@ export const tableHeadersUsers = [
   { key: 'email', label: 'Email' },
   { key: 'lastSignInTime', label: 'Last Sign In'}
 ];
+
+export const tableHeadersBlocks = [
+  { key: 'blockName', label: 'Block Name' },
+]
