@@ -8,7 +8,7 @@ import { webhookRouter as webhook } from './routes/webhook/webhook.route.js';
 import payload from './routes/sensorData/sensorData.route.js';
 import device from './routes/devices/device.route.js';
 import block from './routes/blocks/block.route.js';
-import createUser from './routes/firebase/createUser.route.js';
+import users from './routes/firebase/users.route.js';
 import { initializeWebSocket } from './websocket/websocket.js';
 
 const port = PORTS.SERVER_PORT;
@@ -27,7 +27,7 @@ app.use(`${basePath}/integrations`, webhook);
 app.use(`${basePath}/rooms`, payload);
 app.use(`${basePath}/devices`, device);
 app.use(`${basePath}/blocks`, block);
-app.use(`${basePath}/createUser`, createUser);
+app.use(`${basePath}/users`, users);
 
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);

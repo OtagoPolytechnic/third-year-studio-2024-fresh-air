@@ -9,13 +9,13 @@ export const Homepage = () => {
   return (
     <>
       {blocks && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid justify-items-center grid-cols-3 md:grid-cols-2 md:justify-items-stretch md:mx-2 lg:grid-cols-4 gap-4 mt-4">
           {blocks.map((block) => (
             <div
               key={block.blockName}
-              className="flex justify-center text-gray-900"
+              className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
             >
-              <li>
+              <li className='text-center'>
                 <NavLink
                   to={`${block.blockName}`}
                   className="link"
