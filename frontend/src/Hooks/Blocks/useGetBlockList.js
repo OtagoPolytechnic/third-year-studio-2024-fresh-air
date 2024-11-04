@@ -15,7 +15,10 @@ export const useGetBlockList = (apiKey) => {
           blockName: item.blockName
         };
       });
-      setBlocks(mappedData);
+
+      const sortedData = mappedData.sort((a, b) => a.blockName.localeCompare(b.blockName));
+
+      setBlocks(sortedData);
     } catch (error) {
       setApiError(error.message);
     }
