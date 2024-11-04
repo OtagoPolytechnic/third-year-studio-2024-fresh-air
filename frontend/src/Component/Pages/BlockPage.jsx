@@ -4,6 +4,7 @@ import { LoadingSpinner } from '../Spinner/LoadingSpinner';
 import { NavLink } from 'react-router-dom';
 import { Co2Sensor } from '../Co2/Co2Sensor';
 import { useParams } from 'react-router-dom';
+import { checkOfflineDate } from '../../utils/dateTime/dateTimeFunctions';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -25,6 +26,7 @@ useEffect(() => {
           room_number: device.room_number,
           dev_eui: device.dev_eui,
           co2: device.sensorData.map(sensor => sensor.co2)[0],
+          createdAt: device.sensorData.map(sensor => sensor.createdAt)[0],
           temperature: device.sensorData.map(sensor => sensor.temperature)[0]
         }));
         setDevices(extractedData);
@@ -38,7 +40,7 @@ useEffect(() => {
   }, [socket]);
 
 
-  console.log(devices);
+
     return (
     <div className="text-center">
       <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">{blockName} CO<sub>2</sub> Monitor</div>
@@ -48,11 +50,11 @@ useEffect(() => {
             <LoadingSpinner />
           </>
         ) : devices ? (
-          <>
+                  <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
               {devices.map((device) => (
-                <NavLink to={`/${blockName}/${device.room_number}`} key={device.dev_eui} data-cy={device.room_number}>
-                  <Co2Sensor room_number={device.room_number} co2={device.co2 || 400} />
+                <NavLink to={`/${blockName}/${device.room_number}`} key={device.dev_eui}>
+                  <Co2Sensor room_number={device.room_number} co2={checkOfflineDate(device.createdAt) ? 0 : device.co2} />
                 </NavLink>
               ))}
             </div>

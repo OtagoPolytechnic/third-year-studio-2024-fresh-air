@@ -4,6 +4,7 @@ import { Co2Sensor } from "../Co2/Co2Sensor";
 import { useWebSocket } from "../../Context/WebSocketContext";
 import { SensorHistory } from "../History/SensorHistory";
 import { LoadingSpinner } from "../Spinner/LoadingSpinner";
+import { checkOfflineDate } from '../../utils/dateTime/dateTimeFunctions';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -23,11 +24,11 @@ export const RoomPage = () => {
         if (data.statusCode === 404) {
           setError(data.message);
         };
-        // setDevices with room_number, dev_eui, co2
         const extractedData = {
           room_number: data.data.room_number,
           dev_eui: data.data.dev_eui,
           co2: data.data.sensorData.map(sensor => sensor.co2)[0],
+          createdAt: data.data.sensorData.map(sensor => sensor.createdAt)[0],
           temperature: data.data.sensorData.map(sensor => sensor.temperature)[0],
         };
         setDevices(extractedData);
@@ -51,10 +52,11 @@ export const RoomPage = () => {
           </div>
         ) : devices ? (
           <>
-      {/* Maps the data thar gives us the co2 level for the gauge */}
+      {/* Maps the data that gives us the co2 level for the gauge */}
         <div key={devices.dev_eui}>
           <div className="flex justify-center items-center" data-testid="co2-sensor">
-            <Co2Sensor room_number={devices.room_number} co2={devices.co2 || 400} size="24rem" temp={devices.temperature} />
+            <Co2Sensor room_number={devices.room_number} co2={checkOfflineDate(devices.createdAt) ? 0 : devices.co2} temp={devices.temperature} size="24rem" />
+
           </div>
           <SensorHistory dev_eui={devices.dev_eui} />
         </div>

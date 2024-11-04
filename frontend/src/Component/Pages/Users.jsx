@@ -1,7 +1,9 @@
+import UsersPanel from "../Tables/UsersPanel";
+
 const Users = () => {
   return (
     <div>
-      <h1>Users</h1>
+      <UsersPanel/>
     </div>
   );
 };

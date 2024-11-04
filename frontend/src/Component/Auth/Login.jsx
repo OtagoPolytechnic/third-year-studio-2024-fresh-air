@@ -9,7 +9,6 @@ export const Login = () => {
   const [modalContent, setModalContent] = useState({ headerText: '', pText: '' });
   const [error, setError] = useState(false);
 
-  console.log(error)
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(false);
@@ -22,7 +21,6 @@ export const Login = () => {
         pText: 'Account has been successfully logged in, you can now access the dashboard.'
       });
     } catch (error) {
-      console.log('here')
       setModalContent({
         headerText: 'Failed to login',
         pText: error.message || 'An error occurred while trying to login. Check that your email/password are correct.'

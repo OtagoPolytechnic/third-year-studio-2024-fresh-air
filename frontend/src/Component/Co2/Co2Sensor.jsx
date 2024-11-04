@@ -4,7 +4,7 @@ import { Chart } from 'react-google-charts';
 const getData = (room_nu, co2) => {
   return [
     ['Label', 'Value'],
-    [room_nu, parseInt(co2)]
+    [room_nu, parseInt(co2)],
   ];
 };
 
@@ -22,13 +22,12 @@ const options = {
 
 export const Co2Sensor = ({ room_number, co2, size, temp }) => {
   const [data, setData] = useState(getData(room_number, co2));
-
   useEffect(() => {
     setData(getData(room_number, co2));
   }, [room_number, co2]);
 
   return (
-    <div className="text-gray-900 relative">
+    <div className="text-gray-900 relative flex flex-col justify-center items-center">
       {temp && (
         <div className="absolute top-56 right-40 z-10">
           <p className={'text-3xl font-bold'}>{temp}°C</p>
@@ -42,6 +41,9 @@ export const Co2Sensor = ({ room_number, co2, size, temp }) => {
         width={size}
         height={size}
       />
+      {co2 === 0 && (
+        <p className="text-red-500 text-2xl">Offline</p>
+      )}
     </div>
   );
 };

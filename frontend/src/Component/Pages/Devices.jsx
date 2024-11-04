@@ -1,7 +1,9 @@
+import AdminPanel from "../Tables/AdminPanel";
+
 const Devices = () => {
     return (
         <div>
-            <h1>Devices</h1>
+            <AdminPanel/>
         </div>
     );
 };

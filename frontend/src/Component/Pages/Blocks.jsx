@@ -1,7 +1,8 @@
+import BlocksPanel from '../Tables/BlocksPanel'
 const Blocks = () => {
   return (
     <div>
-      <h1>Blocks</h1>
+      <BlocksPanel/>
     </div>
   );
 };
