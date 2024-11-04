@@ -51,7 +51,7 @@ useEffect(() => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
               {devices.map((device) => (
-                <NavLink to={`/${blockName}/${device.room_number}`} key={device.dev_eui}>
+                <NavLink to={`/${blockName}/${device.room_number}`} key={device.dev_eui} data-cy={device.room_number}>
                   <Co2Sensor room_number={device.room_number} co2={device.co2 || 400} />
                 </NavLink>
               ))}
