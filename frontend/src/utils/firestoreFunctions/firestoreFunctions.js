@@ -1,5 +1,5 @@
 import { firestore } from '../../firebase';
-import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { firestoreCollectionUsers } from '../constants/constants';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
@@ -19,7 +19,7 @@ export const getUserList = async ({ collectionName }) => {
 
 export const registerUser = async (email, password, role, firstName, lastName) => {
   try {
-    const response = await fetch(`${apiKey}/api/v1/createUser`, {
+    const response = await fetch(`${apiKey}/api/v1/users/createUser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,4 +63,14 @@ export const createUserInformation = async ({
   } catch (error) {
     console.error('Error creating user:', error);
   }
-}
+};
+
+export const deleteUserDocument = async (userID) => {
+  try {
+    const userDoc = doc(firestore, firestoreCollectionUsers, userID);
+    await deleteDoc(userDoc);
+
+} catch (error) {
+    console.error('Error deleting user:', error);
+  };
+};

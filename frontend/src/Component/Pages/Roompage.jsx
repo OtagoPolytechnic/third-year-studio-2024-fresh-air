@@ -29,9 +29,10 @@ export const RoomPage = () => {
           dev_eui: data.data.dev_eui,
           co2: data.data.sensorData.map(sensor => sensor.co2)[0],
           createdAt: data.data.sensorData.map(sensor => sensor.createdAt)[0],
+          temperature: data.data.sensorData.map(sensor => sensor.temperature)[0],
         };
         setDevices(extractedData);
-       
+        console.log(extractedData)
       } catch (error) {
         setError(error.message);
       } finally {
@@ -54,7 +55,8 @@ export const RoomPage = () => {
       {/* Maps the data that gives us the co2 level for the gauge */}
         <div key={devices.dev_eui}>
           <div className="flex justify-center items-center" data-testid="co2-sensor">
-            <Co2Sensor room_number={devices.room_number} co2={checkOfflineDate(devices.createdAt) ? 0 : devices.co2} size="24rem" />
+            <Co2Sensor room_number={devices.room_number} co2={checkOfflineDate(devices.createdAt) ? 0 : devices.co2} temp={devices.temperature} size="24rem" />
+
           </div>
           <SensorHistory dev_eui={devices.dev_eui} />
         </div>

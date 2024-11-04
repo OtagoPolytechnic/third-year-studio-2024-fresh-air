@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { Co2Sensor } from '../Co2/Co2Sensor';
 import { useParams } from 'react-router-dom';
 import { checkOfflineDate } from '../../utils/dateTime/dateTimeFunctions';
-import { sensorOfflineTimer} from '../../utils/constants/constants'
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -28,6 +27,7 @@ useEffect(() => {
           dev_eui: device.dev_eui,
           co2: device.sensorData.map(sensor => sensor.co2)[0],
           createdAt: device.sensorData.map(sensor => sensor.createdAt)[0],
+          temperature: device.sensorData.map(sensor => sensor.temperature)[0]
         }));
         setDevices(extractedData);
       } catch (error) {
@@ -43,7 +43,7 @@ useEffect(() => {
 
     return (
     <div className="text-center">
-      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">Welcome to {blockName}  CO<sub>2</sub> Monitor</div>
+      <div data-cy="h1Welcome" className="lg:text-6xl md:text-4xl text-2xl text-gray-900">{blockName} CO<sub>2</sub> Monitor</div>
       <>
         {isLoading ? (
           <>
