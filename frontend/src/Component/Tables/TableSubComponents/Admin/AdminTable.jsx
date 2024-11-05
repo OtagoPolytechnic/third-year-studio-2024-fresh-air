@@ -19,11 +19,15 @@ const AdminTable = () => {
     }
   }, [initialData]);
 
-  const updateTableData = async (updatedItem) => {
-    setTableData((prevData) => 
-      prevData.map((item) => item.id === updatedItem.id ? updatedItem : item)
+  const updateTableData = (updatedItem) => {
+    setTableData(prevData =>
+      prevData.map(item =>
+        item.dev_eui === updatedItem.dev_eui
+          ? { ...item, ...updatedItem}
+          : item
+      )
     );
-  }
+  };
 
   return (
     <>

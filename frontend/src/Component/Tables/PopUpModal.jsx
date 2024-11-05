@@ -8,46 +8,52 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
   const [blockName, setBlockName] = useState(item?.blockName || ''); 
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     try {
-      if (item.room_number !== e.target.name.value) {
-        const updatedItem ={
-            dev_eui: item.dev_eui,
-            room_number: e.target.name.value,
-        }
-         await fetch(`${apiKey}/api/v1/devices/${item?.dev_eui}`, {
-            method: 'PUT', // or 'PATCH'
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedItem),
-          });
-      }
-      const  updatedItem = {
+      const updatedItem = {
         dev_eui: item.dev_eui,
-        blockName: blockName,
+        room_number: name,   // Updated name (room_number)
+        blockName: blockName, // Updated blockName
+      };
+
+      // Update name (room_number)
+      if (item.room_number !== name) {
+        await fetch(`${apiKey}/api/v1/devices/${item?.dev_eui}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedItem), // Send updated room_number
+        });
       }
 
-      const response = await fetch(`${apiKey}/api/v1/devices/addBlock/${item?.dev_eui}`, {
-        method: 'PUT',
-        headers: {
+      // Update blockName if it has changed
+      if (item.blockName !== blockName) {
+        const response = await fetch(`${apiKey}/api/v1/devices/addBlock/${item?.dev_eui}`, {
+          method: 'PUT',
+          headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedItem),
+          },
+          body: JSON.stringify(updatedItem), // Send updated blockName
         });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
       }
+      
+      // Update the table with the updated item (including room_number and blockName)
+      updateTableData(updatedItem);
 
-      alert('Device updated successfully!');
-      updateTableData(updatedItem); // Update the table data
-      handleClick(); // Close the modal
+      // Close the modal
+      handleClick();
+      
     } catch (error) {
       console.error('Error updating device:', error);
     }
   };
+  
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
