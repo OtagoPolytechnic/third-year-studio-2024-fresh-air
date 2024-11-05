@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UpdateButton } from '../../../Sensor/UpdateSensorSubComponents/UpdateButton';
-import PopUp from '../../PopUpModal';
+import PopUp from '../../EditPopUp';
 import TableItem from '../TableItem';
 import { useGetBlockList } from '../../../../Hooks/Blocks/useGetBlockList';
 
@@ -9,14 +9,17 @@ const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 const AdminTableBody = ({ tableFields, updateTableData }) => {
   const { blocks } = useGetBlockList(`${apiKey}/api/v1/blocks`);
   const [modal, setModal] = useState(false);
+  const [actionType, setActionType] = useState('');
   const [selectedItem, setSelectedItem] = useState(null); // State to hold the selected item
 
   const handleClick = () => {
     setModal(!modal);
+    
   };
 
-  const handleEditClick = (item) => {
+  const handleEditClick = (type, item) => {
     setSelectedItem(item);
+    setActionType(type)
     handleClick();
   };
 
@@ -32,7 +35,7 @@ const AdminTableBody = ({ tableFields, updateTableData }) => {
               <UpdateButton
                 text="Edit"
                 style="py-2 px-4 text-white bg-blue-500 rounded-lg"
-                onClick={() => handleEditClick(item)} // Pass the current item
+                onClick={() => handleEditClick(() => ('edit'),item)} // Pass the current item
               />
             </td>
           </tr>
@@ -44,6 +47,7 @@ const AdminTableBody = ({ tableFields, updateTableData }) => {
           item={selectedItem}
           listOfBlocks={blocks}
           updateTableData={updateTableData}
+          actionType={actionType}
         />
       )}
     </>

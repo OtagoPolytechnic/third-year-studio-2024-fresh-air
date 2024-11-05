@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UpdateButton } from '../Sensor/UpdateSensorSubComponents/UpdateButton';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
-export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
+export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData, actionType }) => {
+  // Set default state values based on `item`
   const [name, setName] = useState(item?.room_number || ''); 
   const [blockName, setBlockName] = useState(item?.blockName || ''); 
 
@@ -12,12 +13,12 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
 
     try {
       const updatedItem = {
-        dev_eui: item.dev_eui,
+        dev_eui: item.dev_eui || 'new-dev-eui',  // If item is empty, generate a new dev_eui or leave blank
         room_number: name,   // Updated name (room_number)
         blockName: blockName, // Updated blockName
       };
 
-      // Update name (room_number)
+      // Make API call to update name (room_number) if changed
       if (item.room_number !== name) {
         await fetch(`${apiKey}/api/v1/devices/${item?.dev_eui}`, {
           method: 'PUT',
@@ -28,7 +29,7 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
         });
       }
 
-      // Update blockName if it has changed
+      // Make API call to update blockName if changed
       if (item.blockName !== blockName) {
         const response = await fetch(`${apiKey}/api/v1/devices/addBlock/${item?.dev_eui}`, {
           method: 'PUT',
@@ -42,7 +43,9 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
           throw new Error('Network response was not ok');
         }
       }
-      
+
+      alert('Device updated successfully!');
+
       // Update the table with the updated item (including room_number and blockName)
       updateTableData(updatedItem);
 
@@ -53,12 +56,11 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
       console.error('Error updating device:', error);
     }
   };
-  
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-        <h1 className="text-lg ml-4 mt-4 font-bold">Edit Device</h1>
+        <h1 className="text-lg ml-4 mt-4 font-bold">{actionType === 'add' ? 'Add Device' : 'Edit Device'}</h1>
         <div className="px-6 py-2">
           <form onSubmit={handleSubmit}>
             <div>
@@ -80,7 +82,7 @@ export const PopUp = ({ handleClick, item, listOfBlocks, updateTableData }) => {
                 Device EUI or MAC Address
               </label>
               <input
-                disabled
+                disabled={actionType === 'edit'} // Disable for add action
                 placeholder="FF:FF:FF:FF:FF:FF"
                 type="text"
                 id="deviceEUI"
