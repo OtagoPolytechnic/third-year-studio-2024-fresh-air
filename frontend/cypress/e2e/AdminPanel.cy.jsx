@@ -32,10 +32,11 @@ describe('Admin Panel tests', () => {
         cy.get('#pwd')
           .type(Cypress.env('user_password'))
         cy.get('[data-cy="loginButton"]').click()
-        
-        // cy.get('#ok-btn').click();
-        cy.url().should('include', '/')
-          
-        cy.visit('http://localhost:5173/admin/devices')
-      })
+
+        cy.url().should('eq', 'http://localhost:5173/');
+      });
+
+      it('Successfuly logsout of admin panel', () => {
+        cy.visit('http://localhost:5173/logout')
+      });
   })

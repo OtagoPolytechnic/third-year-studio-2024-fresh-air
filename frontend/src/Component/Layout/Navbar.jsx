@@ -43,6 +43,7 @@ const NavBar = () => {
                 }
                 role="menuitem"
                 aria-current={({ isActive }) => (isActive ? 'page' : undefined)}
+                data-cy={ route.label }
               >
                 {route.label}
               </NavLink>
