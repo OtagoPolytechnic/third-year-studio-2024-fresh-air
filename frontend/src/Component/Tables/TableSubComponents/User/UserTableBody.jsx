@@ -1,7 +1,6 @@
 import { UpdateButton } from '../../../Sensor/UpdateSensorSubComponents/UpdateButton';
 import TableItem from '../TableItem';
 import PopUp from '../../../Auth/PopUp';
-import { useState } from 'react';
 import { useUserAuth } from '../../../../Context/FirestoreAuthContext';
 import { deleteUserDocument } from '../../../../utils/firestoreFunctions/firestoreFunctions';
 import useModal from '../../../../Hooks/Modal/useModal';

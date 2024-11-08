@@ -6,14 +6,14 @@ export const useCreateBlock = (apiKey) => {
     const [updateSuccess, setUpdateSuccess] = useState('');
 
     const resetApiError = () => {
-        setApiError('');
+        setApiError(null);
     };
 
     const resetUpdateSuccess = () => {
-        setUpdateSuccess('');
+        setUpdateSuccess(null);
     };
 
-    const CreateBlockRequest = async (endpoint, blockName) => {
+    const createBlockRequest = async (endpoint, blockName) => {
         try {
             const createBlock = await fetch(`${endpoint}/createBlock`, {
                 method: 'POST',
@@ -31,7 +31,6 @@ export const useCreateBlock = (apiKey) => {
                 return setUpdateSuccess(message);
             }
             else {
-                console.clear();
                 setApiError(message);
             }
 
@@ -60,7 +59,7 @@ export const useCreateBlock = (apiKey) => {
         fetchData();
     }, []);
 
-    return { items, apiError, resetApiError, CreateBlockRequest, updateSuccess, resetUpdateSuccess };
+    return { items, apiError, resetApiError, createBlockRequest, updateSuccess, resetUpdateSuccess };
 
 
 }

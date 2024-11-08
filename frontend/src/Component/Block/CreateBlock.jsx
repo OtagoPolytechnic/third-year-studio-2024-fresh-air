@@ -5,7 +5,7 @@ import CreateBlockForm from "./CreateBlockForm";
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const CreateBlock = ({onClick}) => {
-    const { apiError, resetApiError, CreateBlockRequest, updateSuccess, resetUpdateSuccess } = useCreateBlock(`${apiKey}/api/v1/blocks`);
+    const { apiError, resetApiError, createBlockRequest, updateSuccess, resetUpdateSuccess } = useCreateBlock(`${apiKey}/api/v1/blocks`);
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState('');
 
@@ -20,7 +20,7 @@ const CreateBlock = ({onClick}) => {
             if (!inputValue || inputValue.startsWith(' ')) {
                 return setError('Input field empty.');
             }
-            await CreateBlockRequest(`${apiKey}/api/v1/blocks`, inputValue);
+            await createBlockRequest(`${apiKey}/api/v1/blocks`, inputValue);
         } catch (error) {
             setError(error);
         } finally {
@@ -66,9 +66,9 @@ const CreateBlock = ({onClick}) => {
             onSubmit={handleSubmit}
             onInput={handleChange}
             inputValue={inputValue}
+            updateSuccessful={updateSuccess}
             formError={error}
             apiError={apiError}
-            updateSuccessful={updateSuccess}
             onClick={onClick}
             />
             </section>
