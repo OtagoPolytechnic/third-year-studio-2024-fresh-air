@@ -1,9 +1,8 @@
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
 import { UpdateButton } from '../../../Sensor/UpdateSensorSubComponents/UpdateButton';
 import TableItem from '../TableItem';
 import useModal from '../../../../Hooks/Modal/useModal';
 import PopUp from '../../../Auth/PopUp';
-import TableButton from '../TableButton';
 import UpdateBlock from '../../../Block/UpdateBlock';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
@@ -11,28 +10,31 @@ const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 const BlocksTableBody = ({ tableFields }) => {
   const { modal, setModal } = useModal();
   const [error, setError] = useState(false);
+  const [blockName, setBlockName] = useState('');
 
   const handleDelete = async (blockId) => {
-      setModal('waiting', true);
-      try {
-        await fetch(`${apiKey}/api/v1/blocks/delete`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                blockId: blockId
-            })
-        });
-        
-        setModal('waiting', false);
+    setModal('waiting', true);
+    try {
+      await fetch(`${apiKey}/api/v1/blocks/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          blockId: blockId
+        })
+      });
 
-
+      setModal('waiting', false);
     } catch (error) {
-        setError(error);
+      setError(error);
     } finally {
       setModal('showDeleteModal', true);
     }
+  };
+
+  const handleBlockName = (blockName) => {
+    setBlockName(blockName);
   };
 
   return (
@@ -45,7 +47,10 @@ const BlocksTableBody = ({ tableFields }) => {
               <UpdateButton
                 text="Edit"
                 style="py-2 px-4 text-white mr-2 bg-blue-500 hover:bg-blue-400 rounded-lg"
-                onClick={() => setModal('showUpdateBlock', true)}
+                onClick={() => {
+                  handleBlockName(item.blockName);
+                  setModal('showUpdateBlock', true);
+                }}
               />
               <UpdateButton
                 text="Delete"
@@ -60,25 +65,31 @@ const BlocksTableBody = ({ tableFields }) => {
                   hideButton={true}
                 />
               )}
-              {modal('showUpdateBlock') && (
-                <UpdateBlock
-                  onClick={() => setModal('showUpdateBlock', false)}
-                  blockName={item.blockName}
-                />
-              )}
+
               {modal('showDeleteModal') && (
                 <PopUp
                   handleClick={() => setModal('showDeleteModal', false)}
-                  blockId={item.id}
                   headerText="Block deleted"
                   error={error}
-                  pText={error ? error.message : 'The block has been successfully deleted'}
+                  pText={
+                    error
+                      ? error.message
+                      : 'The block has been successfully deleted'
+                  }
                 />
               )}
             </td>
           </tr>
         ))}
       </tbody>
+      <>
+        {modal('showUpdateBlock') && (
+          <UpdateBlock
+            onClick={() => setModal('showUpdateBlock', false)}
+            blockName={blockName}
+          />
+        )}
+      </>
     </>
   );
 };

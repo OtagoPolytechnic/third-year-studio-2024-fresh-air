@@ -11,8 +11,6 @@ const BlocksTable = () => {
     const { blocks: initialData, apiError } = useGetBlockList(`${apiKey}/api/v1/blocks`);
     const {sortedData, onSort, sortConfig} = useSortableData(initialData);
 
-    
-
     return (
         <>
         {sortedData.length === 0 ? (

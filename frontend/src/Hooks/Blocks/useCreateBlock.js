@@ -26,8 +26,8 @@ export const useCreateBlock = (apiKey) => {
             const confirmCreate = await createBlock.json();
 
             const { statusCode, message } = confirmCreate;
-
-            if (statusCode === 200) {
+            console.log(statusCode);
+            if (statusCode === 201) {
                 return setUpdateSuccess(message);
             }
             else {

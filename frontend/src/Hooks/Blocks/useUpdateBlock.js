@@ -26,12 +26,11 @@ export const useUpdateBlock = (apiKey) => {
         const confirmUpdate = await updateBlock.json();
     
         const { statusCode, message } = confirmUpdate;
-    
+        console.log(statusCode);
         if (statusCode === 200) {
             return setUpdateSuccess(message);
         }
         else {
-            console.clear();
             setApiError(message);
         }
     
