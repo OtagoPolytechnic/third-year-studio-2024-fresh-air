@@ -59,7 +59,6 @@ const BlocksTableBody = ({ tableFields }) => {
               />
               {modal('waiting') && (
                 <PopUp
-                  handleClick={() => setModal('waiting', false)}
                   headerText="Please wait"
                   pText="Processing your request"
                   hideButton={true}

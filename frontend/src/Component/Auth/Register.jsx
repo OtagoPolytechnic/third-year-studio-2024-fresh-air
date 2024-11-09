@@ -159,6 +159,7 @@ const Register = ({ onClick }) => {
           )}
           {modal('registerUser') && (
             <PopUp
+            hideButton={true}
               handleClick={() => setModal('registerUser', false)}
               headerText="Registering User"
               pText="Please wait while we register the user."
