@@ -9,6 +9,7 @@ const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 const UsersTable = () => {
     const { users: initialData, apiError } = useGetUserList(`${apiKey}/api/v1/users`);
     const { sortedData, onSort, sortConfig } = useSortableData(initialData);
+    console.log(sortedData);
     return (
         <>
         {sortedData.length === 0 ? (

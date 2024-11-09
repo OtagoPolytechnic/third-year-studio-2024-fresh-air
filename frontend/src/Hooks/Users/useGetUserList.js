@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getUserList } from "../../utils/firestoreFunctions/firestoreFunctions";
 
 export const useGetUserList = (apiKey) => {
     const [users, setUsers] = useState([]);
@@ -15,7 +16,21 @@ export const useGetUserList = (apiKey) => {
                     lastSignInTime: item.metadata.lastSignInTime,
                 };
             });
-            setUsers(mappedData);
+
+            const unsubscribe = await getUserList((userDocs) => {
+                const mergedData = userDocs.map((doc, index) => {
+                    return { ...doc, ...mappedData[index] };
+                });
+                setUsers(mergedData);
+            });
+
+            return () => {
+                if (unsubscribe) {
+                    unsubscribe();
+                }
+            };
+
+
         } catch (error) {
             setApiError(error.message);
         }

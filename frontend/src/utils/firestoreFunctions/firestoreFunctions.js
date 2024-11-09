@@ -1,17 +1,22 @@
 import { firestore } from '../../firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, deleteDoc, getDoc, onSnapshot } from 'firebase/firestore';
 import { firestoreCollectionUsers } from '../constants/constants';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
-export const getUserList = async ({ collectionName }) => {
+export const getUserList = async (callback) => {
   try {
-    const userList = collection(firestore, collectionName);
-    const snapshot = await getDocs(userList);
-    const userDocs = snapshot.docs.map((doc) => {
-      return doc.data();
-    });
-    return userDocs;
+    const userList = collection(firestore, firestoreCollectionUsers);
+    return onSnapshot(
+      userList,
+      (snapshot) => {
+        const userDocs = snapshot.docs.map((doc) => doc.data());
+        callback(userDocs);
+      },
+      (error) => {
+        console.error("Error getting user list:", error);
+      }
+    );
   } catch (error) {
     throw error;
   }
@@ -73,4 +78,23 @@ export const deleteUserDocument = async (userID) => {
 } catch (error) {
     console.error('Error deleting user:', error);
   };
+};
+
+export const getUserDocument = async (userId, callback) => {
+  try {
+    const userDocRef = doc(firestore, firestoreCollectionUsers, userId);
+
+    return onSnapshot(
+      userDocRef,
+      (snapshot) => {
+        const userData = snapshot.data();
+        callback(userData);
+      },
+      (error) => {
+        console.error("Error getting user document:", error);
+      }
+    );
+  } catch (error) {
+    console.error("Error getting user:", error);
+  }
 };
