@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { UpdateButton } from '../../../Sensor/UpdateSensorSubComponents/UpdateButton';
 import TableItem from '../TableItem';
 import useModal from '../../../../Hooks/Modal/useModal';
 import PopUp from '../../../Auth/PopUp';
 import UpdateBlock from '../../../Block/UpdateBlock';
+import AuthConfirmPopup from '../../../Auth/AuthConfirmPopup';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
@@ -12,7 +13,7 @@ const BlocksTableBody = ({ tableFields }) => {
   const [error, setError] = useState(false);
   const [blockName, setBlockName] = useState('');
 
-  const handleDelete = async (blockId) => {
+  const handleDelete = async (item) => {
     setModal('waiting', true);
     try {
       await fetch(`${apiKey}/api/v1/blocks/delete`, {
@@ -21,15 +22,16 @@ const BlocksTableBody = ({ tableFields }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          blockId: blockId
+          blockId: item.id
         })
       });
 
+      setModal('showDeleteBlockPopup', false);
       setModal('waiting', false);
-    } catch (error) {
-      setError(error);
-    } finally {
       setModal('showDeleteModal', true);
+    } catch (error) {
+      setModal('showDeleteBlockPopup', false);
+      setError(error);
     }
   };
 
@@ -55,7 +57,7 @@ const BlocksTableBody = ({ tableFields }) => {
               <UpdateButton
                 text="Delete"
                 style="py-2 px-4 text-white bg-red-500 hover:bg-red-400 rounded-lg"
-                onClick={() => handleDelete(item.id)}
+                onClick={() => setModal('showDeleteBlockPopup', true)}
               />
               {modal('waiting') && (
                 <PopUp
@@ -65,16 +67,21 @@ const BlocksTableBody = ({ tableFields }) => {
                 />
               )}
 
+              {modal('showDeleteBlockPopup') && (
+                <AuthConfirmPopup
+                  onClick={() => setModal('showDeleteBlockPopup', false)}
+                  handleDelete={() => handleDelete(item)}
+                  headerText={"Delete Block?"}
+                  pText={`Are you sure you want to delete ${item.blockName}?`}
+
+                />
+              )}
+
               {modal('showDeleteModal') && (
                 <PopUp
                   handleClick={() => setModal('showDeleteModal', false)}
                   headerText="Block deleted"
-                  error={error}
-                  pText={
-                    error
-                      ? error.message
-                      : 'The block has been successfully deleted'
-                  }
+                  pText={'Block has been successfully deleted'}
                 />
               )}
             </td>

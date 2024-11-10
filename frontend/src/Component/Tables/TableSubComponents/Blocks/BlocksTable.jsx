@@ -13,13 +13,11 @@ const BlocksTable = () => {
 
     return (
         <>
-        {sortedData.length === 0 ? (
-            <h1 className={'text-2xl text-center'}>No blocks found</h1>
+        {apiError ? (
+            <h1 className={'bg-red-500 text-white p-4 font-bold'}>{apiError}</h1>
         ) : (
             <>
-            {apiError ? (
-                <div className={'bg-red-500 text-white p-4'}>Error: {apiError}</div>
-            ) : (
+            {sortedData.length > 0 && (
                 <table className={'w-full text-sm text-left text-gray-500 divide-y divide-gray-200'}>
                     <TableHeaders headers={tableHeadersBlocks} onSort={onSort} sortConfig={sortConfig}/>
                     <BlocksTableBody tableFields={sortedData}/>

@@ -4,7 +4,6 @@ import UserTableActions from './UserTableActions';
 
 const UserTableBody = ({ tableFields }) => {
   const { userData } = useGetUserInformation();
-
   return (
     <>
       {userData && (

@@ -1,5 +1,5 @@
 import { firestore } from '../../firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, setDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { firestoreCollectionUsers } from '../constants/constants';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
@@ -64,6 +64,7 @@ export const createUserInformation = async ({
       role,
       firstName,
       lastName,
+      userId: userID,
     });
   } catch (error) {
     console.error('Error creating user:', error);

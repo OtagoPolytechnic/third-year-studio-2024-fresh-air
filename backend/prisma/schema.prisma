@@ -24,7 +24,7 @@ model Device {
   updatedAt   DateTime     @default(now()) @updatedAt
   sensorData  SensorData[]
   blockId     Int?
-  block       Block?       @relation(fields: [blockId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  block       Block?       @relation(fields: [blockId], references: [id], onUpdate: Cascade, onDelete: SetNull)
 }
 
 model SensorData {
