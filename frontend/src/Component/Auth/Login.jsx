@@ -7,7 +7,6 @@ export const Login = () => {
   const { login, user } = useUserAuth();
   const [modal, setModal] = useState(false);
   const [modalContent, setModalContent] = useState({ headerText: '', pText: '' });
-  const [popUp, setPopUp] = useState();
   const [error, setError] = useState(false);
 
   const handleLogin = async (e) => {
@@ -21,17 +20,14 @@ export const Login = () => {
         headerText: 'Successfully logged in',
         pText: 'Account has been successfully logged in, you can now access the dashboard.'
       });
-      setPopUp("The popup was successful");
     } catch (error) {
       setModalContent({
         headerText: 'Failed to login',
         pText: error.message || 'An error occurred while trying to login. Check that your email/password are correct.'
       });
-      setPopUp("The popup failed");
       setError(true);
     }
     setModal(true);
-    console.log(popUp);
   };
 
   if (user && modal === false) {
