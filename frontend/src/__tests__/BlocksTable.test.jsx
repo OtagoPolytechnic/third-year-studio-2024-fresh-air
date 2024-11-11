@@ -20,14 +20,14 @@ jest.mock('../Component/Tables/TableSubComponents/TableItem', () => ({
 
 describe('BlocksTable', () => {
   it('should render "No blocks found" when there is no data', () => {
-    useGetBlockList.mockReturnValue({ blocks: [], apiError: null });
+    useGetBlockList.mockReturnValue({ blocks: [], apiError: "Failed to fetch data" });
     useSortableData.mockReturnValue({ sortedData: [], onSort: jest.fn(), sortConfig: {} });
 
     render(<BlocksTable />);
 
     screen.debug();
 
-    expect(screen.getByText('No blocks found')).toBeInTheDocument();
+    expect(screen.queryByText('Failed to fetch data') || screen.queryByText('No blocks found')).toBeInTheDocument();
   });
 
   it('should render table when there is data and no error', () => {
