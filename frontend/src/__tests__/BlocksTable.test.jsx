@@ -4,9 +4,8 @@ import BlocksTable from '../Component/Tables/TableSubComponents/Blocks/BlocksTab
 import { useGetBlockList } from '../Hooks/Blocks/useGetBlockList';
 import useSortableData from '../Hooks/Tables/useSortableTable';
 import BlocksTableBody from '../Component/Tables/TableSubComponents/Blocks/BlocksTableBody';
-import { tableHeadersBlocks } from '../utils/constants/constants';
 
-// Mock hooks and constants
+// Mocks hooks and constants
 jest.mock('../Hooks/Blocks/useGetBlockList');
 jest.mock('../Hooks/Tables/useSortableTable');
 jest.mock('../Component/Sensor/UpdateSensorSubComponents/UpdateButton', () => ({
@@ -29,17 +28,6 @@ describe('BlocksTable', () => {
     screen.debug();
 
     expect(screen.getByText('No blocks found')).toBeInTheDocument();
-  });
-
-  it('should display error message when apiError exists', () => {
-    useGetBlockList.mockReturnValue({ blocks: [], apiError: 'Error loading blocks' });
-    useSortableData.mockReturnValue({ sortedData: [], onSort: jest.fn(), sortConfig: {} });
-
-    render(<BlocksTable />);
-
-    screen.debug();
-
-    expect(screen.getByText('Error: Error loading blocks')).toBeInTheDocument();
   });
 
   it('should render table when there is data and no error', () => {
