@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom'; // Ensure jest-dom matchers are available
+import '@testing-library/jest-dom'; 
 import BlocksTable from '../Component/Tables/TableSubComponents/Blocks/BlocksTable';
 import { useGetBlockList } from '../Hooks/Blocks/useGetBlockList';
 import useSortableData from '../Hooks/Tables/useSortableTable';
@@ -26,7 +26,6 @@ describe('BlocksTable', () => {
 
     render(<BlocksTable />);
 
-    // Inspect the output using screen.debug() for troubleshooting
     screen.debug();
 
     expect(screen.getByText('No blocks found')).toBeInTheDocument();
@@ -38,7 +37,6 @@ describe('BlocksTable', () => {
 
     render(<BlocksTable />);
 
-    // Inspect the output using screen.debug() for troubleshooting
     screen.debug();
 
     expect(screen.getByText('Error: Error loading blocks')).toBeInTheDocument();
@@ -51,7 +49,6 @@ describe('BlocksTable', () => {
 
     render(<BlocksTable />);
 
-    // Inspect the output using screen.debug() for troubleshooting
     screen.debug();
 
     // Check if table headers and body are rendered
@@ -70,7 +67,6 @@ describe('BlocksTableBody', () => {
 
     render(<BlocksTableBody tableFields={mockTableFields} />);
 
-    // Inspect the output using screen.debug() for troubleshooting
     screen.debug();
 
     // Ensure tbody is rendered and there are rows for each item
@@ -86,9 +82,5 @@ describe('BlocksTableBody', () => {
 
     const deleteButton = screen.getByText('Delete');
     expect(deleteButton).toBeInTheDocument();
-
-    // You can also simulate a click if needed
-    fireEvent.click(deleteButton);
-    // Check for the desired effect (for instance, an alert or some other interaction)
   });
 });

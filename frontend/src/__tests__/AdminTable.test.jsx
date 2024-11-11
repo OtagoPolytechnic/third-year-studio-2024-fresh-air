@@ -17,7 +17,7 @@ describe('AdminTable Component', () => {
         useSortableData.mockReturnValue({
             sortedData: [],
             onSort: jest.fn(),
-            sortConfig: { key: 'name', direction: 'asc' },  // Define sortConfig with valid values
+            sortConfig: { key: 'name', direction: 'asc' }, 
         });
 
         render(<AdminTable />);
@@ -36,7 +36,7 @@ describe('AdminTable Component', () => {
         });
     
         render(<AdminTable />);
-        screen.debug(); // Add this to check the rendered output
+        screen.debug(); 
     
         // Check for either "Failed to fetch data" or "No data available"
         expect(screen.queryByText('Failed to fetch data') || screen.queryByText('No data available')).toBeInTheDocument();
@@ -66,11 +66,11 @@ describe('AdminTable Component', () => {
         expect(screen.queryByText(/Room Number/i)).toBeInTheDocument();
         expect(screen.queryByText(/Block Name/i)).toBeInTheDocument();
       
-        // Check if Device 1 and Device 2 are rendered correctly (check dev_eui)
+        // Check if Device 1 and Device 2 are rendered correctly
         expect(await screen.findByText(/Device 1/i)).toBeInTheDocument();
         expect(await screen.findByText(/Device 2/i)).toBeInTheDocument();
       
-        // Ensure no error or "No data available" message
+        // Chescks if no error or "No data available" message
         expect(screen.queryByText(/No data available/i)).not.toBeInTheDocument();
         expect(screen.queryByText(/Error:/i)).not.toBeInTheDocument();
       });    
