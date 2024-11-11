@@ -24,7 +24,7 @@ describe('AdminTable Component', () => {
         screen.debug(); 
     
         // Check for either "Failed to fetch data" or "No data available"
-        expect(screen.queryByText('Failed to fetch data') || screen.queryByText('No data available')).toBeInTheDocument();
+        expect(screen.queryByText('Error: Failed to fetch data') || screen.queryByText('No data available')).toBeInTheDocument();
     });    
 
     it('renders table headers and body when data is available', async () => {

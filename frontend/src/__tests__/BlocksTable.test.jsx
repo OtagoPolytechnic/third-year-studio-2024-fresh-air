@@ -27,7 +27,7 @@ describe('BlocksTable', () => {
 
     screen.debug();
 
-    expect(screen.queryByText('Failed to fetch data') || screen.queryByText('No blocks found')).toBeInTheDocument();
+    expect(screen.queryByText('Error: Failed to fetch data') || screen.queryByText('No blocks found')).toBeInTheDocument();
   });
 
   it('should render table when there is data and no error', () => {
