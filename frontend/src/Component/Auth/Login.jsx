@@ -28,7 +28,6 @@ export const Login = () => {
       setError(true);
     }
     setModal(true);
-
   };
 
   if (user && modal === false) {
