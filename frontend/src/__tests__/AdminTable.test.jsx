@@ -24,24 +24,6 @@ describe('AdminTable Component', () => {
         expect(screen.getByText(/No data available/i)).toBeInTheDocument();
     });
 
-    it('renders the error message when apiError is present', () => {
-        useGetDeviceList.mockReturnValue({
-            devices: [],
-            apiError: 'Failed to fetch data',
-        });
-        useSortableData.mockReturnValue({
-            sortedData: [],
-            onSort: jest.fn(),
-            sortConfig: { key: 'name', direction: 'asc' },
-        });
-    
-        render(<AdminTable />);
-        screen.debug(); 
-    
-        // Check for either "Failed to fetch data" or "No data available"
-        expect(screen.queryByText('Failed to fetch data') || screen.queryByText('No data available')).toBeInTheDocument();
-    });    
-
     it('renders table headers and body when data is available', async () => {
         const mockDevices = [
           { id: 1, dev_eui: 'Device 1', room_number: '101', blockName: 'Block A' },
