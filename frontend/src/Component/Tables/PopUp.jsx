@@ -102,7 +102,7 @@ export const PopUp = ({
                 htmlFor="deviceEUI"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Device EUI or MAC Address
+                Device EUI
               </label>
               <input
                 disabled={actionType === 'edit'} // Disable for add action
@@ -119,7 +119,7 @@ export const PopUp = ({
                 htmlFor="blockName"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Block Name
+                Block
               </label>
               <select
                 required

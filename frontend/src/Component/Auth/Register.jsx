@@ -65,7 +65,7 @@ const Register = ({ onClick }) => {
       ></div>
 
       <div className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto">
-        <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
+        <div className="rounded-lg shadow-sm max-w-md w-full mx-auto p-6">
           <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
             <button
               onClick={onClick}
