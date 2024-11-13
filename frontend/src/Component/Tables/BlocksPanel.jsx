@@ -10,7 +10,6 @@ const BlocksPanel = () => {
     return (
         <>
         <section className={'flex justify-end'}>
-        <TableButton text={"Update Block"} onClick={() => setModal('showUpdateBlock', true)} />
         <TableButton text={"Add Block"} onClick={() => setModal('showCreateBlock', true)} />
         </section>
         <section className={"relative overflow-x-auto mx-4 rounded-lg border shadow-sm"}>

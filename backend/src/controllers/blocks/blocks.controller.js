@@ -151,12 +151,16 @@ const createBlock = async (req, res) => {
       });
     }
 
-    if (!blockNamePattern.test(blockName)) {
-      return res.status(STATUS_CODES.BAD_REQUEST).json({
-        statusCode: res.statusCode,
-        message: 'Block name must be in the format [Uppercase Letter]-Block',
-      });
-    }
+    
+    // Function allows for the block name to be in the format [Uppercase Letter]-Block
+    // Disabled as requested by Martin
+
+    // if (!blockNamePattern.test(blockName)) {
+    //   return res.status(STATUS_CODES.BAD_REQUEST).json({
+    //     statusCode: res.statusCode,
+    //     message: 'Block name must be in the format [Uppercase Letter]-Block',
+    //   });
+    // }
 
     const existingBlock = await prisma.block.findFirst({
       where: { blockName: String(blockName) },
@@ -207,12 +211,15 @@ const updateBlock = async (req, res) => {
       });
     }
 
-    if (!blockNamePattern.test(newBlockName)) {
-      return res.status(STATUS_CODES.BAD_REQUEST).json({
-        statusCode: res.statusCode,
-        message: 'Block name must be in the format [Uppercase Letter]-block',
-      });
-    }
+    // Function allows for the block name to be in the format [Uppercase Letter]-Block
+    // Disabled as requested by Martin
+
+    // if (!blockNamePattern.test(newBlockName)) {
+    //   return res.status(STATUS_CODES.BAD_REQUEST).json({
+    //     statusCode: res.statusCode,
+    //     message: 'Block name must be in the format [Uppercase Letter]-block',
+    //   });
+    // }
 
     const getBlock = await prisma.block.findFirst({
       where: { blockName: String(blockName) },
@@ -254,4 +261,43 @@ const updateBlock = async (req, res) => {
   }
 };
 
-export { createBlock, getAllBlocks, getBlock, getBlockRecentSensor, updateBlock };
+const deleteBlock = async (req, res) => {
+  try {
+    const { blockId } = req.body;
+
+    if (!blockId || blockId.length === 0) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: res.statusCode,
+        message: 'Block ID is required',
+      });
+    };
+
+    const findBlock = await prisma.block.findUnique({
+      where: { id: Number(blockId)},
+    });
+
+    if (!findBlock || findBlock.length === 0) {
+      return res.status(STATUS_CODES.NOT_FOUND).json({
+        statusCode: res.statusCode,
+        message: `Block ID ${blockId} not found on the server`,
+      });
+    };
+
+    const deleteBlock = await prisma.block.delete({
+      where: { id: Number(blockId) },
+    });
+
+    return res.status(STATUS_CODES.OK).json({
+      statusCode: res.statusCode,
+      message: `Block ID ${blockId} deleted successfully`,
+      data: deleteBlock,
+    });
+
+  } catch (error) {
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: res.statusCode,
+      message: error.message,
+    });
+  }
+}
+export { createBlock, getAllBlocks, getBlock, getBlockRecentSensor, updateBlock, deleteBlock };
