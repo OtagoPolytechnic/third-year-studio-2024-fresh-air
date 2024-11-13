@@ -48,4 +48,3 @@ const createUser = async (req, res) => {
   };
 
 export { createUser, getUserList, deleteUser, resetUserPassword };
-

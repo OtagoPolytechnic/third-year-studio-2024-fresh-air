@@ -6,13 +6,17 @@ import PopUp from '../../../Auth/PopUp';
 import { useState } from 'react';
 import UpdatePassword from '../../../Auth/UpdatePassword';
 import AuthConfirmPopup from '../../../Auth/AuthConfirmPopup';
+import { useUserAuth } from '../../../../Context/FirestoreAuthContext';
 
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const UserTableActions = ({ userDataRole, item }) => {
   const { modal, setModal } = useModal();
+  const { user } = useUserAuth();
   const [error, setError] = useState('false');
   const [newPassword, setNewPassword] = useState('');
+
+  console.group(item)
 
   const handlePasswordValue = (e) => {
     setNewPassword(e.target.value);
@@ -71,7 +75,7 @@ const UserTableActions = ({ userDataRole, item }) => {
 
   return (
     <>
-      {item.role !== userRoles.superAdmin && (
+      {(item.role !== userRoles.superAdmin || item.userId === user) && (
         <UpdateButton
           text="Edit Password"
           style="py-2 px-4 text-white bg-blue-500 hover:bg-blue-400 rounded-lg"
