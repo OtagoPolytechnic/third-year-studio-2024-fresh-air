@@ -35,5 +35,16 @@ const createUser = async (req, res) => {
     }
   };
 
-export { createUser, getUserList, deleteUser };
+  const resetUserPassword = async (req, res) => {
+    try {
+      const { uid, password } = req.body;
+      await auth.updateUser(uid, {
+        password: password,
+      });
+      return res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+      return res.status(500).json({ error: 'Failed to update password' });
+    }
+  };
 
+export { createUser, getUserList, deleteUser, resetUserPassword };

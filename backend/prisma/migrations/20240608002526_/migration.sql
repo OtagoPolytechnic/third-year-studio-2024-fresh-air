@@ -47,7 +47,7 @@ CREATE UNIQUE INDEX "Device_deviceId_key" ON "Device"("deviceId");
 CREATE UNIQUE INDEX "Device_dev_eui_key" ON "Device"("dev_eui");
 
 -- AddForeignKey
-ALTER TABLE "Device" ADD CONSTRAINT "Device_blockId_fkey" FOREIGN KEY ("blockId") REFERENCES "Block"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Device" ADD CONSTRAINT "Device_blockId_fkey" FOREIGN KEY ("blockId") REFERENCES "Block"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "SensorData" ADD CONSTRAINT "SensorData_deviceId_fkey" FOREIGN KEY ("deviceId") REFERENCES "Device"("deviceId") ON DELETE CASCADE ON UPDATE CASCADE;

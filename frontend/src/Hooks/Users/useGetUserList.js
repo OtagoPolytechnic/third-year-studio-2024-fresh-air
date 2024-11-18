@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
+import { getUserList } from "../../utils/firestoreFunctions/firestoreFunctions";
 
-export const useGetUserList = (apiKey) => {
+export const useGetUserList = () => {
     const [users, setUsers] = useState([]);
     const [apiError, setApiError] = useState("");
 
     const fetchData = async () => {
         try {
-            const response = await fetch(apiKey);
-            const data = await response.json();
-            const mappedData = data.map((item) => {
-                return {
-                    uid: item.uid,
-                    email: item.email,
-                    lastSignInTime: item.metadata.lastSignInTime,
-                };
+            const unsubscribe = await getUserList((userDocs) => {
+                setUsers(userDocs);
             });
-            setUsers(mappedData);
+
+            return () => {
+                if (unsubscribe) {
+                    unsubscribe();
+                }
+            };
+
+
         } catch (error) {
             setApiError(error.message);
         }

@@ -1,4 +1,4 @@
-export const UpdateInput = ({styles, type, placeholder, value, onChange}) => {
+export const UpdateInput = ({styles, type, placeholder, value, onChange, disabled}) => {
     return (
         <input
         onChange={onChange}
@@ -7,6 +7,7 @@ export const UpdateInput = ({styles, type, placeholder, value, onChange}) => {
         placeholder={placeholder}
         value={value}
         maxLength={15}
+        disabled={disabled}
         />
     );
 };
