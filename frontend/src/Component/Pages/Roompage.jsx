@@ -29,7 +29,8 @@ export const RoomPage = () => {
           dev_eui: data.data.dev_eui,
           co2: data.data.sensorData.map(sensor => sensor.co2)[0],
           createdAt: data.data.sensorData.map(sensor => sensor.createdAt)[0],
-          temperature: data.data.sensorData.map(sensor => sensor.temperature)[0],
+          temperature: Math.round(data.data.sensorData.map(sensor => sensor.temperature)[0]),
+
         };
         setDevices(extractedData);
         console.log(extractedData)

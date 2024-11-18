@@ -4,6 +4,7 @@ import { UpdateInput } from '../../Sensor/UpdateSensorSubComponents/UpdateSensor
 import { UpdateBlockDropDown } from './UpdateBlockDropDown';
 
 export const UpdateBlockForm = ({
+  blockName,
   onSubmit,
   onChange,
   onInput,
@@ -22,11 +23,8 @@ export const UpdateBlockForm = ({
       role="dialog"
       aria-modal="true"
     >
-      <div
-        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity b"
-        aria-hidden="true"
-      ></div>
-
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-25 flex justify-center items-center z-50">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
       <div className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto">
         <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-auto p-6">
           <button
@@ -44,16 +42,13 @@ export const UpdateBlockForm = ({
             Update Block
           </h2>
           <form className={'space-y-4 mt-6'} onSubmit={onSubmit}>
-            <UpdateBlockDropDown
+          <UpdateInput
               styles={
                 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
               }
-              onChange={onChange}
-              value={dropDownValue}
+              type={'text'}
+              value={blockName}
               disabled={true}
-              headerValue={''}
-              optionHeaderText={'Select Block'}
-              blockData={dropDownChildren}
             />
             <UpdateInput
               onChange={onInput}
@@ -80,6 +75,8 @@ export const UpdateBlockForm = ({
           </form>
         </div>
       </div>
+      </div>
+    </div>
     </div>
   );
 };

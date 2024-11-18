@@ -4,10 +4,9 @@ import { tableHeadersUsers } from "../../../../utils/constants/constants";
 import useSortableData from "../../../../Hooks/Tables/useSortableTable";
 import { useGetUserList } from "../../../../Hooks/Users/useGetUserList";
 
-const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const UsersTable = () => {
-    const { users: initialData, apiError } = useGetUserList(`${apiKey}/api/v1/users`);
+    const { users: initialData, apiError } = useGetUserList();
     const { sortedData, onSort, sortConfig } = useSortableData(initialData);
     return (
         <>

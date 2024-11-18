@@ -16,7 +16,7 @@ services:
       - /data/testing/db/pgdata-testing:/var/lib/postgresql/data
 
   backend-testing:
-    image: backend-co2-app:6.1-ddh-s6
+    image: backend-co2-app:6.0-staging
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -29,7 +29,7 @@ services:
       - "3001:3000"
 
   frontend-testing:
-    image: frontend-co2-app:6.1-ddh-s6
+    image: frontend-co2-app:6.0-staging
     build:
       context: ./frontend
       dockerfile: Dockerfile
