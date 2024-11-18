@@ -47,6 +47,14 @@
       "createdAt": "2024-01-01T06:48:18.479Z",
       "deviceId": "eui-324b080301f5",
       "dev_eui": "324b080301f5"
+    },
+    {
+      "id": 6,
+      "co2": "200",
+      "temperature": "19.55",
+      "createdAt": "2024-01-01T06:48:18.479Z",
+      "deviceId": "eui-324b080301f5",
+      "dev_eui": "324b080301f5"
     }
   ]
 }
