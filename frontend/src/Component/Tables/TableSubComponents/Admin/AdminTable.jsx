@@ -8,7 +8,7 @@ import useSortableData from "../../../../Hooks/Tables/useSortableTable";
 const apiKey = import.meta.env.VITE_BACKEND_API_KEY;
 
 const AdminTable = () => {
-  const { devices: initialData, apiError } = useGetDeviceList(`${apiKey}/api/v1/devices`);
+  const { devices: initialData, apiError } = useGetDeviceList(`${apiKey}/api/v1/devices?amount=10000`);
   
   // Sort based on tableData, which will include updated data
   const [tableData, setTableData] = useState(initialData || []); // Initialize with fetched data
