@@ -1,5 +1,6 @@
 ## Ticket Reference
 > Link to ticket by typing `#` and a dropdown of tickets should show up that you can type out/select
+> Also `@mention` team members who have helped out/worked with you on this ticket for PDR purposes
 
 ## Purpose of Changes
 > Briefly write what your pull request is working on/fixing/changing
