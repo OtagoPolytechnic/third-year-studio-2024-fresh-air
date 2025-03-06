@@ -22,5 +22,9 @@ assignees: ''
 ## Steps Taken To Fix (Optional)
 > If applicable, explain what you've done to attempt to fix the problem.
 
-## Additional context (Optional)
-> Add any other context about the problem here.
+## Acceptance Criteria
+> e.g. Items added to the cart should be accurately displayed with price and quantity.
+> 
+> Users can update quantities within the cart without issues.
+> 
+> The cart should persist even if the user navigates to a different page. 
