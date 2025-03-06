@@ -26,3 +26,10 @@ assignees: ''
 ## Feature List
 
 > Use bullet points
+
+## Acceptance Criteria
+> e.g. Items added to the cart should be accurately displayed with price and quantity.
+> 
+> Users can update quantities within the cart without issues.
+> 
+> The cart should persist even if the user navigates to a different page. 
