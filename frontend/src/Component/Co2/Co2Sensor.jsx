@@ -4,6 +4,7 @@ export const Co2Sensor = ({ co2 }) => {
   const value = parseInt(co2);
 
   const getColor = (val) => {
+    if (val == 0) return { r: 128, g: 128, b: 128 };
     if (val <= 1000) return { r: 34, g: 197, b: 94 };
     if (val <= 2000) return { r: 250, g: 204, b: 21 };
     if (val <= 3500) return { r: 249, g: 115, b: 22 };

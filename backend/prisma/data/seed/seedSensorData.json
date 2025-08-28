@@ -38,7 +38,7 @@
     },
     {
       "id": 6,
-      "co2": "200",
+      "co2": "0",
       "temperature": "19",
       "deviceId": "eui-324b080301f5",
       "dev_eui": "324b080301f5"

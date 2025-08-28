@@ -3,12 +3,13 @@ import { GiSnail, GiDeathSkull, GiBrokenSkull   } from "react-icons/gi";
 import { ImSleepy } from "react-icons/im";
 import { FaHeadSideVirus, FaHeartbeat } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
-
+import { IoCloudOfflineOutline } from "react-icons/io5";
 
 export const getCo2Details = (ppm) => {
-  if (ppm === 0) return [];
-
-  if (ppm <= 1000) {
+  if (ppm == 0) return [
+    { label: "Offline", icon: <IoCloudOfflineOutline className="text-gray-500"/> },
+  ];
+  else if (ppm <= 1000) {
     return [
       { label: "Good", icon: <GrStatusGood className="text-green-600" /> },
     ];
@@ -35,7 +36,7 @@ export const getCo2Details = (ppm) => {
 };
 
 export function getCo2HoverBgColor(co2) {
-  if (co2 === 0) return '';
+  if (co2 == 0) return '';
   if (co2 < 1000) return 'hover:bg-green-100';
   if (co2 < 2000) return 'hover:bg-yellow-100';
   if (co2 < 5000) return 'hover:bg-red-100';
