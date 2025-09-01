@@ -12,8 +12,6 @@ assignees: ''
 
 ## User Story (Recommended)
 
-> Users can include testers and developers!! Don't forget, you are also a user
-
 **As** [user type/name], **I want to** [action], **so that** [ideal outcome]
 
 ## Explanation
