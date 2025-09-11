@@ -26,7 +26,7 @@ const { blocks } = useGetBlockList(`${apiKey}/api/v1/blocks`);
 
   return (
     <nav
-      className="bg-gray-200 shadow-md shadow-gray-300 px-8 py-2 md:px-0 mb-2"
+      className="px-8 py-4 md:px-2 mb-2"
       aria-label="Main Navigation"
     >
 <header className="flex items-center justify-between flex-wrap md:flex-nowrap h-28 md:h-16 md:px-4">
